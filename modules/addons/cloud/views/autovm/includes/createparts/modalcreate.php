@@ -12,7 +12,7 @@
                             <!-- Just Open window, Ready to order -->
                             <div v-if="!userClickedCreationBtn">    
                                 <!-- not enough data -->
-                                <div v-if="!themachinename || !regionName || !productName || !templateId" class="row m-0 p-0 px-3 pb-2">
+                                <div v-if="!themachinename || !regionName || !planName || !templateId" class="row m-0 p-0 px-3 pb-2">
                                     <p class="h5 fw-Medium text-danger">
                                         <i class="bi bi-exclamation-diamond-fill me-3"></i>
                                         {{ lang('notprovideallinformation') }}
@@ -20,7 +20,7 @@
                                 </div> 
                                 
                                 <!-- enough data to push btn -->
-                                <div v-else-if="themachinename && regionName && productName && templateId">
+                                <div v-else-if="themachinename && regionName && planName && templateId">
                                     <p class="h5 fw-Medium">{{ lang('youarecreating') }}</p>
                                     <p class="fs-6 fw-light mt-3">{{ lang('makesure') }}</p>
                                 </div>
@@ -68,19 +68,19 @@
                                                 </td>
                                             </tr>
 
-                                            <!-- Product -->
+                                            <!-- plan -->
                                             <tr>
                                                 <td class="m-0 p-0 py-2" style="width: 110px;">
-                                                    <i v-if="productName" class="bi bi-check-circle-fill me-1"></i>
-                                                    <i v-if="!productName" class="bi bi-circle me-1"></i>
+                                                    <i v-if="planName" class="bi bi-check-circle-fill me-1"></i>
+                                                    <i v-if="!planName" class="bi bi-circle me-1"></i>
                                                     {{ lang('product') }}
                                                 </td>
 
                                                 <td class="text-primary fw-medium m-0 p-0 py-2">
-                                                    <span v-if="productName" class="m-0 p-0">{{ productName }}</span>
+                                                    <span v-if="planName" class="m-0 p-0">{{ planName }}</span>
                                                     
                                                     <!-- Three spinner -->
-                                                    <span v-else-if="!productName">
+                                                    <span v-else-if="!planName">
                                                         <?php  include('./includes/commodules/threespinner.php');      ?>
                                                     </span>
                                                 </td>
@@ -127,11 +127,11 @@
                                     </table>
 
                                     <!-- Price -->
-                                    <div v-if="productPrice" class="mt-5 text-end pt-5">
+                                    <div v-if="planPrice" class="mt-5 text-end pt-5">
                                         <p class="p-0 m-0">
                                             <span class="fw-medium">{{ lang('price') }}</span>
                                             <span v-if="CurrenciesRatioCloudToWhmcs != null" class="text-primary fw-medium m-0 p-0 py-2">
-                                                {{ ConverFromAutoVmToWhmcs(productPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                                                {{ ConverFromAutoVmToWhmcs(planPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                                             </span>
                                             <span v-else class="text-primary fw-medium m-0 p-0 py-2">
                                                 <?php include('./includes/commodules/threespinner.php'); ?>
@@ -223,7 +223,7 @@
 
                     <!-- Create BTN -->
                     <div v-if="!userClickedCreationBtn">
-                        <div class="m-0 p-0" v-if="themachinename && regionName && productName && templateId && productPrice">
+                        <div class="m-0 p-0" v-if="themachinename && regionName && planName && templateId && planPrice">
                             <a @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('createthismachine') }}</span>
                             </a>

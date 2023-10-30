@@ -5,16 +5,16 @@
             <!-- title -->
             <div class="m-0 p-0 pt-5">
                 <p class="text-dark h5">{{ lang('totalcost') }}</p>
-                <p v-if="productPrice" class="fs-6 pt-1 pb-4 text-secondary">{{ lang('totalcostis') }}</p>
-                <p v-else-if="!productPrice" class="fs-6 pt-1 pb-4 text-secondary">
+                <p v-if="planPrice" class="fs-6 pt-1 pb-4 text-secondary">{{ lang('totalcostis') }}</p>
+                <p v-else-if="!planPrice" class="fs-6 pt-1 pb-4 text-secondary">
                     {{ lang('firstselectone') }}
                 </p>
             </div>
 
-            <div v-if="productPrice" class="d-flex flex-row justify-content-between m-0 p-0 my-3 ps-md-4">
+            <div v-if="planPrice" class="d-flex flex-row justify-content-between m-0 p-0 my-3 ps-md-4">
                 <div class="m-0 p-0">
                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="fs-5 fw-medium text-primary px-1">
-                        {{ ConverFromAutoVmToWhmcs(productPrice/30/24, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                        {{ ConverFromAutoVmToWhmcs(planPrice/30/24, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                     </span>
                     <span v-else class="fs-5 fw-medium text-primary px-1">
                         <?php include('./includes/commodules/threespinner.php'); ?>
@@ -23,7 +23,7 @@
                     
                     <span class="fs-5 fw-light mx-4">-</span>
                         <span v-if="CurrenciesRatioCloudToWhmcs != null" class="fs-5 fw-medium text-primary px-1">
-                            {{ ConverFromAutoVmToWhmcs(productPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                            {{ ConverFromAutoVmToWhmcs(planPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                         </span>
                         <span v-else class="fs-5 fw-medium text-primary px-1">
                             <?php include('./includes/commodules/threespinner.php'); ?>

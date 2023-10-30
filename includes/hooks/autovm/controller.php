@@ -706,4 +706,4 @@ EOT;
             return $method->invoke($this);
         }
     }
-}
+} 

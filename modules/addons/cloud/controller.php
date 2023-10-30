@@ -465,23 +465,23 @@ class CloudController
         return Request::instance()->setAddress($address)->getResponse()->asObject();
     }
 
-    public function products()
-    {
-        $regionId = autovm_get_query('id');
+    // public function products()
+    // {
+    //     $regionId = autovm_get_query('id');
 
-        $response = $this->sendProductsRequest($regionId);
+    //     $response = $this->sendProductsRequest($regionId);
 
-        $this->response($response);
-    }
+    //     $this->response($response);
+    // }
 
-    public function sendProductsRequest($regionId)
-    {
-        $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'common', 'products', $regionId
-        ];
+    // public function sendProductsRequest($regionId)
+    // {
+    //     $address = [
+    //         AUTOVM_BASE, 'candy', 'frontend', 'common', 'products', $regionId
+    //     ];
 
-        return Request::instance()->setAddress($address)->getResponse()->asObject();
-    }
+    //     return Request::instance()->setAddress($address)->getResponse()->asObject();
+    // }
 
     public function templates()
     {
@@ -551,7 +551,6 @@ class CloudController
         }
     }
 
-    // Get User Credit Info
     public function loadCredit()
     {
         $userId = $this->clientId;
@@ -577,8 +576,7 @@ class CloudController
             $this->response(null);
         } 
     }
-
-    // Create Unpaid Invoice
+    
     public function CreateUnpaidInvoice()
     {
         $requestData = json_decode(file_get_contents("php://input"), true);
@@ -610,7 +608,6 @@ class CloudController
         } 
     }
 
-    // Mark Cancel invoice
     public function markCancelInvoice()
     {
         $requestData = json_decode(file_get_contents("php://input"), true);
@@ -634,7 +631,6 @@ class CloudController
             $this->response($results); 
     }
 
-    // ChargeCloud
     public function chargeCloud()
     {
         $requestData = json_decode(file_get_contents("php://input"), true);
@@ -651,13 +647,12 @@ class CloudController
             echo 'can not access charge amount (E03-Charge Cloud)';
         }
 
-        $token = AUTOVM_ADMIN_TOKEN ;
+        $token = AUTOVM_Reseller_TOKEN ;
     
         $response = $this->sendChargeCloudRequest($token, $userId, $chargeamount);
         $this->response($response);
     }
     
-    // sendChargeCloudRequest
     public function sendChargeCloudRequest($token, $userId, $amount)
     {
         $params = [
@@ -676,7 +671,6 @@ class CloudController
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
     }
 
-    // Create Unpaid Invoice
     public function applyTheCredit()
     {
         $requestData = json_decode(file_get_contents("php://input"), true);
@@ -704,7 +698,6 @@ class CloudController
         } 
     }  
     
-    // Test Get Currencies
     public function getAllCurrencies()
     {
         $command = 'GetCurrencies';
@@ -715,5 +708,25 @@ class CloudController
         $this->response($results); 
 
     }
+
+    
+    
+    // new methods for snp
+    public function getPlans()
+    {
+        $regionId = autovm_get_query('id');
+        $response = $this->sendGetPlansRequest($regionId);
+        $this->response($response);
+    }
+
+    public function sendGetPlansRequest($regionId)
+    {
+        $address = [
+            AUTOVM_BASE, 'client', 'common', 'plans', $regionId
+        ];
+
+        return Request::instance()->setAddress($address)->getResponse()->asObject();
+    }
+
 
 }

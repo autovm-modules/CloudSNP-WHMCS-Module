@@ -5,7 +5,6 @@ createApp({
 
     data() {
         return {
-
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
@@ -18,7 +17,7 @@ createApp({
 
 
             regions: [],
-            products: [],
+            plans: [],
             categories: [],
             user: {},
 
@@ -33,10 +32,15 @@ createApp({
             regionId: null,
             regionName: null,
 
-            productsAreLoaded: false,
-            productId: null,
-            productName: null,
-            productPrice: null,
+            plansAreLoaded: false,
+            planId: null,
+            planName: null,
+            planTrafficPrice: null,
+            planMemoryPrice: null,
+            planCpuCorePrice: null,
+            planCpuLimitPrice: null,
+            planDiskPrice: null,
+
             templateId: null,
 
             themachinename: null,
@@ -58,6 +62,7 @@ createApp({
 
         // Load regions
         this.loadRegions()
+        this.loadPlans()
 
         // Load categories
         this.loadCategories()
@@ -123,6 +128,9 @@ createApp({
                 return null
             }
         },
+
+
+
     },
 
 
@@ -130,14 +138,14 @@ createApp({
 
         regionId() {
 
-            // Load products
-            this.loadProducts()
+            // Load plans
+            this.loadPlans()
         },
 
         regionName() {
 
-            // Load products
-            this.loadProducts()
+            // Load plans
+            this.loadPlans()
 
         },
 
@@ -373,12 +381,16 @@ createApp({
         },
 
         selectRegion(region) {
-
             this.regionId = region.id
-            this.productId = ''
-            this.productName = ''
-            this.productPrice = null
             this.regionName = region.name
+
+            this.planId = null
+            this.planName = null
+            this.planTrafficPrice = null
+            this.planMemoryPrice = null
+            this.planCpuCorePrice = null
+            this.planCpuLimitPrice = null
+            this.planDiskPrice = null
 
         },
 
@@ -392,11 +404,11 @@ createApp({
 
         },
 
-        async loadProducts() {
+        async loadPlans() {
 
-            this.products = []
+            this.plans = []
 
-            let response = await axios.get('/index.php?m=cloud&action=products', {
+            let response = await axios.get('/index.php?m=cloud&action=getPlans', {
                 params: {
                     id: this.regionId
                 }
@@ -410,21 +422,24 @@ createApp({
             }
 
             if (response.data) {
-                this.productsAreLoaded = true;
-                this.products = response.data
+                this.plansAreLoaded = true;
+                this.plans = response.data
             }
         },
 
-        selectProduct(product) {
-
-            this.productId = product.id
-            this.productName = product.name
-            this.productPrice = product.price
+        selectPlan(plan) {
+            this.planId = plan.id
+            this.planName = plan.name
+            this.planTrafficPrice = plan.trafficPrice
+            this.planMemoryPrice = plan.memoryPrice
+            this.planCpuCorePrice = plan.cpuCorePrice
+            this.planCpuLimitPrice = plan.cpuLimitPrice
+            this.planDiskPrice = plan.diskPrice
         },
 
-        isProduct(product) {
+        isPlan(plan) {
 
-            if (this.productId == product.id) {
+            if (this.planId == plan.id) {
                 return true
             } else {
                 return false
@@ -456,8 +471,8 @@ createApp({
 
                 let formData = new FormData()
 
-                if (this.productId) {
-                    formData.append('productId', this.productId)
+                if (this.planId) {
+                    formData.append('planId', this.planId)
                 }
 
                 if (this.templateId) {

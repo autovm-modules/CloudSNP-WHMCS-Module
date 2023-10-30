@@ -17,6 +17,7 @@
             </div>
             <?php  include('./includes/createparts/hostname.php');     ?>
             <?php  include('./includes/createparts/datacenter.php');   ?>
+            <?php  include('./includes/createparts/configproduct.php');   ?>
             <?php  include('./includes/createparts/setos.php');        ?>
             <?php  include('./includes/createparts/sshkey.php');       ?>
             <?php  include('./includes/createparts/totalcost.php');    ?>
