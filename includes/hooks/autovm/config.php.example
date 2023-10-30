@@ -1,0 +1,4 @@
+<?php
+
+define('AUTOVM_BASE', 'http://backend.autovm.net');
+define('AUTOVM_Reseller_TOKEN', 'your token.');
