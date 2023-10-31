@@ -52,6 +52,6 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 600px;border: none;}</style>';
     
     return $value;
-});
+}); 
 
 

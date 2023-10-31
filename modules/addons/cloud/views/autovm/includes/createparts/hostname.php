@@ -6,7 +6,7 @@
             <!-- name -->
             <div class="m-0 p-0 py-5">
                 <div class="m-0 p-0">
-                    <p class="text-dark h5">
+                    <p class="text-dark h3">
                         {{ lang('nameofhost') }}
                     </p>
                     <p class="fs-6 pt-1 text-secondary">

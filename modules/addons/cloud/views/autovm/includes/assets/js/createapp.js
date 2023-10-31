@@ -5,10 +5,51 @@ createApp({
 
     data() {
         return {
+
+            // should deleted
+            planPrice: 1.020304,
+            
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
+                DefaultMonthlyDecimal: 1,
+                DefaultHourlyDecimal: 2,
+                DefaultBalanceDecimal: 3,
+
+                planConfig: {
+                    Traffic:{
+                        Min: 1,
+                        max: 500,
+                        step: 1,
+                    },
+                    Memory:{
+                        Min: 1,
+                        max: 10,
+                        step: 1,
+                    },
+                    CpuCore:{
+                        Min: 1,
+                        max: 24,
+                        step: 1,
+                    },
+                    CpuLimit:{
+                        Min: 1500,
+                        max: 32000,
+                        step: 100,
+                    },
+                    Disk:{
+                        Min: 1500,
+                        max: 32000,
+                        step: 100,
+                    },
+                },
             },
+
+            RangeValueTraffic: 0,
+            RangeValueMemory: 0,
+            RangeValueCpuCore: 0,
+            RangeValueCpuLimit: 0,
+            RangeValueDisk: 0,
 
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
@@ -17,7 +58,11 @@ createApp({
 
 
             regions: [],
+            regionsAreLoaded: false,
             plans: [],
+            plansAreLoaded: false,
+            planIsSelected: false,
+
             categories: [],
             user: {},
 
@@ -32,7 +77,6 @@ createApp({
             regionId: null,
             regionName: null,
 
-            plansAreLoaded: false,
             planId: null,
             planName: null,
             planTrafficPrice: null,
@@ -62,7 +106,6 @@ createApp({
 
         // Load regions
         this.loadRegions()
-        this.loadPlans()
 
         // Load categories
         this.loadCategories()
@@ -137,21 +180,29 @@ createApp({
     watch: {
 
         regionId() {
-
-            // Load plans
             this.loadPlans()
         },
-
-        regionName() {
-
-            // Load plans
-            this.loadPlans()
-
-        },
-
     },
 
     methods: {
+        
+        formatNumberMonthly(value){
+            let decimal = this.config.DefaultMonthlyDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+        
+        formatNumberHourly(value){
+            let decimal = this.config.DefaultHourlyDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
 
         ConverFromWhmcsToCloud(value, decimal = 100000) {
             if (this.CurrenciesRatioWhmcsToCloud) {
@@ -201,10 +252,13 @@ createApp({
             }
         },
 
-        formatBalance(balance, decimal = 2) {
-
-            return Number(balance).toFixed(decimal)
-
+        formatBalance(value) {
+            let decimal = this.config.DefaultBalanceDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
         },
         
         validateInput() {
@@ -364,23 +418,22 @@ createApp({
         },
 
         async loadRegions() {
-
             let response = await axios.get('/index.php?m=cloud&action=regions')
-
             response = response.data
-
             if (response.message) {
-
-                // Its not ok to show message here
+                this.regionsAreLoaded = true
+                this.plansAreLoaded = false
+                console.log('can not find regins');
             }
-
             if (response.data) {
-
+                this.plansAreLoaded = false
+                this.regionsAreLoaded = true
                 this.regions = response.data
             }
         },
 
         selectRegion(region) {
+            this.planIsSelected = false
             this.regionId = region.id
             this.regionName = region.name
 
@@ -407,7 +460,6 @@ createApp({
         async loadPlans() {
 
             this.plans = []
-
             let response = await axios.get('/index.php?m=cloud&action=getPlans', {
                 params: {
                     id: this.regionId
@@ -417,8 +469,8 @@ createApp({
             response = response.data
 
             if (response.message) {
-
-                // Its not ok to show message here
+                this.plansAreLoaded = true;
+                console.log('can not find any plans in this regin');
             }
 
             if (response.data) {
@@ -428,6 +480,7 @@ createApp({
         },
 
         selectPlan(plan) {
+            this.planIsSelected = true
             this.planId = plan.id
             this.planName = plan.name
             this.planTrafficPrice = plan.trafficPrice

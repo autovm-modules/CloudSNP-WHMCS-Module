@@ -1,8 +1,8 @@
 <!-- create machine modal -->
-<div class="modal fade modal-lg" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="false">
+<div class="modal fade modal-lg" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="false" v-cloak>
     <div class="modal-dialog" style="max-width: 600px !important;">
         <div class="modal-content border-0">
-
+            <?php  include('./includes/createparts/setos.php');        ?>
             <!-- Modal Body -->
             <div class="m-0 p-0">
                 <div class="modal-body" style="min-height: 350px !important;">
