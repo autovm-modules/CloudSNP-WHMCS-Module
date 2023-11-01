@@ -47,7 +47,7 @@
                 </p>
             </div>
 
-            <div v-else-if="userCreditinWhmcs > ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency)" class="modal-body mt-4 px-3 px-md-4 pb-5">
+            <div v-else class="modal-body mt-4 px-3 px-md-4 pb-5">
                 <div class="row m-0 p-0 align-items-start">
                     <div class="col-12 m-0 p-0">
                         <!-- Table balance and credit -->    
