@@ -1,5 +1,5 @@
 <!-- plan-->
-<div v-if="regionsAreLoaded" class="row m-0 p-0 py-5 my-5" id="plans">    
+<div v-if="regionsAreLoaded && regionId != null " class="row m-0 p-0 py-5 my-5" id="plans">    
     <div class="col-12" style="--bs-bg-opacity: 0.1;">
         
         <!-- title -->

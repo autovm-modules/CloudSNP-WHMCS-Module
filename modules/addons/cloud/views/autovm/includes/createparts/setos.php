@@ -1,5 +1,5 @@
 <!-- Operation System -->
-<div class="row m-0 p-0 py-5 my-5">
+<div v-if="planIsSelected" class="row m-0 p-0 py-5 my-5">
     <div class="col-12" style="--bs-bg-opacity: 0.1;">
         <div class="m-0 p-0">
             <p class="text-dark h5">

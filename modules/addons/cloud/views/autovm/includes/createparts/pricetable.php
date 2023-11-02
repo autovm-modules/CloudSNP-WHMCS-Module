@@ -1,5 +1,5 @@
 <!-- Cost Table -->
-<div v-if="planIsSelected" class="row m-0 p-0 py-5 my-5 border border-2 p-4 bg-body-secondary rounded-4 ms-md-2" style="height: 470px;">    
+<div v-if="planIsSelected" class="row m-0 p-0 py-5 my-5 border border-2 p-4 bg-body-secondary rounded-4 ms-md-2" style="height: 550px;">    
     <div class="col-12" style="--bs-bg-opacity: 0.1;">
         
         <!-- title -->
@@ -106,7 +106,7 @@
                                     Disk
                                 </span>
                             </span>
-                            <input type="text" class="form-control col-4" :placeholder="RangeValueDisk + ' GHz'" aria-label="RangeValueDisk" aria-describedby="RangeValueDisk">
+                            <input type="text" class="form-control col-4" :placeholder="RangeValueDisk + ' GB'" aria-label="RangeValueDisk" aria-describedby="RangeValueDisk">
                             <span class="input-group-text col-4" id="RangeValueDisk">
                                 <span>
                                     {{ formatNumberMonthly(RangeValueDisk*planDiskPrice) }} {{ config.AutovmDefaultCurrencySymbol }}
@@ -117,21 +117,49 @@
 
                 </div>
             </div>
+        </div>
+    
+
+        <!-- Summery Table -->
+        <div class="row mt-5">
+            <div class="m-0 p-0">
+                <p class="text-dark h4">
+                    <i class="bi bi-currency-exchange text-secondary p-0 m-0 me-3 h5"></i>
+                    <span>Total Cost</span>
+                </p>
+            </div>
+        </div>
             
-            <!-- Summery Table -->
-            <div class="col-12 col-md-12 py-4"> 
-                <div class="d-flex flex-row align-items-center justify-content-between m-0 p-0">
-                    <p v-if="NewMachinePrice != null" class="h5 text-primary m-0 p-0">
+            
+        <div class="col-12 col-md-12 py-4"> 
+            <div v-if="NewMachinePrice != null" class="row m-0 p-0">
+                <div class="input-group">
+                    <span class="input-group-text col-4" id="RangeValueDisk" style="width: 80px;">
                         <span>
-                            Total Cost : 
+                            Monthly
                         </span>
+                    </span>
+                    <input type="text" class="form-control col-4" :placeholder="NewMachinePrice + config.AutovmDefaultCurrencySymbol" aria-label="TotalCost" aria-describedby="TotalCost">
+                    <span v-if="CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="input-group-text col-4" id="TotalCost">
                         <span>
-                            {{ NewMachinePrice }} {{ config.AutovmDefaultCurrencySymbol }}
+                            {{ ConverFromAutoVmToWhmcs(NewMachinePrice) }} {{ userCurrencySymbolFromWhmcs }}
                         </span>
-                    </p>
-                    <div class="">
-                        <p v-if="CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1">{{ ConverFromAutoVmToWhmcs(NewMachinePrice) }} {{ userCurrencySymbolFromWhmcs }}</p>
-                    </div>
+                    </span>
+                </div>
+                
+                <!-- hourly -->
+                <div class="input-group">
+                    <span class="input-group-text col-4" id="RangeValueDisk" style="width: 80px;">
+                        <span>
+                            Hourly
+                        </span>
+                    </span>
+                    <input type="text" class="form-control col-4" :placeholder="formatNumberHourly(NewMachinePrice/30/24)  + config.AutovmDefaultCurrencySymbol" aria-label="TotalCost" aria-describedby="TotalCost">
+                    <span v-if="CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="input-group-text col-4" id="TotalCost">
+                        <span>
+                            {{ ConverFromAutoVmToWhmcs(NewMachinePrice/30/24) }} {{ userCurrencySymbolFromWhmcs }}
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>

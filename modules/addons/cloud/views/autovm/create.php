@@ -27,7 +27,8 @@
                 </div>
             </div>
             <?php  include('./includes/createparts/sshkey.php');       ?>
-            <?php  include('./includes/createparts/totalcost.php');    ?>
+            <?php  include('./includes/createparts/setos.php');        ?>
+            <?php  include('./includes/createparts/createbtn.php');    ?>
         </div>
     </div>
 </div>

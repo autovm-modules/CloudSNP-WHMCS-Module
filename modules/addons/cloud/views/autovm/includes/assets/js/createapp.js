@@ -9,9 +9,9 @@ createApp({
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
-                DefaultMonthlyDecimal: 1,
-                DefaultHourlyDecimal: 2,
-                DefaultBalanceDecimal: 3,
+                DefaultMonthlyDecimal: 3,
+                DefaultHourlyDecimal: 4,
+                DefaultBalanceDecimal: 5,
 
                 planConfig: {
                     Traffic:{
@@ -223,27 +223,26 @@ createApp({
             }
         },
 
-        ConverFromWhmcsToCloud(value, decimal = 100000) {
+        ConverFromWhmcsToCloud(value) {
+            let decimal = this.config.DefaultMonthlyDecimal
+
             if (this.CurrenciesRatioWhmcsToCloud) {
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                if (decimal > 0) {
-                    return Math.round(value * ratio * decimal) / decimal
-                } else {
-                    return Math.round(value * ratio)
-                }
+                let v = value * ratio 
+                const formatted = Number(v).toFixed(decimal);
+                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }
         },
 
-        ConverFromAutoVmToWhmcs(value, decimal = 100000) {
+        ConverFromAutoVmToWhmcs(value) {
+            let decimal = this.config.DefaultMonthlyDecimal
             if (this.CurrenciesRatioCloudToWhmcs) {
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                if (decimal > 0) {
-                    return Math.round(value * ratio * decimal) / decimal
-                } else {
-                    return Math.round(value * ratio)
-                }
+                let v = value * ratio 
+                const formatted = Number(v).toFixed(decimal);
+                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }

@@ -1,5 +1,5 @@
 <!-- Configure plans -->
-<div v-if="planIsSelected" class="row m-0 p-0 py-5 my-5 border border-2 p-4 bg-body-secondary rounded-4 me-md-2" style="height: 470px;">    
+<div v-if="planIsSelected" class="row m-0 p-0 py-5 my-5 border border-2 p-4 bg-body-secondary rounded-4 me-md-2" style="height: 550px;">    
     <div class="col-12" style="--bs-bg-opacity: 0.1;">
         <!-- title -->
         <div class="row">
