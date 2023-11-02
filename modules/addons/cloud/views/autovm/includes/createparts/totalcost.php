@@ -1,20 +1,20 @@
 <!-- Total Cost -->
-<div class="row m-0 p-0 py-5 my-5">
+<div v-if="planIsSelected == true" class="row m-0 p-0 py-5 my-5">
     <div class="col-12 m-0 p-0 px-2" style="--bs-bg-opacity: 0.1;">
         <div class="py-5 px-3 px-lg-5 bg-secondary rounded-4" style="--bs-bg-opacity: 0.1;">
             <!-- title -->
             <div class="m-0 p-0 pt-5">
                 <p class="text-dark h5">{{ lang('totalcost') }}</p>
-                <p v-if="planPrice" class="fs-6 pt-1 pb-4 text-secondary">{{ lang('totalcostis') }}</p>
-                <p v-else-if="!planPrice" class="fs-6 pt-1 pb-4 text-secondary">
+                <p v-if="NewMachinePrice" class="fs-6 pt-1 pb-4 text-secondary">{{ lang('totalcostis') }}</p>
+                <p v-else-if="!NewMachinePrice" class="fs-6 pt-1 pb-4 text-secondary">
                     {{ lang('firstselectone') }}
                 </p>
             </div>
 
-            <div v-if="planPrice" class="d-flex flex-row justify-content-between m-0 p-0 my-3 ps-md-4">
+            <div v-if="NewMachinePrice" class="d-flex flex-row justify-content-between m-0 p-0 my-3 ps-md-4">
                 <div class="m-0 p-0">
                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="fs-5 fw-medium text-primary px-1">
-                        {{ ConverFromAutoVmToWhmcs(planPrice/30/24, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                        {{ ConverFromAutoVmToWhmcs(NewMachinePrice/30/24, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                     </span>
                     <span v-else class="fs-5 fw-medium text-primary px-1">
                         <?php include('./includes/commodules/threespinner.php'); ?>
@@ -23,7 +23,7 @@
                     
                     <span class="fs-5 fw-light mx-4">-</span>
                         <span v-if="CurrenciesRatioCloudToWhmcs != null" class="fs-5 fw-medium text-primary px-1">
-                            {{ ConverFromAutoVmToWhmcs(planPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                            {{ ConverFromAutoVmToWhmcs(NewMachinePrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                         </span>
                         <span v-else class="fs-5 fw-medium text-primary px-1">
                             <?php include('./includes/commodules/threespinner.php'); ?>

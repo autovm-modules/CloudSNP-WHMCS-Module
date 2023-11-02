@@ -1,5 +1,5 @@
 <!-- SSH Key  -->
-<div class="row m-0 p-0 py-5 my-5"> 
+<div v-if="planIsSelected == true" class="row m-0 p-0 py-5 my-5"> 
     <div class="col-12 m-0 p-0" style="--bs-bg-opacity: 0.1;">
         <div class="m-0 p-0">
 

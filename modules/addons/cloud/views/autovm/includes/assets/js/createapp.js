@@ -5,9 +5,6 @@ createApp({
 
     data() {
         return {
-
-            // should deleted
-            planPrice: 1.020304,
             
             config: {
                 AutovmDefaultCurrencyID: 1,
@@ -18,38 +15,38 @@ createApp({
 
                 planConfig: {
                     Traffic:{
-                        Min: 1,
+                        min: 1,
                         max: 500,
                         step: 1,
                     },
                     Memory:{
-                        Min: 1,
+                        min: 1,
                         max: 10,
                         step: 1,
                     },
                     CpuCore:{
-                        Min: 1,
+                        min: 1,
                         max: 24,
                         step: 1,
                     },
                     CpuLimit:{
-                        Min: 1500,
+                        min: 1500,
                         max: 32000,
                         step: 100,
                     },
                     Disk:{
-                        Min: 1500,
+                        min: 1500,
                         max: 32000,
                         step: 100,
                     },
                 },
             },
 
-            RangeValueTraffic: 0,
-            RangeValueMemory: 0,
-            RangeValueCpuCore: 0,
-            RangeValueCpuLimit: 0,
-            RangeValueDisk: 0,
+            RangeValueTraffic: 1,
+            RangeValueMemory: 1,
+            RangeValueCpuCore: 1,
+            RangeValueCpuLimit: 1,
+            RangeValueDisk: 1,
 
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
@@ -61,6 +58,7 @@ createApp({
             regionsAreLoaded: false,
             plans: [],
             plansAreLoaded: false,
+            plansAreLoading: false,
             planIsSelected: false,
 
             categories: [],
@@ -84,6 +82,9 @@ createApp({
             planCpuCorePrice: null,
             planCpuLimitPrice: null,
             planDiskPrice: null,
+            
+            plansLength: 0,
+            regionsLength: 0,
 
             templateId: null,
 
@@ -172,6 +173,21 @@ createApp({
             }
         },
 
+        NewMachinePrice(){
+            let decimal = this.config.DefaultMonthlyDecimal
+            if(this.planCpuCorePrice && this.planCpuLimitPrice && this.planDiskPrice && this.planMemoryPrice && this.planTrafficPrice){
+                if(this.RangeValueCpuCore && this.RangeValueCpuLimit && this.RangeValueDisk && this.RangeValueMemory && this.RangeValueTraffic){
+                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planTrafficPrice * this.RangeValueTraffic)
+
+                    const formatted = Number(value).toFixed(decimal);
+                    return parseFloat(formatted).toLocaleString();
+                } else {
+                    return null
+                }
+            } else {
+                return null
+            }
+        },
 
 
     },
@@ -188,8 +204,10 @@ createApp({
         
         formatNumberMonthly(value){
             let decimal = this.config.DefaultMonthlyDecimal
-            if(value < 99999999999999  && value != null){
-                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+
+            if(value < 99999999999999  && value != null){    
+                const formatted = Number(value).toFixed(decimal);
+                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }
@@ -198,7 +216,8 @@ createApp({
         formatNumberHourly(value){
             let decimal = this.config.DefaultHourlyDecimal
             if(value < 99999999999999  && value != null){
-                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                const formatted = Number(value).toFixed(decimal);
+                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }
@@ -255,7 +274,8 @@ createApp({
         formatBalance(value) {
             let decimal = this.config.DefaultBalanceDecimal
             if(value < 99999999999999  && value != null){
-                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                const formatted = Number(value).toFixed(decimal);
+                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }
@@ -419,6 +439,7 @@ createApp({
 
         async loadRegions() {
             let response = await axios.get('/index.php?m=cloud&action=regions')
+            
             response = response.data
             if (response.message) {
                 this.regionsAreLoaded = true
@@ -426,6 +447,7 @@ createApp({
                 console.log('can not find regins');
             }
             if (response.data) {
+                this.regionsLength= response.data.length;
                 this.plansAreLoaded = false
                 this.regionsAreLoaded = true
                 this.regions = response.data
@@ -433,6 +455,8 @@ createApp({
         },
 
         selectRegion(region) {
+            this.plansAreLoading = true
+            
             this.planIsSelected = false
             this.regionId = region.id
             this.regionName = region.name
@@ -465,15 +489,17 @@ createApp({
                     id: this.regionId
                 }
             })
-
+            this.plansAreLoading = true
             response = response.data
-
             if (response.message) {
+                this.plansAreLoading = false;
                 this.plansAreLoaded = true;
                 console.log('can not find any plans in this regin');
             }
-
+            
             if (response.data) {
+                this.plansLength= response.data.length;                
+                this.plansAreLoading = false;
                 this.plansAreLoaded = true;
                 this.plans = response.data
             }

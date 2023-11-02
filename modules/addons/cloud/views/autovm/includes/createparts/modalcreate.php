@@ -126,12 +126,12 @@
                                         </tbody>
                                     </table>
 
-                                    <!-- Price -->
-                                    <div v-if="planPrice" class="mt-5 text-end pt-5">
+                                    <!-- NewMachinePrice -->
+                                    <div v-if="NewMachinePrice" class="mt-5 text-end pt-5">
                                         <p class="p-0 m-0">
                                             <span class="fw-medium">{{ lang('price') }}</span>
                                             <span v-if="CurrenciesRatioCloudToWhmcs != null" class="text-primary fw-medium m-0 p-0 py-2">
-                                                {{ ConverFromAutoVmToWhmcs(planPrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                                                {{ ConverFromAutoVmToWhmcs(NewMachinePrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
                                             </span>
                                             <span v-else class="text-primary fw-medium m-0 p-0 py-2">
                                                 <?php include('./includes/commodules/threespinner.php'); ?>
@@ -223,7 +223,7 @@
 
                     <!-- Create BTN -->
                     <div v-if="!userClickedCreationBtn">
-                        <div class="m-0 p-0" v-if="themachinename && regionName && planName && templateId && planPrice">
+                        <div class="m-0 p-0" v-if="themachinename && regionName && planName && templateId && NewMachinePrice">
                             <a @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('createthismachine') }}</span>
                             </a>

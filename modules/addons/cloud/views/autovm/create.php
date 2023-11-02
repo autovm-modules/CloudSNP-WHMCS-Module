@@ -17,8 +17,15 @@
             </div>
             <?php  include('./includes/createparts/hostname.php');     ?>
             <?php  include('./includes/createparts/datacenter.php');   ?>
-            <?php  include('./includes/createparts/configproduct.php');   ?>
-            <?php  include('./includes/createparts/costtable.php');   ?>
+            <?php  include('./includes/createparts/plans.php');   ?>
+            <div class="row">
+                <div class="col-12 col-md-7 m-0 p-0">
+                    <?php  include('./includes/createparts/configproduct.php');?>
+                </div>
+                <div class="col-12 col-md-5 m-0 p-0">
+                    <?php  include('./includes/createparts/pricetable.php');?>
+                </div>
+            </div>
             <?php  include('./includes/createparts/sshkey.php');       ?>
             <?php  include('./includes/createparts/totalcost.php');    ?>
         </div>
