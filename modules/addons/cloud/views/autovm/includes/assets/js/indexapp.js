@@ -356,12 +356,16 @@ app = createApp({
         async chargeCloud() {
             const id = this.ConstUserId.value;
             const chargeamountInAutovm = this.ConverFromWhmcsToCloud(this.ConstChargeamountInWhmcs.value);
+            const invoiceid = this.ConstantInvoiceId.value
+
             this.theChargingSteps = 2;
             this.theStepStatus = 21;
 
             const params = {
                 chargeamount: chargeamountInAutovm,
                 id: id,
+                invoiceid: invoiceid,
+
             };
 
             if(id > 0){

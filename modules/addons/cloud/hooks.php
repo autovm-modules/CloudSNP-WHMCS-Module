@@ -53,5 +53,5 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     
     return $value;
 }); 
-
+ 
 

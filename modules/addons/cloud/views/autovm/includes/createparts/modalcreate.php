@@ -6,7 +6,7 @@
             <div class="m-0 p-0">
                 <div class="modal-body" style="min-height: 350px !important;">
                     <div class="row m-0 p-0 pt-5">
-                        <div class="col-12 text-start lh-lg pb-5">
+                        <div class="col-12 text-start lh-lg pb-3">
 
                             <!-- Just Open window, Ready to order -->
                             <div v-if="!userClickedCreationBtn">    
@@ -31,13 +31,13 @@
                                             
                                             <!-- HostName -->
                                             <tr>
-                                                <td class="m-0 p-0 py-2" style="width: 110px;">
+                                                <td class="m-0 p-0" style="width: 110px;">
                                                     <i v-if="themachinename" class="bi bi-check-circle-fill me-1"></i>
                                                     <i v-if="!themachinename" class="bi bi-circle me-1"></i>
                                                     <span>{{ lang('name') }}</span>
                                                 </td>
 
-                                                <td class="text-primary fw-medium m-0 p-0 py-2">
+                                                <td class="text-primary fw-medium m-0 p-0">
                                                     <span v-if="themachinename" class="m-0 p-0">{{ themachinename }}</span>
                                                     
                                                     <!-- Three spinner -->
@@ -50,13 +50,13 @@
 
                                             <!-- Datacenter -->
                                             <tr>
-                                                <td class="m-0 p-0 py-2" style="width: 110px;">
+                                                <td class="m-0 p-0" style="width: 110px;">
                                                     <i v-if="regionName" class="bi bi-check-circle-fill me-1"></i>
                                                     <i v-if="!regionName" class="bi bi-circle me-1"></i>
                                                     <span>{{ lang('datacenter') }}</span>
                                                 </td>
 
-                                                <td class="text-primary fw-medium m-0 p-0 py-2">
+                                                <td class="text-primary fw-medium m-0 p-0">
                                                     <span v-if="regionName" class="m-0 p-0">{{ regionName }}</span>
                                                     
                                                     <!-- Three spinner -->
@@ -69,13 +69,13 @@
 
                                             <!-- plan -->
                                             <tr>
-                                                <td class="m-0 p-0 py-2" style="width: 110px;">
+                                                <td class="m-0 p-0" style="width: 110px;">
                                                     <i v-if="planName" class="bi bi-check-circle-fill me-1"></i>
                                                     <i v-if="!planName" class="bi bi-circle me-1"></i>
                                                     {{ lang('product') }}
                                                 </td>
 
-                                                <td class="text-primary fw-medium m-0 p-0 py-2">
+                                                <td class="text-primary fw-medium m-0 p-0">
                                                     <span v-if="planName" class="m-0 p-0">{{ planName }}</span>
                                                     
                                                     <!-- Three spinner -->
@@ -87,13 +87,13 @@
 
                                             <!-- Template -->
                                             <tr>
-                                                <td class="m-0 p-0 py-2" style="width: 110px;">
+                                                <td class="m-0 p-0" style="width: 110px;">
                                                     <i v-if="templateId" class="bi bi-check-circle-fill me-1"></i>
                                                     <i v-if="!templateId" class="bi bi-circle me-1"></i>
                                                     <span>{{ lang('producttemplate') }}</span>
                                                 </td>
 
-                                                <td class="text-primary fw-medium m-0 p-0 py-2">
+                                                <td class="text-primary fw-medium m-0 p-0">
                                                     <div v-if="templateId">
                                                         <div v-for="category in categories" class="m-0 p-0">
                                                             <div v-for="template in category.templates" class="m-0 p-0">
@@ -125,26 +125,27 @@
                                         </tbody>
                                     </table>
 
-                                    <!-- NewMachinePrice -->
-                                    <div v-if="NewMachinePrice" class="mt-5 text-end pt-5">
-                                        <p class="p-0 m-0">
-                                            <span class="fw-medium">{{ lang('price') }}</span>
-                                            <span v-if="CurrenciesRatioCloudToWhmcs != null" class="text-primary fw-medium m-0 p-0 py-2">
-                                                {{ ConverFromAutoVmToWhmcs(NewMachinePrice, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
-                                            </span>
-                                            <span v-else class="text-primary fw-medium m-0 p-0 py-2">
-                                                <?php include('./includes/commodules/threespinner.php'); ?>
-                                            </span>                                        
-                                            <span class="ps-1">
-                                                {{ lang('monthly') }}
-                                            </span>                                        
-                                        </p>
+                                    <!-- configprice -->
+                                    <hr>
+                                    <?php include('configprice.php'); ?>
+                                    <hr>
+
+                                    <!-- Total Price -->
+                                    <div v-if="NewMachinePrice">
+                                        <?php include('totalprice.php'); ?>
                                     </div>
+                                </div>
+
+                                <!-- Low Balance -->
+                                <div v-if="user.balance < 2">
+                                    <p class="alert alert-danger text-center py-2 mt-5">
+                                        You balance is not enough to continue, you should charge your account first
+                                    </p>
                                 </div>
                             </div>
 
                             <!-- Btn Pressed [two case: 1-succed or failed] -->
-                            <div v-if="userClickedCreationBtn" class="col-12 text-start lh-lg pb-5">
+                            <div v-if="userClickedCreationBtn" class="col-12 text-start lh-lg pb-3">
                                 <!-- 1 (succed, reload, open list) -->
                                 <div v-if="createActionSucced" class="m-0 p-0">
                                     <div class="row m-0 p-0 px-3">
@@ -166,6 +167,9 @@
                                         <p class="fs-5 fw-Medium text-dark p-0 m-0">
                                             {{ lang('createmachinefailed') }}  
                                         </p>
+                                        <p v-if="msg != null" class="text-danger p-0 m-0 mt-5 h5">
+                                            {{ msg }}
+                                        </p>
                                     </div> 
                                 </div>
                             </div> 
@@ -184,7 +188,7 @@
                     <span class="text-dark fw-medium me-2">{{ lang('balance') }} : </span>
                     <span v-if="user.balance" class="text-primary fw-medium">
                         <span v-if="CurrenciesRatioCloudToWhmcs != null">
-                            {{ ConverFromAutoVmToWhmcs(user.balance, 0).toLocaleString() }} {{ userCurrencySymbolFromWhmcs }}
+                            {{ ConverFromAutoVmToWhmcs(user.balance) }} {{ userCurrencySymbolFromWhmcs }}
                         </span>
                         <span v-else>
                             <?php include('./includes/commodules/threespinner.php'); ?>

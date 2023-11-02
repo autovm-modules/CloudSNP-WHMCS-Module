@@ -11,6 +11,9 @@
                     <p class="h5">
                         {{ lang('chargingdonesuccessfully') }}
                     </p>
+                    <p class="alert alert-primary py-2 mt-5">
+                        It ususally takes more than aminutes to see charge on your Cloud Balance
+                    </p>
                 </div>
                 <div style="height:100px">
                 </div>

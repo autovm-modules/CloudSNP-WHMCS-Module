@@ -30,7 +30,7 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-md-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 140px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 125px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
                             <img src="/modules/addons/cloud/views/autovm/includes/assets/img/bandwidth.svg" width="22" class="p-0 m-0 me-3">
                             <span class="p-0 m-0 h5 ms-3">
@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class="d-none d-md-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 140px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 125px !important;">
                             <img src="/modules/addons/cloud/views/autovm/includes/assets/img/bandwidth.svg" width="22" class="p-0 m-0 me-3">
                             <span class="p-0 m-0 me-3 h5">
                                 Traffic
@@ -50,6 +50,8 @@
                         </span>
                     </div>    
                     <input v-model="RangeValueTraffic" type="range" class="form-range w-100" :min="config.planConfig.Traffic.min" :max="config.planConfig.Traffic.max" :step="config.planConfig.Traffic.step" id="TrafficPriceRange">
+                    <input v-model="RangeValueTraffic" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Traffic.min" :max="config.planConfig.Traffic.max" :step="config.planConfig.Traffic.step">
+                    <input type="text" class="form-control p-0 m-0 border-0 ms-2" placeholder="GB" disabled style="width: 30px;">
                 </div>
             </div>
             
@@ -58,7 +60,7 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-md-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 140px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 125px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
                             <img src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 h5 ms-3">
@@ -68,9 +70,9 @@
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-md-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 140px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 125px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 me-3 h5">
                                 Memory
@@ -78,6 +80,8 @@
                         </span>
                     </div>
                     <input v-model="RangeValueMemory" type="range" class="form-range" :min="config.planConfig.Memory.min" :max="config.planConfig.Memory.max" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
+                    <input v-model="RangeValueMemory" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Memory.min" :max="config.planConfig.Memory.max" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
+                    <input type="text" class="form-control p-0 m-0 border-0 ms-2" placeholder="GB" disabled style="width: 30px;">
                 </div>
 
             </div>
@@ -87,7 +91,7 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-md-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 140px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 125px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
                             <img src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 h5 ms-3">
@@ -97,9 +101,9 @@
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-md-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 140px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 125px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 me-3 h5">
                             CpuCore
@@ -107,6 +111,8 @@
                         </span>
                     </div>
                     <input v-model="RangeValueCpuCore" type="range" class="form-range" :min="config.planConfig.CpuCore.min" :max="config.planConfig.CpuCore.max" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
+                    <input v-model="RangeValueCpuCore" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.CpuCore.min" :max="config.planConfig.CpuCore.max" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
+                    <input type="text" class="form-control p-0 m-0 border-0 ms-2" placeholder="Core" disabled style="width: 30px;">
                 </div>
             </div>
 
@@ -116,7 +122,7 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-md-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 140px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 125px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <i class="bi bi-cpu-fill text-secondary p-0 m-0 h4 ms-3"></i>
                             <span class="p-0 m-0 h5 ms-3">
@@ -126,9 +132,9 @@
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-md-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 140px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 125px !important;">
                             <i class="bi bi-cpu-fill text-secondary p-0 m-0 pe-3 h4"></i>
                             <span class="p-0 m-0 me-3 h5">
                             CpuLimit
@@ -136,6 +142,8 @@
                         </span>
                     </div>
                     <input v-model="RangeValueCpuLimit" type="range" class="form-range" :min="config.planConfig.CpuLimit.min" :max="config.planConfig.CpuLimit.max" :step="config.planConfig.CpuLimit.step" id="CpuLimitPriceRange">
+                    <input v-model="RangeValueCpuLimit" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.CpuLimit.min" :max="config.planConfig.CpuLimit.max" :step="config.planConfig.CpuLimit.step" id="CpuLimitPriceRange">
+                    <input type="text" class="form-control p-0 m-0 border-0 ms-2" placeholder="MHz" disabled style="width: 30px;">
                 </div>
             </div>
 
@@ -143,7 +151,7 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-md-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 140px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 125px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <i class="bi bi-device-hdd bi bi-hdd-network text-secondary p-0 m-0 h4 ms-3"></i>
                             <span class="p-0 m-0 h5 ms-3">
@@ -153,9 +161,9 @@
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-md-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 140px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 125px !important;">
                             <i class="bi bi-device-hdd text-secondary p-0 m-0 pe-3 h4"></i>
                             <span class="p-0 m-0 me-3 h5">
                             Disk
@@ -163,6 +171,8 @@
                         </span>
                     </div>
                     <input v-model="RangeValueDisk" type="range" class="form-range" :min="config.planConfig.Disk.min" :max="config.planConfig.Disk.max" :step="config.planConfig.Disk.step" id="DiskPriceRange">
+                    <input v-model="RangeValueDisk" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Disk.min" :max="config.planConfig.Disk.max" :step="config.planConfig.Disk.step" id="DiskPriceRange">
+                    <input type="text" class="form-control p-0 m-0 border-0 ms-2" placeholder="GB" disabled style="width: 30px;">
                 </div>
             </div>
         </div>

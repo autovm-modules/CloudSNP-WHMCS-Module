@@ -119,7 +119,7 @@ class CloudController
 
     public function create()
     {
-        $params = autovm_get_post_array(['productId', 'templateId', 'publicKey', 'name']);
+        $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize']);
 
         $token = $this->getUserTokenFromClientId();
 
@@ -131,9 +131,9 @@ class CloudController
     public function sendCreateRequest($token, $params)
     {
         $headers = ['token' => $token];
-
+        
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'create'
+            AUTOVM_BASE, 'client', 'machine', 'plan'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -635,6 +635,12 @@ class CloudController
     {
         $requestData = json_decode(file_get_contents("php://input"), true);
 
+        if($requestData['invoiceid']){
+            $invoiceid = $requestData['invoiceid'];
+        } else {
+            echo 'can not access invoice id (E03-Charge Cloud)';
+        }
+        
         if($requestData['id']){
             $userId = $requestData['id'];
         } else {
@@ -649,16 +655,17 @@ class CloudController
 
         $token = AUTOVM_Reseller_TOKEN ;
     
-        $response = $this->sendChargeCloudRequest($token, $userId, $chargeamount);
+        $response = $this->sendChargeCloudRequest($token, $userId, $chargeamount, $invoiceid);
         $this->response($response);
     }
     
-    public function sendChargeCloudRequest($token, $userId, $amount)
+    public function sendChargeCloudRequest($token, $userId, $amount, $invoiceid)
     {
         $params = [
             'userId' => $userId,
             'amount' => $amount,
             'type' => 'balance',
+            'invoiceid' => $invoiceid,
             'status' => 'paid'
         ];
 

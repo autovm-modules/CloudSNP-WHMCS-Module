@@ -9,9 +9,9 @@ createApp({
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
-                DefaultMonthlyDecimal: 3,
-                DefaultHourlyDecimal: 4,
-                DefaultBalanceDecimal: 5,
+                DefaultMonthlyDecimalForAutoVM: 2,
+                DefaultMonthlyDecimalForWH: 2,
+                DefaultHourlyDecimalForWH: 3,
 
                 planConfig: {
                     Traffic:{
@@ -21,7 +21,7 @@ createApp({
                     },
                     Memory:{
                         min: 1,
-                        max: 10,
+                        max: 100,
                         step: 1,
                     },
                     CpuCore:{
@@ -30,23 +30,26 @@ createApp({
                         step: 1,
                     },
                     CpuLimit:{
-                        min: 1500,
-                        max: 32000,
+                        min: 1000,
+                        max: 300000,
                         step: 100,
                     },
                     Disk:{
-                        min: 1500,
-                        max: 32000,
-                        step: 100,
+                        min: 20,
+                        max: 1000,
+                        step: 5,
                     },
                 },
             },
+
+            msg : null,
 
             RangeValueTraffic: 1,
             RangeValueMemory: 1,
             RangeValueCpuCore: 1,
             RangeValueCpuLimit: 1,
             RangeValueDisk: 1,
+
 
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
@@ -177,10 +180,8 @@ createApp({
             let decimal = this.config.DefaultMonthlyDecimal
             if(this.planCpuCorePrice && this.planCpuLimitPrice && this.planDiskPrice && this.planMemoryPrice && this.planTrafficPrice){
                 if(this.RangeValueCpuCore && this.RangeValueCpuLimit && this.RangeValueDisk && this.RangeValueMemory && this.RangeValueTraffic){
-                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planTrafficPrice * this.RangeValueTraffic)
-
-                    const formatted = Number(value).toFixed(decimal);
-                    return parseFloat(formatted).toLocaleString();
+                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit/1000) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planTrafficPrice * this.RangeValueTraffic)
+                    return value
                 } else {
                     return null
                 }
@@ -202,47 +203,43 @@ createApp({
 
     methods: {
         
-        formatNumberMonthly(value){
-            let decimal = this.config.DefaultMonthlyDecimal
-
-            if(value < 99999999999999  && value != null){    
-                const formatted = Number(value).toFixed(decimal);
-                return parseFloat(formatted).toLocaleString();
-            } else {
-                return null
-            }
-        },
-        
-        formatNumberHourly(value){
-            let decimal = this.config.DefaultHourlyDecimal
-            if(value < 99999999999999  && value != null){
-                const formatted = Number(value).toFixed(decimal);
-                return parseFloat(formatted).toLocaleString();
-            } else {
-                return null
-            }
+        formatNumbers(number, decimal) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: decimal,
+                maximumFractionDigits: decimal,
+            });
+            return formatter.format(number);
         },
 
         ConverFromWhmcsToCloud(value) {
-            let decimal = this.config.DefaultMonthlyDecimal
-
+            decimal = this.config.DefaultMonthlyDecimalForAutoVM
             if (this.CurrenciesRatioWhmcsToCloud) {
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                let v = value * ratio 
-                const formatted = Number(v).toFixed(decimal);
-                return parseFloat(formatted).toLocaleString();
+                let v = value * ratio
+                return this.formatNumbers(v, decimal)
             } else {
                 return null
             }
         },
 
         ConverFromAutoVmToWhmcs(value) {
-            let decimal = this.config.DefaultMonthlyDecimal
+            decimal = this.config.DefaultMonthlyDecimalForWH
             if (this.CurrenciesRatioCloudToWhmcs) {
                 let ratio = this.CurrenciesRatioCloudToWhmcs
                 let v = value * ratio 
-                const formatted = Number(v).toFixed(decimal);
-                return parseFloat(formatted).toLocaleString();
+                return this.formatNumbers(v, decimal)
+            } else {
+                return null
+            }
+        },
+        
+        ConverFromAutoVmToWhmcsHourly(value) {
+            decimal = this.config.DefaultHourlyDecimalForWH
+            if (this.CurrenciesRatioCloudToWhmcs) {
+                let ratio = this.CurrenciesRatioCloudToWhmcs
+                let v = value * ratio 
+                return this.formatNumbers(v, decimal)
             } else {
                 return null
             }
@@ -265,16 +262,6 @@ createApp({
                 } else {
                     return null
                 }
-            } else {
-                return null
-            }
-        },
-
-        formatBalance(value) {
-            let decimal = this.config.DefaultBalanceDecimal
-            if(value < 99999999999999  && value != null){
-                const formatted = Number(value).toFixed(decimal);
-                return parseFloat(formatted).toLocaleString();
             } else {
                 return null
             }
@@ -432,7 +419,6 @@ createApp({
         },
 
         formatPrice(price, decimal = 2) {
-
             return Number(price).toFixed(decimal)
         },
 
@@ -542,40 +528,34 @@ createApp({
         },
 
         async create() {
-
             let accept = await this.openConfirmDialog(this.lang('Create Machine'), this.lang('Are you sure about this?'))
 
             if (accept) {
-
                 let formData = new FormData()
 
-                if (this.planId) {
-                    formData.append('planId', this.planId)
-                }
+                if (this.themachinename != null) {formData.append('name', this.themachinename)}
+                if (this.themachinename != null) {formData.append('publicKey', this.themachinessh)}
+                if (this.planId != null) {formData.append('planId', this.planId)}
+                if (this.templateId != null) {formData.append('templateId', this.templateId)}
+                if (this.RangeValueMemory != null) {formData.append('memorySize', this.RangeValueMemory * 1024)}
+                if (this.RangeValueCpuCore != null) {formData.append('cpuCore', this.RangeValueCpuCore)}
+                if (this.RangeValueCpuLimit != null) {formData.append('cpuLimit', this.RangeValueCpuLimit)}
+                if (this.RangeValueDisk != null) {formData.append('diskSize', this.RangeValueDisk)}
 
-                if (this.templateId) {
-                    formData.append('templateId', this.templateId)
-                }
-
-                if (this.themachinename) {
-                    formData.append('name', this.themachinename)
-                }
 
                 let response = await axios.post('/index.php?m=cloud&action=create', formData)
 
                 response = response.data
 
                 if (response.message) {
-
+                    this.msg = response.message
+                    
                     this.openMessageDialog(this.lang(response.message))
                     this.createActionFailed = true
-
                 }
 
                 if (response.data) {
-
                     this.createActionSucced = true
-
                 }
             }
         },
