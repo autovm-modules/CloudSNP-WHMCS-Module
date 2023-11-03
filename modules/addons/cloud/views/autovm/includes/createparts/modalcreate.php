@@ -139,7 +139,7 @@
                                 <!-- Low Balance -->
                                 <div v-if="user.balance < 2">
                                     <p class="alert alert-danger text-center py-2 mt-5">
-                                        You balance is not enough to continue, you should charge your account first
+                                        {{ lang('balanceisnotenough') }}
                                     </p>
                                 </div>
                             </div>

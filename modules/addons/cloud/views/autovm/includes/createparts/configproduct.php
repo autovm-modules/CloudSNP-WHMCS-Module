@@ -5,12 +5,12 @@
         <div class="row">
             <div class="m-0 p-0">
                 <span class="text-dark h3">
-                    Configure plans
+                    {{ lang('configuration') }}
                 </span>
             </div>
             <div class="m-0 p-0 mt-3">
                 <span class="fs-6 pt-1 pb-4 text-secondary">
-                    Configure this plan in your favore
+                    {{ lang('configinyourfavor') }}
                 </span>
             </div>
         </div>
@@ -19,7 +19,7 @@
         <div v-if="!planIsSelected" class="row mt-5">
             <div class="col-12 mb-5" >
                 <div class="alert alert-primary border-0" role="alert" style="--bs-alert-bg: #cfe2ff73; --bs-alert-border-color: #9ec5fe6e;">
-                    Please, select a Plan first form above list
+                    {{ lang('pleaseselectaplan') }}
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
                             <img src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 h6 ms-3">
-                                Memory
+                                {{ lang('memory') }}
                             </span>
                         </span>
                     </div>
@@ -45,7 +45,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 me-3 h6">
-                                Memory
+                                {{ lang('memory') }}
                             </span>
                         </span>
                     </div>
@@ -65,7 +65,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
                             <img src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 h6 ms-3">
-                            CPU Core
+                                {{ lang('cpucore') }}
                             </span>
                         </span>
                     </div>
@@ -76,7 +76,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 me-3 h6">
-                                CPU Core
+                                {{ lang('cpucore') }}
                             </span>
                         </span>
                     </div>
@@ -96,7 +96,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <i class="bi bi-cpu-fill text-secondary p-0 m-0 h6 ms-3"></i>
                             <span class="p-0 m-0 h6 ms-3">
-                                CPU Frequency 
+                                {{ lang('cpufrequency') }}
                             </span>
                         </span>
                     </div>
@@ -107,7 +107,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
                             <i class="bi bi-cpu-fill text-secondary p-0 m-0 pe-3 h4"></i>
                             <span class="p-0 m-0 me-3 h6">
-                                CPU Frequency 
+                                {{ lang('cpufrequency') }}
                             </span>
                         </span>
                     </div>
@@ -125,7 +125,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <i class="bi bi-device-hdd bi bi-hdd-network text-secondary p-0 m-0 h6 ms-3"></i>
                             <span class="p-0 m-0 h6 ms-3">
-                            Disk
+                                {{ lang('disk') }}
                             </span>
                         </span>
                     </div>
@@ -136,7 +136,7 @@
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
                             <i class="bi bi-device-hdd text-secondary p-0 m-0 pe-3 h4"></i>
                             <span class="p-0 m-0 me-3 h6">
-                            Disk
+                                {{ lang('disk') }}
                             </span>
                         </span>
                     </div>

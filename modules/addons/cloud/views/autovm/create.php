@@ -17,7 +17,7 @@
             </div>
             <?php  include('./includes/createparts/hostname.php');     ?>
             <?php  include('./includes/createparts/datacenter.php');   ?>
-            <?php  include('./includes/createparts/plans.php');   ?>
+            <?php  include('./includes/createparts/plans.php');        ?>
             <div class="row">
                 <div class="col-12 col-lg-7 m-0 p-0">
                     <?php  include('./includes/createparts/configproduct.php');?>

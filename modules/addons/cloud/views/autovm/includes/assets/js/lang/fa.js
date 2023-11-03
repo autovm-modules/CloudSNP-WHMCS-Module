@@ -177,6 +177,7 @@ let common = {
 
 
 // index page
+    "clicktoseeadmin" : "مدیریت بالانس کاربر",
     "machinelist": "لیست ماشین‌ها",
     "topup": "افزایش اعتبار",
     "listofactivemachines": "لیست ماشین‌های فعال",
@@ -275,7 +276,7 @@ let common = {
     "producttemplate" : "قالب",
     "sshkeytitle" : "کلید SSH : ",
     "price" : "قیمت : ",
-    "monthly" : "(ماهیانه)",
+    "monthly" : "ماهیانه",
     "youdidntchoose" : "هیچ پیکربندی‌ای را انتخاب نکرده‌اید",
     "entersshkey" : "کلید را وارد کنید",
     "required" : "ضروری",
@@ -287,6 +288,15 @@ let common = {
     "createanothermachine" : "ساخت یک ماشین دیگر",
     "createsuccessmsg": "شما می توانید از طریق لینک زیر ماشین خود را مشاهده کنید. همینطور می توانید یک ماشین دیگر سفارش دهید.",
     "onlyenglishletters": "فقط حروف انگلیسی قابل قبول است",
+
+    "cpucore" : "هسته پردازنده",
+    "cpufrequency" : "فرکانس پردازنده",
+    "configuration" : "پیکربندی",
+    "configinyourfavor" : "این محصول را بر اساس نیاز خود پیکربندی کنید",
+    "pleaseselectaplan" : "لطفاً ابتدا یک مصحول را از لیست بالا انتخاب کنید",
+    "balanceisnotenough" : "موجودی حساب ابری شما برای ساخت ماشین کافی نیست، برای ادامه نیاز هست که حساب خود را شارژ کنید",
+    "billsummary" : "خلاصه صورتحساب",
+    "seeyourorderdetails" : "جزئیات سفارش و هزینه‌ها را ببینید",
 // create machine page
 
     

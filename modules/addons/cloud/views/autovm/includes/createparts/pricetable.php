@@ -6,12 +6,12 @@
         <div class="row">
             <div class="m-0 p-0">
                 <p class="text-dark h3">
-                    Price Table
+                    {{ lang('billsummary') }}
                 </p>
             </div>
             <div class="m-0 p-0 mt-3">
                 <span class="fs-6 pt-1 pb-4 text-secondary"> 
-                    See your order details
+                    {{ lang('seeyourorderdetails') }}
                 </span>
             </div>
         </div>
@@ -30,7 +30,9 @@
             <div class="m-0 p-0">
                 <p class="text-dark h4">
                     <i class="bi bi-currency-exchange text-secondary p-0 m-0 me-3 h5"></i>
-                    <span>Total Cost</span>
+                    <span>
+                        {{ lang('totalcost') }}
+                    </span>
                 </p>
             </div>
         </div>

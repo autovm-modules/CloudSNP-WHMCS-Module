@@ -40,7 +40,7 @@
             </div>
             <div v-if="regionsAreLoaded && regionsLength == 0" class="d-flex flex-row justify-content-start align-items-center mt-4 text-primary">
                 <p class="h5 me-4">
-                    oop
+                    Err. There is no region to show
                 </p>
             </div>
         </div>

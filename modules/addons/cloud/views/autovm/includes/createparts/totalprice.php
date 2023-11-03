@@ -5,7 +5,7 @@
                 {{ ConverFromAutoVmToWhmcs(NewMachinePrice) }} {{ userCurrencySymbolFromWhmcs }}
             </span>
             <span class="m-0 p-0 px-2 py-1" style="width: 80px;">
-                /Monthly
+                /{{ lang('monthly') }}
             </span>
         </div>
     </div>
@@ -15,7 +15,7 @@
                 {{ ConverFromAutoVmToWhmcsHourly(NewMachinePrice / (30 * 24)) }} {{ userCurrencySymbolFromWhmcs }}
             </span>
             <span class="m-0 p-0 px-2 py-1" style="width: 80px;">
-                /Hourly
+                /{{ lang('hourly') }}
             </span>
         </div>
     </div>

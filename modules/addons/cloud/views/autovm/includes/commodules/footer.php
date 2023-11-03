@@ -35,7 +35,7 @@
                         echo '<script src="/modules/addons/cloud/views/autovm/includes/assets/js/createapp.js"></script>';
                         break;
                     case 'index':
-                        echo '<script src="/modules/addons/cloud/views/autovm/includes/assets/js/indexapp.js"></script>';
+                        echo '<script src="/modules/addons/cloud/views/autovm/includes/assets/js/indexapp2.js"></script>';
                         break;
                     case 'machine':
                         echo '<script src="/modules/addons/cloud/views/autovm/includes/assets/js/machineapp.js"></script>';

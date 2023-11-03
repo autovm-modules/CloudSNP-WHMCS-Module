@@ -177,6 +177,7 @@ let common = {
 
 
 // index page
+    "clicktoseeadmin" : "Click to see User account on Cloud",
     "machinelist": "Maschinenliste",
     "topup": "Aufladen",
     "listofactivemachines": "Liste der aktiven Maschinen",
@@ -287,6 +288,15 @@ let common = {
     "createanothermachine": "Eine weitere Maschine erstellen",
     "createsuccessmsg": "Jetzt können Sie Ihre Maschine in der Maschinenliste sehen, indem Sie auf den folgenden Link klicken. Sie können auch eine andere Maschine erstellen.",
     "onlyenglishletters": "Only English letters",
+
+    "cpucore" : "CPU-Kern",
+    "cpufrequency" : "CPU-Frequenz",
+    "configuration" : "Konfiguration",
+    "configinyourfavor" : "Konfigurieren Sie diesen Plan nach Ihren Wünschen",
+    "pleaseselectaplan" : "Bitte wählen Sie zuerst einen Plan aus der obigen Liste",
+    "balanceisnotenough" : "Ihr Guthaben reicht nicht aus, Sie sollten zuerst Ihr Konto aufladen",
+    "billsummary" : "Rechnungszusammenfassung",
+    "seeyourorderdetails" : "Sehen Sie sich Ihre Bestelldetails an",
     // create machine page
 
 

@@ -177,6 +177,7 @@ let common = {
 
 
 // index page
+    "clicktoseeadmin" : "Bulutta Kullanıcı hesabını görmek için tıklayın",
     "machinelist": "Makine Listesi",
     "topup": "Kredi Yükleme",
     "listofactivemachines": "Aktif Makinelerin Listesi",
@@ -287,6 +288,16 @@ let common = {
     "createanothermachine": "Başka bir Makine Oluştur",
     "createsuccessmsg": "Şimdi makinenizi, aşağıdaki bağlantıya tıklayarak makine listesinde görebilirsiniz. Ayrıca başka bir makine oluşturabilirsiniz.",
     "onlyenglishletters": "Only English letters",
+
+    "cpucore" : "CPU Çekirdeği",
+    "cpufrequency" : "CPU Frekansı",
+    "configuration" : "Yapılandırma",
+    "configinyourfavor" : "Bu planı kendi lehinize yapılandırın",
+    "pleaseselectaplan" : "Lütfen, önce yukarıdaki listeden bir Plan seçin",
+    "balanceisnotenough" : "Bakiyeniz yeterli değil, devam etmek için hesabınızı şarj etmelisiniz",
+    "billsummary" : "Fatura Özeti",
+    "seeyourorderdetails" : "Sipariş detaylarınızı görün",
+
 // End create machine page
 
 

@@ -177,6 +177,7 @@ let common = {
 
 
 // index page
+    "clicktoseeadmin" : "Click to see User account on Cloud",
     "machinelist" : "Machine list",
     "topup" : "TopUp",
     "listofactivemachines" : "List of Active Machines",
@@ -287,6 +288,16 @@ let common = {
     "createanothermachine" : "Create another Machine",
     "createsuccessmsg": "Now you can see your machine in machine list by click on following link. Also you can create another machine",
     "onlyenglishletters": "Only English letters",
+
+    "cpucore" : "CPU COre",
+    "cpufrequency" : "CPU Frequency",
+    "configuration" : "Configuration",
+    "configinyourfavor" : "Configure this plan in your favor",
+    "pleaseselectaplan" : "Please, select a Plan first form above list",
+    "balanceisnotenough" : "You balance is not enough to continue, you should charge your account first",
+    "billsummary" : "Bill Summary",
+    "seeyourorderdetails" : "See your order details",
+
 // create machine page
 }
 

@@ -6,8 +6,8 @@ app = createApp({
         return {
             config: {
                 AutovmDefaultCurrencyID: 1,
-                AutovmDefaultCurrencySymbol: '$',
-                minimumChargeInAutovmCurrency: 5,
+                AutovmDefaultCurrencySymbol: 'USD',
+                minimumChargeInAutovmCurrency: 2,
                 ActivateRatioFunc: true,
             },
             

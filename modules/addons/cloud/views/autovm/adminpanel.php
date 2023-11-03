@@ -5,12 +5,12 @@
 
 <body class="container-fluid m-0 p-0" style="background-color: #ff000000 !important;">
 
-<div class="row py-5" >
+<div class="row">
     <div class="adminapp col-12">
-        <div class="bg-body-secondary rounded-4 border border-2 border-body-secondary p-3 p-md-4 p-lg-5" v-cloak>
+        <div class="p-3 p-md-4 p-lg-5" v-cloak>
             <div class="accordion" id="accordionExample">
                 <a class="h5 text-primary text-decoration-none px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Click to see User account on Cloud
+                    {{ lang('clicktoseeadmin') }}
                     <i class="h5 ps-3 bi bi-chevron-bar-down"></i>
                 </a>
                 <div id="collapseOne" class="accordion-collapse collapse mt-4" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
