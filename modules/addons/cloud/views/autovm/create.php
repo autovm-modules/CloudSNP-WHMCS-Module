@@ -4,7 +4,7 @@
 <?php  include('./includes/commodules/header.php');   ?>
 
 <body class="container-fluid p-1 p-md-3" style="background-color: #ff000000 !important;" > 
-<div id="createapp" class="row px-1 px-md-4 px-lg-5 py-5 mx-auto" style="max-width: 1350px; padding-bottom: 200px !important;">
+<div id="createapp" class="row px-1 px-md-4 px-lg-5 py-5 mx-auto" style="max-width: 1500px; padding-bottom: 200px !important;">
     <?php  include('./includes/createparts/modalcreate.php');  ?>
     <?php  include('./includes/commodules/backflash.php');     ?>
     <div class="col-12 bg-white rounded-4 border border-2 border-body-secondary m-0 p-0 mt-5" v-cloak>
@@ -19,10 +19,10 @@
             <?php  include('./includes/createparts/datacenter.php');   ?>
             <?php  include('./includes/createparts/plans.php');   ?>
             <div class="row">
-                <div class="col-12 col-md-7 m-0 p-0">
+                <div class="col-12 col-lg-7 m-0 p-0">
                     <?php  include('./includes/createparts/configproduct.php');?>
                 </div>
-                <div class="col-12 col-md-5 m-0 p-0">
+                <div class="col-12 col-lg-5 m-0 p-0">
                     <?php  include('./includes/createparts/pricetable.php');?>
                 </div>
             </div>

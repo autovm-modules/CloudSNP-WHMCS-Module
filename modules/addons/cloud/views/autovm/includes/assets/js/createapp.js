@@ -14,37 +14,31 @@ createApp({
                 DefaultHourlyDecimalForWH: 3,
 
                 planConfig: {
-                    Traffic:{
-                        min: 1,
-                        max: 500,
-                        step: 1,
-                    },
                     Memory:{
                         min: 1,
-                        max: 100,
+                        max: 16,
                         step: 1,
                     },
                     CpuCore:{
                         min: 1,
-                        max: 24,
+                        max: 8,
                         step: 1,
                     },
                     CpuLimit:{
-                        min: 1000,
-                        max: 300000,
-                        step: 100,
+                        min: 1,
+                        max: 8,
+                        step: 1,
                     },
                     Disk:{
                         min: 20,
                         max: 1000,
-                        step: 5,
+                        step: 10,
                     },
                 },
             },
 
             msg : null,
 
-            RangeValueTraffic: 1,
             RangeValueMemory: 1,
             RangeValueCpuCore: 1,
             RangeValueCpuLimit: 1,
@@ -80,7 +74,6 @@ createApp({
 
             planId: null,
             planName: null,
-            planTrafficPrice: null,
             planMemoryPrice: null,
             planCpuCorePrice: null,
             planCpuLimitPrice: null,
@@ -178,9 +171,9 @@ createApp({
 
         NewMachinePrice(){
             let decimal = this.config.DefaultMonthlyDecimal
-            if(this.planCpuCorePrice && this.planCpuLimitPrice && this.planDiskPrice && this.planMemoryPrice && this.planTrafficPrice){
-                if(this.RangeValueCpuCore && this.RangeValueCpuLimit && this.RangeValueDisk && this.RangeValueMemory && this.RangeValueTraffic){
-                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit/1000) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planTrafficPrice * this.RangeValueTraffic)
+            if(this.planCpuCorePrice && this.planCpuLimitPrice && this.planDiskPrice && this.planMemoryPrice){
+                if(this.RangeValueCpuCore && this.RangeValueCpuLimit && this.RangeValueDisk && this.RangeValueMemory){
+                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory)
                     return value
                 } else {
                     return null
@@ -448,7 +441,6 @@ createApp({
 
             this.planId = null
             this.planName = null
-            this.planTrafficPrice = null
             this.planMemoryPrice = null
             this.planCpuCorePrice = null
             this.planCpuLimitPrice = null
@@ -493,8 +485,7 @@ createApp({
         selectPlan(plan) {
             this.planIsSelected = true
             this.planId = plan.id
-            this.planName = plan.name
-            this.planTrafficPrice = plan.trafficPrice
+            this.planName = plan.name            
             this.planMemoryPrice = plan.memoryPrice
             this.planCpuCorePrice = plan.cpuCorePrice
             this.planCpuLimitPrice = plan.cpuLimitPrice
@@ -539,7 +530,7 @@ createApp({
                 if (this.templateId != null) {formData.append('templateId', this.templateId)}
                 if (this.RangeValueMemory != null) {formData.append('memorySize', this.RangeValueMemory * 1024)}
                 if (this.RangeValueCpuCore != null) {formData.append('cpuCore', this.RangeValueCpuCore)}
-                if (this.RangeValueCpuLimit != null) {formData.append('cpuLimit', this.RangeValueCpuLimit)}
+                if (this.RangeValueCpuLimit != null) {formData.append('cpuLimit', this.RangeValueCpuLimit * 1000)}
                 if (this.RangeValueDisk != null) {formData.append('diskSize', this.RangeValueDisk)}
 
 
