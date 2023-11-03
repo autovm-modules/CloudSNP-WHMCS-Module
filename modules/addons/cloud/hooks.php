@@ -9,8 +9,8 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
     $newMenu = $primaryNavbar->addChild(
         'uniqueMenuItemName',
         array(
-            'name' => 'SNP',
-            'label' => 'SNP',
+            'name' => 'Cloud SNP',
+            'label' => 'Cloud SNP',
             'uri' => '/index.php?m=cloud&action=pageIndex',
             'order' => 99,
             'icon' => '',

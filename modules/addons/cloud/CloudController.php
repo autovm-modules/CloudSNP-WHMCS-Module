@@ -6,10 +6,18 @@ use PG\Request\Request;
 class CloudController
 {
     protected $clientId;
+    protected $ResellerToken;
+    protected $BackendUrl;
 
-    public function __construct($clientId)
+    public function __construct($clientId, $ResellerToken, $BackendUrl)
     {
         $this->clientId = $clientId;
+        $this->ResellerToken = $ResellerToken;
+        
+        $BackendUrl = str_replace(' ', '', $BackendUrl);
+        $BackendUrl = preg_replace('/\s+/', '', $BackendUrl);        
+        $this->BackendUrl = $BackendUrl;
+        
     }
 
     public function pageIndex()
@@ -44,9 +52,9 @@ class CloudController
     public function sendLoginRequest($token)
     {
         $params = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'auth', 'token', 'login'
+            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
 
         return Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
@@ -65,9 +73,9 @@ class CloudController
     public function sendMachinesRequest($token)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'index'
+            $BackendUrl, 'candy', 'frontend', 'machine', 'index'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -87,9 +95,9 @@ class CloudController
     public function sendMachineRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'show', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'show', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -109,9 +117,9 @@ class CloudController
     public function sendDetailRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'detail', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'detail', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -131,9 +139,9 @@ class CloudController
     public function sendCreateRequest($token, $params)
     {
         $headers = ['token' => $token];
-        
+    $BackendUrl = $this->BackendUrl;        
         $address = [
-            AUTOVM_BASE, 'client', 'machine', 'plan'
+            $BackendUrlBASE, 'client', 'machine', 'plan'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -153,9 +161,9 @@ class CloudController
     public function sendSetupRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'setup', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'setup', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -177,9 +185,9 @@ class CloudController
     public function sendChangeRequest($token, $id, $params)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'change', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'change', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -199,9 +207,9 @@ class CloudController
     public function sendStartRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'start', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'start', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -221,9 +229,9 @@ class CloudController
     public function sendStopRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'stop', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'stop', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -243,9 +251,9 @@ class CloudController
     public function sendRebootRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'reboot', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'reboot', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -265,9 +273,9 @@ class CloudController
     public function sendSnapshotRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'snapshot', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'snapshot', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -287,9 +295,9 @@ class CloudController
     public function sendRevertRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'revert', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'revert', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -309,9 +317,9 @@ class CloudController
     public function sendConsoleRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'console', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'console', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -331,9 +339,9 @@ class CloudController
     public function sendDestroyRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'machine', 'destroy', $id
+            $BackendUrl, 'candy', 'frontend', 'machine', 'destroy', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -353,9 +361,9 @@ class CloudController
     public function sendExpensesRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'graph', 'machine', 'expenses', $id
+            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', 'expenses', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -375,9 +383,9 @@ class CloudController
     public function sendCurrentTrafficUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'graph', 'machine', $id, 'traffic', 'current'
+            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'traffic', 'current'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -397,9 +405,9 @@ class CloudController
     public function sendMemoryUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'graph', 'machine', $id, 'memory', 'daily'
+            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'memory', 'daily'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -419,9 +427,9 @@ class CloudController
     public function sendCpuUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'graph', 'machine', $id, 'cpu', 'daily'
+            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'cpu', 'daily'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -441,9 +449,9 @@ class CloudController
     public function sendBandwidthUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'graph', 'machine', $id, 'bandwidth', 'current'
+            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'bandwidth', 'current'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -458,30 +466,13 @@ class CloudController
 
     public function sendRegionsRequest()
     {
+    $BackendUrl = $this->BackendUrl;        
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'common', 'regions'
+            $BackendUrl, 'candy', 'frontend', 'common', 'regions'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
     }
-
-    // public function products()
-    // {
-    //     $regionId = autovm_get_query('id');
-
-    //     $response = $this->sendProductsRequest($regionId);
-
-    //     $this->response($response);
-    // }
-
-    // public function sendProductsRequest($regionId)
-    // {
-    //     $address = [
-    //         AUTOVM_BASE, 'candy', 'frontend', 'common', 'products', $regionId
-    //     ];
-
-    //     return Request::instance()->setAddress($address)->getResponse()->asObject();
-    // }
 
     public function templates()
     {
@@ -492,8 +483,9 @@ class CloudController
 
     public function sendTemplatesRequest()
     {
+    $BackendUrl = $this->BackendUrl;        
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'common', 'templates'
+            $BackendUrl, 'candy', 'frontend', 'common', 'templates'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
@@ -508,8 +500,9 @@ class CloudController
 
     public function sendCategoriesRequest()
     {
+    $BackendUrl = $this->BackendUrl;        
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'common', 'template', 'categories'
+            $BackendUrl, 'candy', 'frontend', 'common', 'template', 'categories'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
@@ -653,7 +646,7 @@ class CloudController
             echo 'can not access charge amount (E03-Charge Cloud)';
         }
 
-        $token = AUTOVM_Reseller_TOKEN ;
+        $token = $this->ResellerToken;
     
         $response = $this->sendChargeCloudRequest($token, $userId, $chargeamount, $invoiceid);
         $this->response($response);
@@ -670,9 +663,9 @@ class CloudController
         ];
 
         $headers = ['token' => $token];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'backend', 'trans', 'create'
+            $BackendUrl, 'candy', 'backend', 'trans', 'create'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -715,8 +708,6 @@ class CloudController
         $this->response($results); 
 
     }
-
-    
     
     // new methods for snp
     public function getPlans()
@@ -728,8 +719,9 @@ class CloudController
 
     public function sendGetPlansRequest($regionId)
     {
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'client', 'common', 'plans', $regionId
+            $BackendUrl, 'client', 'common', 'plans', $regionId
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();

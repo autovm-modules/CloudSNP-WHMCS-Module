@@ -248,7 +248,6 @@ app = createApp({
             return this.formatNumbers(value, decimal)
         },
 
-
         showChargeAmountWhmcsUnit(value){
             decimal = this.config.DefaultChargeAmountDecimalWhmcs        
             return this.formatNumbers(value, decimal)
@@ -257,8 +256,7 @@ app = createApp({
         showChargeAmountCloudUnit(value){
             decimal = this.config.DefaultChargeAmountDecimalCloud        
             return this.formatNumbers(value, decimal)
-        },
-        
+        },       
         
         showCreditWhmcsUnit(value){
             decimal = this.config.DefaultCreditDecimalWhmcs        
@@ -284,8 +282,6 @@ app = createApp({
             decimal = this.config.DefaultMinimumDecimalWhmcs        
             return this.formatNumbers(value, decimal)
         },
-
-
 
         findRationFromId(id){
             if(this.WhmcsCurrencies != null){
@@ -446,7 +442,9 @@ app = createApp({
 
             if(id > 0){
                 let response = await axios.post('/index.php?m=cloud&action=chargeCloud', params);
-                if(response.data){
+                console.log(response);
+                
+                if(response.data.data){
                     setTimeout(() => {
                         this.theStepStatus = 22;
                         this.applyTheCredit();
@@ -602,15 +600,12 @@ app = createApp({
                 return false
             }
         },
-
+        
         open(machine) {
-
             let address = '/modules/addons/cloud/views/autovm/machine.php?m=cloud'
-
             let params = new URLSearchParams({
                 'action': 'pageMachine', 'id': machine.id
             }).toString()
-
             window.open([address, params].join('&'), "_top")
         },
 

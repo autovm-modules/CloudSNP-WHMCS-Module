@@ -8,20 +8,53 @@ require $path . '/CloudController.php';
 function cloud_config()
 {
     $configarray = array(
-        "name" => "AutoVM SNP",
-        "description" => "AutoVM cloud module for SNP",
-        "version" => "V01.00.02",
+        "name" => "Cloud SNP",
+        "description" => "Cloud SNP Module By AutoVM",
+        "version" => "V01.00.00",
         "author" => "autovm.net",
         "fields" => array(
-            "option" => array ("FriendlyName" => "option", "Type" => "text", "Size" => "25", "Description" => "Textbox", "Default" => "Example"),
+            "BackendUrl" => array ("FriendlyName" => "Backend Url", "Type" => "text", "Size" => "45", "Description" => "insert backedn Url with http", "Default" => "http://backend.autovm.online"),
+            "ResellerToken" => array ("FriendlyName" => "Admin Token", "Type" => "text", "Size" => "25", "Description" => "you should insert your token here", "Default" => ""),
+            "DefLang" => array ("FriendlyName" => "Default Language", "Type" => "dropdown", "Options" => "en, fa, tr, fr, ru, du", "Description" => "Select Default language for your client and admin view panel", "Default" => "en", ),
         ));
         return $configarray;
 
 }
 
 // Run in client Page to start controller class [CloudController]
-function cloud_clientarea()
+function cloud_clientarea($vars)
 {
+    
+    // get BackendUrl from admin
+    if (array_key_exists('BackendUrl', $vars)) {
+        $BackendUrl = $vars['BackendUrl'];
+        if($BackendUrl == ''){
+            echo('Base Url is empty');
+        }
+    } else {
+        echo('go to addons module and insert your backend adrress');
+    }
+    
+    // get ResellerToken from admin
+    if (array_key_exists('ResellerToken', $vars)) {
+        $ResellerToken = $vars['ResellerToken'];
+        if($ResellerToken == ''){
+            echo('token is empty');
+        }
+    } else {
+        echo('go to addons module and insert your Token');
+    }
+    
+    // get Default language from admin
+    if (array_key_exists('DefLang', $vars)) {
+        $DefLang = $vars['DefLang'];
+        if($DefLang == ''){
+            $DefLang = 'en';
+        }
+    } else {
+        $DefLang = 'en';
+    }
+    
     // Find action
     $action = autovm_get_query('action');
 
@@ -29,31 +62,35 @@ function cloud_clientarea()
     $clientId = autovm_get_session('uid');
 
     if ($clientId) {
-
-        $controller = new CloudController($clientId);
-
+        $controller = new CloudController($clientId, $ResellerToken, $BackendUrl);
         return $controller->handle($action);
     }
 }
 
 // Show in admin panel in addon menu page
 function cloud_output($vars) {
-    
+
+    $description = '
+                    <p>
+                        Cloud SNP is a module to facilitate connection to AUTOVM Backend from WHMCS to have a smart way to easily manage your clients and their machines within WHMCS environment.
+                    </p>';
+    echo($description);
+
     $version = $vars['version'];
     $text = '<h5> Version : ' . $version . '</h5>';
     echo($text);
     
     
-    $option = $vars['option'];
-    $text = '<h5> Option : ' . $option . '</h5>';
+    $BackendUrl = $vars['BackendUrl'];
+    $text = '<h5> Backend URL : ' . $BackendUrl . '</h5>';
     echo($text);
-
-
-    $description = '
-                    <br>
-                    <h2>Description : </h2>
-                    <p>
-                        This module is called SNP Cloud, you can connect to AUTOVM Backend with WHMCS and manage your client and their machines bith in this environment.
-                    </p>';
-    echo($description);
+    
+    $Token = $vars['ResellerToken'];
+    $text = '<h5> Admin Token : ' . $Token . '</h5>';
+    echo($text);
+    
+    $lang = $vars['DefLang'];
+    $text = '<h5> Default Language : ' . $lang . '</h5>';
+    echo($text);
+    
 }
