@@ -157,7 +157,7 @@
                                         </p>
                                     </div> 
                                     <div class="row d-flex flex-row justify-content-end p-0 m-0">
-                                        <a class="col-auto btn btn-primary px-4 py-2" href="/index.php?m=cloud&action=pageIndex">{{ lang('machinelink') }}</a>        
+                                        <a class="col-auto btn btn-primary px-4 py-2" href="/index.php?m=cloudsnp&action=pageIndex">{{ lang('machinelink') }}</a>        
                                     </div> 
                                 </div>
 

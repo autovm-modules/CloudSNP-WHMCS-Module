@@ -4,7 +4,7 @@
     <div v-if="planMemoryPrice != null && RangeValueMemory != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueMemory">
-                <img src="/modules/addons/cloud/views/autovm/includes/assets/img/ramicon.svg" width="20" class="p-0 m-0 me-3">
+                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="20" class="p-0 m-0 me-3">
                 <span>
                     {{ lang('memory') }}
                 </span>
@@ -23,7 +23,7 @@
     <div v-if="planCpuCorePrice != null && RangeValueCpuCore != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueCpuCore">
-                <img src="/modules/addons/cloud/views/autovm/includes/assets/img/cpuicon.svg" width="20" class="p-0 m-0 me-3">
+                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" width="20" class="p-0 m-0 me-3">
                 <span>
                     {{ lang('cpucore') }}
                 </span>
@@ -42,7 +42,7 @@
     <div v-if="planCpuLimitPrice != null && RangeValueCpuLimit != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueCpuLimit">
-                <i class="bi bi-cpu-fill text-secondary p-0 m-0 me-3 h5"></i>
+                <i class="bi bi-cpu-fill text-secondary p-0 m-0 me-3 h4"></i>
                 <span>
                     {{ lang('cpufrequency') }}
                 </span>
@@ -60,7 +60,7 @@
     <div v-if="planDiskPrice != null && RangeValueDisk != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueDisk">
-                <i class="bi bi-device-hdd text-secondary p-0 m-0 me-3 h5"></i>
+                <i class="bi bi-device-hdd text-secondary p-0 m-0 me-3 h4"></i>
                 <span>
                     {{ lang('disk') }}
                 </span>

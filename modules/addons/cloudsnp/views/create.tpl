@@ -1,5 +1,5 @@
 
-<iframe src="/modules/addons/cloud/views/autovm/create.php" class="autovm"></iframe>
+<iframe src="/modules/addons/cloudsnp/views/autovm/create.php" class="autovm"></iframe>
 
 <style type="text/css"> 
 .autovm{

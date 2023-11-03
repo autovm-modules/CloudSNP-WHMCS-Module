@@ -10,7 +10,7 @@
 
 
     if(!isset($CloudTopupLink)){
-        $CloudTopupLink = "/index.php?m=cloud&action=pageIndex";
+        $CloudTopupLink = "/index.php?m=cloudsnp&action=pageIndex";
     }
 
 

@@ -5,7 +5,7 @@ $path = dirname(__FILE__);
 require $path . '/CloudController.php';
 
 // Set Module parameters, name, describ or so ..
-function cloud_config()
+function cloudsnp_config()
 {
     $configarray = array(
         "name" => "Cloud SNP",
@@ -22,7 +22,7 @@ function cloud_config()
 }
 
 // Run in client Page to start controller class [CloudController]
-function cloud_clientarea($vars)
+function cloudsnp_clientarea($vars)
 {
     
     // get BackendUrl from admin
@@ -68,7 +68,7 @@ function cloud_clientarea($vars)
 }
 
 // Show in admin panel in addon menu page
-function cloud_output($vars) {
+function cloudsnp_output($vars) {
 
     $description = '
                     <p>

@@ -286,7 +286,7 @@ createApp({
         
         // Load User Credit
         async loadCredit() {
-            let response = await axios.get('/index.php?m=cloud&action=loadCredit');
+            let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
 
             if (response.data != null) {
                 this.userCreditinWhmcs = response.data.credit;
@@ -298,7 +298,7 @@ createApp({
 
         // Test Load Currencies
         async loadWhCurrencies() {
-            let response = await axios.post('/index.php?m=cloud&action=getAllCurrencies')
+            let response = await axios.post('/index.php?m=cloudsnp&action=getAllCurrencies')
             if (response.data.result == 'success') {
                 this.WhmcsCurrencies = response.data.currencies
             } else {
@@ -308,7 +308,7 @@ createApp({
 
         async loadUser() {
 
-            let response = await axios.get('/index.php?m=cloud&action=login')
+            let response = await axios.get('/index.php?m=cloudsnp&action=login')
 
             response = response.data
 
@@ -416,7 +416,7 @@ createApp({
         },
 
         async loadRegions() {
-            let response = await axios.get('/index.php?m=cloud&action=regions')
+            let response = await axios.get('/index.php?m=cloudsnp&action=regions')
             
             response = response.data
             if (response.message) {
@@ -461,7 +461,7 @@ createApp({
         async loadPlans() {
 
             this.plans = []
-            let response = await axios.get('/index.php?m=cloud&action=getPlans', {
+            let response = await axios.get('/index.php?m=cloudsnp&action=getPlans', {
                 params: {
                     id: this.regionId
                 }
@@ -503,7 +503,7 @@ createApp({
 
         async loadCategories() {
 
-            let response = await axios.get('/index.php?m=cloud&action=categories')
+            let response = await axios.get('/index.php?m=cloudsnp&action=categories')
 
             response = response.data
 
@@ -534,7 +534,7 @@ createApp({
                 if (this.RangeValueDisk != null) {formData.append('diskSize', this.RangeValueDisk)}
 
 
-                let response = await axios.post('/index.php?m=cloud&action=create', formData)
+                let response = await axios.post('/index.php?m=cloudsnp&action=create', formData)
 
                 response = response.data
 
@@ -554,7 +554,7 @@ createApp({
 
         OpenMachineList() {
 
-            window.open('/index.php?m=cloud&action=pageIndex')
+            window.open('/index.php?m=cloudsnp&action=pageIndex')
 
         },
 

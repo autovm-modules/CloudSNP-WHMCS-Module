@@ -32,7 +32,7 @@
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
-                            <img src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
+                            <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 h6 ms-3">
                                 {{ lang('memory') }}
                             </span>
@@ -43,7 +43,7 @@
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-lg-block">
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
-                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/ramicon.svg" alt="Memory">
+                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 me-3 h6">
                                 {{ lang('memory') }}
                             </span>
@@ -63,7 +63,7 @@
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center ms-3">
-                            <img src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
+                            <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 h6 ms-3">
                                 {{ lang('cpucore') }}
                             </span>
@@ -74,7 +74,7 @@
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-lg-block">
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
-                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/servers/product/views/view/assets/img/cpuicon.svg" alt="CpuCore">
+                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 me-3 h6">
                                 {{ lang('cpucore') }}
                             </span>

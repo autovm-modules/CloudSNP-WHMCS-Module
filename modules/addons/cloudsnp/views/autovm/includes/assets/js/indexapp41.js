@@ -345,7 +345,7 @@ app = createApp({
         
         async loadUser() {
 
-            let response = await axios.get('/index.php?m=cloud&action=login')
+            let response = await axios.get('/index.php?m=cloudsnp&action=login')
 
             response = response.data
 
@@ -362,7 +362,7 @@ app = createApp({
 
         async loadMachines() {
 
-            let response = await axios.get('/index.php?m=cloud&action=machines')
+            let response = await axios.get('/index.php?m=cloudsnp&action=machines')
 
             response = response.data
 
@@ -380,7 +380,7 @@ app = createApp({
         },
 
         async loadCredit() {
-            let response = await axios.get('/index.php?m=cloud&action=loadCredit');
+            let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
             
             if(response.data != null){
                 this.userCreditinWhmcs = response.data.credit;
@@ -401,7 +401,7 @@ app = createApp({
             const params = {chargeamount: chargeAmountinWhmcs};
 
             if(chargingValidity == 'fine'){
-                let response = await axios.post('/index.php?m=cloud&action=CreateUnpaidInvoice', params)
+                let response = await axios.post('/index.php?m=cloudsnp&action=CreateUnpaidInvoice', params)
                 
                 if(response.data.result == 'success'){    
                     this.invoice = response.data;
@@ -441,7 +441,7 @@ app = createApp({
             };
 
             if(id > 0){
-                let response = await axios.post('/index.php?m=cloud&action=chargeCloud', params);
+                let response = await axios.post('/index.php?m=cloudsnp&action=chargeCloud', params);
                 console.log(response);
                 
                 if(response.data.data){
@@ -469,7 +469,7 @@ app = createApp({
             const invoiceid = this.ConstantInvoiceId.value;
             const params = {invoiceid: invoiceid};
 
-            let response = await axios.post('/index.php?m=cloud&action=markCancelInvoice', params)
+            let response = await axios.post('/index.php?m=cloudsnp&action=markCancelInvoice', params)
             if(response.data.result == 'success'){    
                 console.log('Invoice is marked cancelled successfully');
             } else {
@@ -487,7 +487,7 @@ app = createApp({
             const params = {invoiceid: invoiceid, chargeamount : chargeamountinWhmcs};
 
             if(invoiceid > 0){
-                let response = await axios.post('/index.php?m=cloud&action=applyTheCredit', params)
+                let response = await axios.post('/index.php?m=cloudsnp&action=applyTheCredit', params)
                 
                 if(response.data.result == 'success'){
                     setTimeout(() => {
@@ -512,7 +512,7 @@ app = createApp({
         },
         
         async loadWhCurrencies() {
-            let response = await axios.post('/index.php?m=cloud&action=getAllCurrencies')    
+            let response = await axios.post('/index.php?m=cloudsnp&action=getAllCurrencies')    
             if(response.data.result == 'success'){
                 this.WhmcsCurrencies = response.data.currencies
             } else {
@@ -602,7 +602,7 @@ app = createApp({
         },
         
         open(machine) {
-            let address = '/modules/addons/cloud/views/autovm/machine.php?m=cloud'
+            let address = '/modules/addons/cloudsnp/views/autovm/machine.php?m=cloudsnp'
             let params = new URLSearchParams({
                 'action': 'pageMachine', 'id': machine.id
             }).toString()
@@ -611,7 +611,7 @@ app = createApp({
 
         opencreatepage() {
 
-            let address = '/modules/addons/cloud/views/autovm/create.php'
+            let address = '/modules/addons/cloudsnp/views/autovm/create.php'
 
             window.open([address], "_top")
 

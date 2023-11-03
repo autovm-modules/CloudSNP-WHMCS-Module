@@ -64,10 +64,7 @@
                             <!-- Description -->
                             <div class="d-flex flex-row justify-content-between py-2">
                                 <div class="d-flex flex-row justify-content-start">
-                                    <img src="/modules/addons/cloud/views/autovm/includes/assets/img/ramicon.svg" width="18">        
-                                    <span class="fs-6 fw-light text-secondary mx-2">
-                                        {{ lang('Description') }} : 
-                                    </span>
+                                    <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="18">        
                                     <span v-if="plan.description" class="fs-6 text-dark fw-medium">
                                         {{ plan.description }}
                                         <span class="fs-6 text-dark fw-medium ms-1">

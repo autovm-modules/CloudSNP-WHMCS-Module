@@ -11,7 +11,7 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
         array(
             'name' => 'Cloud SNP',
             'label' => 'Cloud SNP',
-            'uri' => '/index.php?m=cloud&action=pageIndex',
+            'uri' => '/index.php?m=cloudsnp&action=pageIndex',
             'order' => 99,
             'icon' => '',
         )
@@ -47,7 +47,7 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     }
 
     
-    $link = '/modules/addons/cloud/views/autovm/adminpanel.php?userid=' . $WhUserId;
+    $link = '/modules/addons/cloudsnp/views/autovm/adminpanel.php?userid=' . $WhUserId;
 
     $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 600px;border: none;}</style>';
     
