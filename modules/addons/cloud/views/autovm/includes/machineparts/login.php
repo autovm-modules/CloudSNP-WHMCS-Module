@@ -24,7 +24,7 @@
                             <div v-if="machineIsLoaded" class="m-0 p-0">
                                 <span v-if="machine.price != null" class="">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="h4 text-primary m-0 p-0">
-                                        {{ formatCostMonthly(ConverFromAutoVmToWhmcs(machine.price)) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ ConverFromAutoVmToWhmcs(machine.price) }} {{ userCurrencySymbolFromWhmcs }}
                                         <span class="ps-1 text-dark h6 fw-light">
                                             <span>
                                                 {{ lang('monthly') }}
@@ -58,7 +58,7 @@
                             <div v-if="machineIsLoaded" class="m-0 p-0">
                                 <span v-if="machine.price != null" class="d-flex flex-row align-items-center text-primary fs-6">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="m-0 p-0">
-                                        {{ formatCostHourly(ConverFromAutoVmToWhmcs(machine.price)) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ ConverHourlyFromAutoVmToWhmcs(machine.price/30/24) }} {{ userCurrencySymbolFromWhmcs }}
                                     </span>
                                     <span v-else class="m-0 p-0">
                                         <?php include('./includes/commodules/threespinner.php'); ?>
@@ -97,7 +97,7 @@
                             <div class="col-5 m-0 p-0">
                                 <span v-if="user.balance != null" class="text-secondary align-middle m-0 p-0 fw-medium">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null">
-                                        {{ formatBalance(ConverFromAutoVmToWhmcs(user.balance)) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ ConverBalanceFromAutoVmToWhmcs(user.balance) }} {{ userCurrencySymbolFromWhmcs }}
                                     </span>
                                     <span v-else>
                                         ...

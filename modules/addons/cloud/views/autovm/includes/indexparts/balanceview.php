@@ -9,7 +9,7 @@
             </div>
             <div v-if="user.balance" class="">
                 <span v-if="user.balance" class="text-primary fw-medium">
-                    <span class="px-1">{{ formatCost(user.balance, 0) }}</span>
+                    <span class="px-1">{{ showBalanceCloudUnit(user.balance) }}</span>
                     <span v-if="config.AutovmDefaultCurrencySymbol">
                         {{ config.AutovmDefaultCurrencySymbol }}
                     </span>
@@ -24,7 +24,7 @@
                         <div v-if="CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="">        
                             <span v-if="user.balance" class="btn bg-secondary ms-2 px-md-4 rounded-5 ms-4" style="--bs-bg-opacity: 0.3;" disabled>
                                 <span class="pe-2">≈</span>
-                                <span class="px-1">{{ ConverFromAutoVmToWhmcs(user.balance, 1) }}</span>
+                                <span class="px-1">{{ showBalanceCloudUnit(ConverFromAutoVmToWhmcs(user.balance)) }}</span>
                                 
                                 <!-- Rial -->    
                                 <span v-if="userCurrencySymbolFromWhmcs">
@@ -55,7 +55,7 @@
                 <div v-if="CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="">        
                     <span v-if="user.balance" class="btn bg-secondary px-5 rounded-5" style="--bs-bg-opacity: 0.3;" disabled>
                         <span class="pe-2">≈</span>
-                        <span class="px-1">{{ ConverFromAutoVmToWhmcs(user.balance, 1) }}</span>
+                        <span class="px-1">{{ showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(user.balance)) }}</span>
                         
                         <!-- Rial -->    
                         <span v-if="userCurrencySymbolFromWhmcs">

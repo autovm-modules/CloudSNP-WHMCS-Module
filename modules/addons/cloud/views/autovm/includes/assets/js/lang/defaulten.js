@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "Adjust User Balance",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
+    "taketimetoseeresult" : "It ususally takes more than aminutes to see charge on your Cloud Balance",
 // end index
 
 

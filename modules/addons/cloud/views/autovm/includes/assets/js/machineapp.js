@@ -7,9 +7,11 @@ app = createApp({
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
-                DefaultMonthlyDecimal: 0,
-                DefaultHourlyDecimal: 0,
+                
                 DefaultBalanceDecimal: 0,
+                DefaultMonthlyDecimalForAutoVM: 0,
+                DefaultMonthlyDecimalForWH: 0,
+                DefaultHourlyDecimalForWH: 0,
             },
 
             WhmcsCurrencies: null,
@@ -465,24 +467,62 @@ app = createApp({
 
     methods: {
         ConverFromWhmcsToCloud(value){
-            if(this.CurrenciesRatioWhmcsToCloud  && value != null){
+            decimal = this.config.DefaultMonthlyDecimalForAutoVM
+            if (this.CurrenciesRatioWhmcsToCloud) {
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                let number = value*ratio
-                return number
+                let v = value * ratio
+                return this.formatNumbers(v, decimal)
             } else {
                 return null
             }
         },
 
         ConverFromAutoVmToWhmcs(value){
-            if(this.CurrenciesRatioCloudToWhmcs  && value != null){
+            decimal = this.config.DefaultMonthlyDecimalForWH
+            if (this.CurrenciesRatioCloudToWhmcs) {
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                let number = value*ratio
-                return number
+                let v = value * ratio 
+                return this.formatNumbers(v, decimal)
             } else {
                 return null
             }
         },
+        
+        ConverBalanceFromAutoVmToWhmcs(value){
+            decimal = this.config.DefaultBalanceDecimal
+            if (this.CurrenciesRatioCloudToWhmcs) {
+                let ratio = this.CurrenciesRatioCloudToWhmcs
+                let v = value * ratio 
+                return this.formatNumbers(v, decimal)
+            } else {
+                return null
+            }
+        },
+
+
+        ConverHourlyFromAutoVmToWhmcs(value) {
+            decimal = this.config.DefaultHourlyDecimalForWH
+            if (this.CurrenciesRatioCloudToWhmcs) {
+                let ratio = this.CurrenciesRatioCloudToWhmcs
+                let v = value * ratio 
+                return this.formatNumbers(v, decimal)
+            } else {
+                return null
+            }
+        },
+
+
+
+        formatNumbers(number, decimal) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: decimal,
+                maximumFractionDigits: decimal,
+            });
+            return formatter.format(number);
+        },
+
+
 
         findRationFromId(id){
             if(this.WhmcsCurrencies != null){
@@ -507,7 +547,7 @@ app = createApp({
         },
 
         formatBalance(value) {
-            let decimal = this.config.DefaultBalanceDecimal
+            let decimal = this.config.DefaultBalanceDecimal            
             if(value < 99999999999999  && value != null){
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
             } else {
@@ -516,7 +556,7 @@ app = createApp({
         },
 
         formatCostMonthly(value) {
-            let decimal = this.config.DefaultMonthlyDecimal            
+            let decimal = this.config.DefaultMonthlyDecimalForWH            
             if(value < 99999999999999  && value != null){
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
             } else {
@@ -525,7 +565,7 @@ app = createApp({
         },
 
         formatCostHourly(value) {
-            let decimal = this.config.DefaultHourlyDecimal
+            let decimal = this.config.DefaultHourlyDecimalForWH
             
             if(value < 99999999999999  && value != null){
                 value = value / (30 * 24)

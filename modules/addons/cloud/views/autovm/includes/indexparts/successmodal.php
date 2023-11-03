@@ -12,7 +12,7 @@
                         {{ lang('chargingdonesuccessfully') }}
                     </p>
                     <p class="alert alert-primary py-2 mt-5">
-                        It ususally takes more than aminutes to see charge on your Cloud Balance
+                        {{ lang('taketimetoseeresult') }}
                     </p>
                 </div>
                 <div style="height:100px">

@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "Adjust User Balance",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
+    "taketimetoseeresult" : "Es dauert in der Regel länger als eine Minute, um die Gebühr auf Ihrem Cloud-Guthaben zu sehen.",
 // End index page
 
 

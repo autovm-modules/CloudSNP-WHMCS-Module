@@ -8,7 +8,7 @@
     <!-- Dollar -->    
     <span v-if="userCreditinWhmcs" class="text-primary fw-medium ps-2">
         <span class="px-1">
-            {{ formatCost(userCreditinWhmcs, 0) }}
+            {{ showCreditWhmcsUnit(userCreditinWhmcs) }}
         </span>
         <span v-if="userCurrencySymbolFromWhmcs">
             {{userCurrencySymbolFromWhmcs}}

@@ -30,7 +30,7 @@
                         {{ lang('yourcredit') }}
                     </span>
                     <span class="text-primary px-1">
-                        ({{ userCreditinWhmcs }} {{ userCurrencySymbolFromWhmcs }}) 
+                        ({{ showCreditWhmcsUnit(userCreditinWhmcs) }} {{ userCurrencySymbolFromWhmcs }}) 
                     </span>
                     <span>
                         {{ lang('isnotenough') }}
@@ -41,7 +41,7 @@
                         {{ lang('minimumis') }}
                     </span>
                     <span class="text-primary px-1">
-                        ({{ ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency) }} {{ userCurrencySymbolFromWhmcs }}) 
+                        ({{ showMinimumeWhmcsUnit(ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency)) }} {{ userCurrencySymbolFromWhmcs }}) 
                     </span>
                     <span>.</span>
                 </p>
@@ -62,18 +62,8 @@
                                     <div class="col-auto">
                                         <table class="table table-borderless">
                                             <tr>
-                                                <td class="bg-body-secondary rounded-5 px-3 py-3 px-4 text-center">
-                                                    <?php include('showcredit.php'); ?>
-                                                    <button v-if="config.ActivateRatioFunc && (config.AutovmDefaultCurrencyID != userCurrencyIdFromWhmcs)" class="btn bg-secondary px-5 mt-3 rounded-5"  style="--bs-bg-opacity: 0.3;">
-                                                        <span v-if="userCreditinWhmcs" class="fw-medium">
-                                                            <span class="px-1">
-                                                                {{ formatCost(UserCreditInAutovmCurrency, 0) }}
-                                                            </span>
-                                                            <span v-if="userCurrencySymbolFromWhmcs">
-                                                                {{config.AutovmDefaultCurrencySymbol}}
-                                                            </span>
-                                                        </span> 
-                                                    </button>   
+                                                <td class="bg-body-secondary rounded-3 px-3 py-3 px-4 text-center">
+                                                    <?php include('showcredit.php'); ?> 
                                                 </td>
                                             </tr>
                                         </table>
@@ -99,7 +89,7 @@
                                                 <span class="input-group-text bg-body-secondary border-secondary" id="chargecredit" style="width: 140px !important;">
                                                     {{ lang('amounttocharge') }}
                                                 </span>
-                                                <input type="number" class="form-control bg-body-secondary border-secondary" :placeholder="formatCost(userCreditinWhmcs, 1)" aria-label="chargecredit" aria-describedby="chargecredit" step="1" :min="ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency) " :max="userCreditinWhmcs" v-model="chargeAmountinWhmcs" :disabled="theChargingSteps > 0 ? true : false" style="max-width: 140px !important;">
+                                                <input type="number" class="form-control bg-body-secondary border-secondary" :placeholder="showCreditWhmcsUnit(userCreditinWhmcs)" aria-label="chargecredit" aria-describedby="chargecredit" step="1" :min="showMinimumeWhmcsUnit(ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency))" :max="userCreditinWhmcs" v-model="chargeAmountinWhmcs" :disabled="theChargingSteps > 0 ? true : false" style="max-width: 140px !important;">
                                                 <span class="input-group-text border-secondary" id="chargecredit" style="min-width: 50px;">
                                                     {{ userCurrencySymbolFromWhmcs }}
                                                 </span>
@@ -112,7 +102,7 @@
                                                 <div class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0 input-group">
                                                         <span class="input-group-text" id="chargecredit" disabled>≈</span>
-                                                        <input type="number" class="form-control"  aria-label="qualchargecredite" aria-describedby="qualchargecredit" :value="formatCost(chargeAmountInAutovmCurrency, 1)" disabled style="max-width: 130px;">
+                                                        <input type="number" class="form-control"  aria-label="qualchargecredite" aria-describedby="qualchargecredit" :value="showChargeAmountCloudUnit(chargeAmountInAutovmCurrency)" disabled style="max-width: 130px;">
                                                         <span class="input-group-text" id="chargecredit" style="min-width: 50px;">
                                                             {{ config.AutovmDefaultCurrencySymbol }}
                                                         </span>
@@ -127,50 +117,7 @@
                         
 
                         <?php if(true): ?>
-                            <!-- form input -->
-                            <div v-if="config.AutovmDefaultCurrencyID != userCurrencyIdFromWhmcs" class="row m-0 p-0 mt-4">            
-                                <div class="col-6 m-0 p-0 d-block d-md-none" v-if="config.AutovmDefaultCurrencyID != userCurrencyIdFromWhmcs">
-                                    <div class="row m-0 p-0 ps-md-5 pt-md-0">            
-                                        <div class="col-12 m-0 p-0">
-                                            <div class="row m-0 p-0">
-                                                <div class="col-12 m-0 p-0 input-group">
-                                                    <span class="input-group-text" id="chargecredit" disabled>≈</span>
-                                                    <input type="number" class="form-control"  aria-label="qualchargecredite" aria-describedby="qualchargecredit" :value="formatCost(chargeAmountInAutovmCurrency, 1)" disabled style="max-width: 130px;">
-                                                    <span class="input-group-text" id="chargecredit" style="min-width: 50px;">
-                                                        {{ config.AutovmDefaultCurrencySymbol }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 m-0 p-0">
-                                    <div class="d-flex flex-row flex-wrap justify-content-end">
-                                        <div v-if="ConverFromWhmcsToCloud(1, 100) > ConverFromAutoVmToWhmcs(1, 100)" class="btn bg-secondary px-2 px-md-5 rounded-5"  style="--bs-bg-opacity: 0.3; min-width: 150px;">
-                                            <span>
-                                                <span class="px-1">1</span>
-                                                <span>{{ userCurrencySymbolFromWhmcs }}</span>
-                                            </span>
-                                            <span class="px-2">≈</span>
-                                            <span>
-                                                <span class="px-1">{{ ConverFromWhmcsToCloud(1, 100) }}</span>
-                                                <span>{{ config.AutovmDefaultCurrencySymbol }}</span>
-                                            </span>
-                                        </div>
-                                        <div v-if="ConverFromWhmcsToCloud(1, 100) < ConverFromAutoVmToWhmcs(1, 100)" class="btn bg-secondary px-2 px-md-5 rounded-5"  style="--bs-bg-opacity: 0.3; min-width: 150px;">
-                                            <span>
-                                                <span class="px-1">1</span>
-                                                <span>{{ config.AutovmDefaultCurrencySymbol }}</span>
-                                            </span>
-                                            <span class="px-2">≈</span>
-                                            <span>
-                                                <span class="px-1">{{ ConverFromAutoVmToWhmcs(1, 100) }}</span>
-                                                <span>{{ userCurrencySymbolFromWhmcs }}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include('showratio.php'); ?> 
                         <?php endif ?>
 
 
@@ -191,7 +138,7 @@
                                             {{ lang('islessthanminimum') }}
                                         </span>    
                                     <span class="px-1">
-                                        ({{ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency)}})
+                                        ({{ showMinimumeWhmcsUnit(ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency))}})
                                     </span>
                                     <span v-if="userCurrencySymbolFromWhmcs">
                                         {{ userCurrencySymbolFromWhmcs }}
@@ -206,7 +153,7 @@
                                             {{ lang('lessthanalowedminimum') }}
                                         </span>
                                         <span class="px-1">
-                                            ({{ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency)}})
+                                            ({{ showMinimumeWhmcsUnit(ConverFromAutoVmToWhmcs(config.minimumChargeInAutovmCurrency))}})
                                         </span>
                                         <span v-if="userCurrencySymbolFromWhmcs">
                                             {{ userCurrencySymbolFromWhmcs }}
@@ -227,42 +174,16 @@
                                     </p>
                                 </div>
 
-                                <div class="m-0 p-0" v-if="chargingValidity == 'fine'">
-                                    <div class="alert alert-warning">
-                                        <ul class="m-0 p-0 ps-4">
-                                            <li>
-                                                <span>
-                                                    {{ lang('youraccountcreditis') }}
-                                                </span>
-                                                <span class="text-primary px-1">
-                                                    ({{ formatCost(userCreditinWhmcs, 0) }} {{ userCurrencySymbolFromWhmcs }}) 
-                                                </span>
-                                                <span>
-                                                    {{ lang('andyouaretransfering') }}
-                                                </span>
-                                                <span class="text-primary px-1" v-if="chargeAmountinWhmcs">
-                                                    ({{ chargeAmountinWhmcs }} {{ userCurrencySymbolFromWhmcs }})
-                                                </span>
-                                                <span>{{ lang('intoyourbalance') }}</span>
-                                            </li>
-                                            <li>
-                                                <span>{{ lang('ifyousurealmost') }}</span>
-                                            </li>
-                                            <li>
-                                                <span class="fw-medium">{{ lang('pleasedontreload') }}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
                         <!-- BTN -->
-                        <div class="row m-0 p-0 py-4 text-end" v-if="chargeAmountinWhmcs && chargingValidity == 'fine' && theChargingSteps == 0">
-                            <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0 text-end mt-5 pt-5" v-if="chargeAmountinWhmcs && chargingValidity == 'fine' && theChargingSteps == 0">
+                            <div class="col-12 m-0 p-0 pt-5">
                                 <button class="btn btn-primary col-auto px-5"  @click="CreateUnpaidInvoice">
                                     <span>{{ lang('starttransferring') }}</span>
-                                    <span class="px-1">({{ chargeAmountinWhmcs }} {{ userCurrencySymbolFromWhmcs }})</span>
+                                    <span class="px-1">({{ showChargeAmountWhmcsUnit(chargeAmountinWhmcs) }} {{ userCurrencySymbolFromWhmcs }})</span>
                                 </button>
                             </div>
                         </div>

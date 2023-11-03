@@ -9,6 +9,24 @@ app = createApp({
                 AutovmDefaultCurrencySymbol: 'USD',
                 minimumChargeInAutovmCurrency: 2,
                 ActivateRatioFunc: true,
+
+                DefaultBalanceDecimalWhmcs: 0,
+                DefaultBalanceDecimalCloud: 0,
+                
+
+                DefaultChargeAmountDecimalWhmcs: 0,
+                DefaultChargeAmountDecimalCloud: 0,
+                
+                
+                DefaultCreditDecimalWhmcs: 0,
+                DefaultCreditDecimalCloud: 0,
+                
+                DefaultMinimumDecimalWhmcs: 0,
+                DefaultMinimumDecimalCloud: 0,
+                
+                
+                DefaultRatioDecimalCloud: 0,
+
             },
             
             machinsLoaded: false,
@@ -185,39 +203,89 @@ app = createApp({
 
     methods: { 
 
-        isIntOrFloat(value) {
-            if (typeof value === 'number' && !Number.isNaN(value)) {
-                return true
-            } else {
-                return false
-            }
+        formatNumbers(number, decimal) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: decimal,
+                maximumFractionDigits: decimal,
+            });
+            return formatter.format(number);
         },
 
-        ConverFromWhmcsToCloud(value, decimal = 100000){
+        ConverFromWhmcsToCloud(value){
             if(this.CurrenciesRatioWhmcsToCloud){
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                if(decimal != 0){
-                    return Math.round(value*ratio * decimal) / decimal
+                if(ratio != null){
+                    return value*ratio
                 } else {
-                    return Math.round(value*ratio)
+                    return null
                 }
             } else {
                 return null
             }
         },
 
-        ConverFromAutoVmToWhmcs(value, decimal = 100000){
+        ConverFromAutoVmToWhmcs(value){
             if(this.CurrenciesRatioCloudToWhmcs){
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                if(decimal != 0){
-                    return Math.round(value*ratio * decimal) / decimal
+                if(ratio != null){
+                    return value*ratio
                 } else {
-                    return Math.round(value*ratio)
+                    return null
                 }
             } else {
             return null
             }
         },
+
+        showBalanceWhmcsUnit(value){
+            decimal = this.config.DefaultBalanceDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showBalanceCloudUnit(value){
+            decimal = this.config.DefaultBalanceDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+
+
+        showChargeAmountWhmcsUnit(value){
+            decimal = this.config.DefaultChargeAmountDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showChargeAmountCloudUnit(value){
+            decimal = this.config.DefaultChargeAmountDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        
+        showCreditWhmcsUnit(value){
+            decimal = this.config.DefaultCreditDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showCreditCloudUnit(value){
+            decimal = this.config.DefaultCreditDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showRatio(value){
+            decimal = this.config.DefaultRatioDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showMinimumeWhmcsUnit(value){
+            decimal = this.config.DefaultMinimumDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showMinimumeCloudUnit(value){
+            decimal = this.config.DefaultMinimumDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+
+
 
         findRationFromId(id){
             if(this.WhmcsCurrencies != null){
@@ -249,6 +317,14 @@ app = createApp({
         formatCost(value, decimal = 2) {
 
             return Number(value).toFixed(decimal)
+        },
+
+        isIntOrFloat(value) {
+            if (typeof value === 'number' && !Number.isNaN(value)) {
+                return true
+            } else {
+                return false
+            }
         },
 
         SuccessWindow(){

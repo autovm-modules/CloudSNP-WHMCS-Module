@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "User Balance",
     "email" : "Email",
     "userdetailautovm" : "AutoVM'deki Kullanıcı Ayrıntıları",
+    "taketimetoseeresult" : "Genellikle bulut bakiyenizdeki ücreti görmek bir dakikadan fazla sürer.",
 // end index
 
 

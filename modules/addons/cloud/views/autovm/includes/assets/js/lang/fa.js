@@ -211,9 +211,9 @@ let common = {
     "notvaliddecimal" : "این عدد معتبر نیست، از اعشار استفاده نکنید",
     "thisismorethancredit" : "این عدد بیشتر از اعتبار شماست",
     "youraccountcreditis" : "اعتبار حساب شما",
-    "andyouaretransfering" : "و شما در حال انتقال آن به",
+    "andyouaretransfering" : "هست و شما در حال انتقال ",
     "intoyourbalance" : "به موجودی ابری خود هستید",
-    "ifyousurealmost" : "اگر اطمینان دارید، لطفاً بر روی دکمه برای شروع تراکنش کلیک کنید",
+    "ifyousurealmost" : "اگر اطمینان دارید، لطفاً کلید شروع انتقال را در پایین انتخاب کنید",
     "pleasedontreload" : "لطفاً این صفحه را دوباره بارگذاری نکنید",
     "starttransferring" : "شروع انتقال",
     "step1creatinganinvoice" : "مرحله اول: ایجاد فاکتور",
@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "مدیریت بالانس کاربر",
     "email" : "پست الکترونیک",
     "userdetailautovm" : "اطلاعات کاربر",
+    "taketimetoseeresult" : "زمان تقریبی برای اعمال تراکنش در موجودی حساب ابری بیشتر از ۳۰ ثانیه است",
 // end index
     
 

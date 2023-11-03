@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "Adjust User Balance",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
+    "taketimetoseeresult" : "En général, cela prend plus d'une minute pour voir la charge sur votre solde Cloud.",
     // end index page
 
 

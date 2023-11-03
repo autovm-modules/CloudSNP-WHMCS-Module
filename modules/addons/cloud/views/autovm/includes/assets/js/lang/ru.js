@@ -235,6 +235,7 @@ let common = {
     "adjustusebalance" : "Adjust User Balance",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
+    "taketimetoseeresult" : "Обычно требуется больше минуты, чтобы увидеть списание на вашем облачном балансе.",
     // End index page
 
 
