@@ -298,6 +298,9 @@ let common = {
     "balanceisnotenough" : "You balance is not enough to continue, you should charge your account first",
     "billsummary" : "Bill Summary",
     "seeyourorderdetails" : "See your order details",
+    "costoneip" : "Cost for one IP address",
+    "costonegigtraffic" : "Cost for one GB traffic",
+    "freeprice" : "Free",
 
 // create machine page
 }

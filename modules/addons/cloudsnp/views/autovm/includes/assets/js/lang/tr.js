@@ -298,6 +298,9 @@ let common = {
     "balanceisnotenough" : "Bakiyeniz yeterli değil, devam etmek için hesabınızı şarj etmelisiniz",
     "billsummary" : "Fatura Özeti",
     "seeyourorderdetails" : "Sipariş detaylarınızı görün",
+    "costoneip" : "Bir IP adresi maliyeti",
+    "costonegigtraffic" : "CBir GB trafiğin maliyeti",
+    "freeprice" : "Free",
 
 // End create machine page
 

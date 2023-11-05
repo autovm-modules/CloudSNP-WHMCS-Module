@@ -49,7 +49,7 @@
                 <div class="border rounded-4 bg-white shadow-sm" :class="{ 'shadow-lg border-primary': isPlan(plan) }" @click="selectPlan(plan)">
                     <div class="bg-body-secondary rounded-top-4 py-4 px-5 px-md-3 px-xl-4" style="--bs-bg-opacity: 0.5;">
                         <div class="p-0 m-0">
-                            <div class="d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row justify-content-center">
                                 <div class="">
                                     <span class="h5 m-0 p-0">
                                         {{ plan.name }}
@@ -62,14 +62,10 @@
                     <div class="bg-white rounded-bottom-4 py-4 px-4">
                         <div class="m-0 p-0 px-3 px-md-0">
                             <!-- Description -->
-                            <div class="d-flex flex-row justify-content-between py-2">
-                                <div class="d-flex flex-row justify-content-start">
-                                    <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="18">        
+                            <div class="d-flex flex-row justify-content-center py-2">
+                                <div class="d-flex flex-row justify-content-center">
                                     <span v-if="plan.description" class="fs-6 text-dark fw-medium">
                                         {{ plan.description }}
-                                        <span class="fs-6 text-dark fw-medium ms-1">
-                                            {{ lang('mb') }}
-                                        </span>
                                     </span>
                                     <span v-else-if="!plan.description" class="fs-6 text-dark fw-medium">
                                         ---

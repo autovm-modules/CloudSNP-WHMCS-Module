@@ -298,6 +298,9 @@ let common = {
     "balanceisnotenough" : "Votre solde n'est pas suffisant pour continuer, vous devez recharger votre compte d'abord",
     "billsummary" : "Résumé de la facture",
     "seeyourorderdetails" : "Voir les détails de votre commande",
+    "costoneip" : "Cost for one IP address",
+    "costonegigtraffic" : "Cost for one GB traffic",
+    "freeprice" : "Free",
     // End create machine page
 
 }

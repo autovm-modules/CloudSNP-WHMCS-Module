@@ -32,7 +32,7 @@
                 $currentfilename = basename($_SERVER['PHP_SELF'], '.php');
                 switch ($currentfilename) {
                     case 'create':
-                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/createapp22.js"></script>';
+                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/createapp25.js"></script>';
                         break;
                     case 'index':
                         echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/indexapp41.js"></script>';

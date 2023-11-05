@@ -298,6 +298,9 @@ let common = {
     "balanceisnotenough" : "موجودی حساب ابری شما برای ساخت ماشین کافی نیست، برای ادامه نیاز هست که حساب خود را شارژ کنید",
     "billsummary" : "خلاصه صورتحساب",
     "seeyourorderdetails" : "جزئیات سفارش و هزینه‌ها را ببینید",
+    "costoneip" : "هزینه هر آدرس آی‌پی",
+    "costonegigtraffic" : "هزینه هر گیگ ترافیک",
+    "freeprice" : "رایگان",
 // create machine page
 
     

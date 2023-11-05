@@ -2,7 +2,7 @@ const { createApp } = Vue
 
 
 createApp({
-
+    
     data() {
         return {
             
@@ -39,10 +39,9 @@ createApp({
 
             msg : null,
 
-            RangeValueMemory: 1,
-            RangeValueCpuCore: 1,
-            RangeValueCpuLimit: 1,
-            RangeValueDisk: 1,
+            RangeValueMemoryString: 1,
+            RangeValueCpuCoreString: 1,
+            RangeValueDiskString: 1,
 
 
             WhmcsCurrencies: null,
@@ -78,6 +77,8 @@ createApp({
             planCpuCorePrice: null,
             planCpuLimitPrice: null,
             planDiskPrice: null,
+            planAddressPrice: null,
+            planTrafficPrice: null,
             
             plansLength: 0,
             regionsLength: 0,
@@ -116,6 +117,23 @@ createApp({
     },
 
     computed: {
+
+
+        RangeValueMemory(){
+            return parseFloat(this.RangeValueMemoryString);
+        },
+
+        RangeValueCpuCore(){
+            return parseFloat(this.RangeValueCpuCoreString);
+        },
+
+        RangeValueDisk(){
+            return parseFloat(this.RangeValueDiskString);
+        },  
+
+        RangeValueCpuLimit(){
+            return parseFloat(this.RangeValueCpuCore)
+        },
 
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
@@ -171,10 +189,10 @@ createApp({
 
         NewMachinePrice(){
             let decimal = this.config.DefaultMonthlyDecimal
-            if(this.planCpuCorePrice && this.planCpuLimitPrice && this.planDiskPrice && this.planMemoryPrice){
-                if(this.RangeValueCpuCore && this.RangeValueCpuLimit && this.RangeValueDisk && this.RangeValueMemory){
-                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory)
-                    return value
+            if(this.planCpuCorePrice != null && this.planCpuLimitPrice != null && this.planDiskPrice != null && this.planMemoryPrice != null && this.planAddressPrice != null){
+                if(this.RangeValueCpuCore != null && this.RangeValueCpuLimit != null && this.RangeValueDisk != null && this.RangeValueMemory != null){
+                    let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planAddressPrice)
+                    return this.formatNumbers(value, 4)
                 } else {
                     return null
                 }
@@ -445,7 +463,9 @@ createApp({
             this.planCpuCorePrice = null
             this.planCpuLimitPrice = null
             this.planDiskPrice = null
-
+            this.planAddressPrice = null
+            this.planTrafficPrice = null
+            
         },
 
         isRegion(region) {
@@ -486,10 +506,12 @@ createApp({
             this.planIsSelected = true
             this.planId = plan.id
             this.planName = plan.name            
-            this.planMemoryPrice = plan.memoryPrice
-            this.planCpuCorePrice = plan.cpuCorePrice
-            this.planCpuLimitPrice = plan.cpuLimitPrice
-            this.planDiskPrice = plan.diskPrice
+            this.planMemoryPrice = parseFloat(plan.memoryPrice)
+            this.planCpuCorePrice = parseFloat(plan.cpuCorePrice)
+            this.planCpuLimitPrice = parseFloat(plan.cpuLimitPrice)
+            this.planDiskPrice = parseFloat(plan.diskPrice)
+            this.planAddressPrice = parseFloat(plan.addressPrice)
+            this.planTrafficPrice = parseFloat(plan.trafficPrice)
         },
 
         isPlan(plan) {

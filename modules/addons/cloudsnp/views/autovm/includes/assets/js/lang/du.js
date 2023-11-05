@@ -298,6 +298,9 @@ let common = {
     "balanceisnotenough" : "Ihr Guthaben reicht nicht aus, Sie sollten zuerst Ihr Konto aufladen",
     "billsummary" : "Rechnungszusammenfassung",
     "seeyourorderdetails" : "Sehen Sie sich Ihre Bestelldetails an",
+    "costoneip" : "Cost for one IP address",
+    "costonegigtraffic" : "Cost for one GB traffic",
+    "freeprice" : "Free",
     // create machine page
 
 

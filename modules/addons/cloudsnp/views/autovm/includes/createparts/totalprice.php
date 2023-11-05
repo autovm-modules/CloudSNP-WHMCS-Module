@@ -1,3 +1,4 @@
+<hr>
 <div v-if="NewMachinePrice != null" class="row m-0 p-0">
     <div class="col-12 m-0 p-0">
         <div class="d-flex flex-row align-items-center justify-content-end">

@@ -128,7 +128,7 @@
                                     <!-- configprice -->
                                     <hr>
                                     <?php include('configprice.php'); ?>
-                                    <hr>
+                                    
 
                                     <!-- Total Price -->
                                     <div v-if="NewMachinePrice">

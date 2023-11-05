@@ -296,6 +296,9 @@ let common = {
     "balanceisnotenough" : "Ваш баланс недостаточен для продолжения, вам следует сначала пополнить свой счет",
     "billsummary" : "Сводка счета",
     "seeyourorderdetails" : "Просмотреть детали вашего заказа",
+    "costoneip" : "Cost for one IP address",
+    "costonegigtraffic" : "Cost for one GB traffic",
+    "freeprice" : "Free",
     // end create machine page
 
 
