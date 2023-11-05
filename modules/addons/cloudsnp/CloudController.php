@@ -728,4 +728,28 @@ class CloudController
     }
 
 
+    public function getSystemUrl()
+    {
+        $command = 'GetConfigurationValue';
+        $postData = array(
+            'setting' => 'SystemURL',
+        );
+
+        $results = localAPI($command, $postData);
+        if($results['result'] == "success"){
+            $systemurl = $results['value'];
+            $response = array(
+                'systemurl' => $systemurl,
+            );
+        } else {
+            $response = array(
+                'systemurl' => 'empty',
+            );
+        }
+
+        $this->response($response); 
+
+    }
+
+
 }

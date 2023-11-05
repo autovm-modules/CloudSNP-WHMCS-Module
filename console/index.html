@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Console</title>
+
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.8.16/jquery-ui.min.js"></script>
+
+        <!-- WMKS -->
+        <script src="https://cdn.jsdelivr.net/npm/vmware-wmks@1.0.0/wmks.min.js"></script>
+
+        <!-- TAILWIND -->
+        <link rel="stylesheet" href="/assets/css/tailwind.css">
+    </head>
+    <body class="bg-black">
+
+        <div id="connecting" class="bg-cyan-900 px-2 py-2">
+
+            <div class="flex justify-center items-center space-x-5">
+
+                <span class="text-cyan-500 text-sm text-center font-sans font-bold capitalize">
+                    Connecting
+                </span>
+            </div>
+        </div>
+
+        <div id="connected" class="bg-green-900 px-2 py-2 hidden">
+
+            <div class="flex justify-center items-center space-x-5">
+
+                <span class="text-green-500 text-sm text-center font-sans font-bold capitalize">
+                    Connected
+                </span>
+            </div>
+        </div>
+
+        <div id="disconnected" class="bg-red-900 px-2 py-2 hidden">
+
+            <div class="flex justify-center items-center space-x-5">
+
+                <span class="text-red-500 text-sm text-center font-sans font-bold capitalize">
+                    Disconnected
+                </span>
+            </div>
+        </div>
+
+        <div id="commands" class="bg-zinc-900 px-5 py-5 hidden">
+
+            <div class="flex justify-center items-center space-x-5">
+
+                <button id="cad" type="button" class="bg-blue-500 border border-blue-500 rounded-lg text-zinc-900 text-sm text-center font-sans font-bold capitalize px-4 py-2">
+                    Ctrl+Alt+Del
+                </button>
+
+                <button id="fsn" type="button" class="bg-blue-500 border border-blue-500 rounded-lg text-zinc-900 text-sm text-center font-sans font-bold capitalize px-4 py-2">
+                    Full screen
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-black px-5 py-5">
+
+            <div class="relative">
+                <div id="console"></div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        jQuery(document).ready(function() {
+
+            wmks = WMKS.createWMKS('console');
+
+            // CONTAINER
+            width = 800; height = 500;
+
+            screenWidth = jQuery(window).width();
+
+            if (screenWidth < 800) {
+
+                width = 400; height = 400;
+            }
+
+            jQuery('#console')
+                .css('position', 'absolute')
+                .css('width', width)
+                .css('height', height);
+
+            // CONNECTION
+            wmks.register('connectionstatechange', function(event, data) {
+
+                // CONNECTING
+                if (data.state == WMKS.CONST.ConnectionState.CONNECTING) {
+
+                    jQuery('#connecting').show();
+                }
+
+                // CONNECTED
+                if (data.state == WMKS.CONST.ConnectionState.CONNECTED) {
+
+                    jQuery('#connecting').hide();
+                    jQuery('#connected').show();
+                    jQuery('#commands').show();
+                }
+
+                // DISCONNECTED
+                if (data.state == WMKS.CONST.ConnectionState.DISCONNECTED) {
+
+                    jQuery('#connecting').hide();
+                    jQuery('#connected').hide();
+                    jQuery('#disconnected').show();
+                }
+            });
+
+            // SEND CAD
+            jQuery('#cad').click(function() {
+
+                wmks.sendCAD();
+            });
+
+            // FULL SCREEN
+            jQuery('#fsn').click(function() {
+
+                wmks.enterFullScreen();
+            });
+
+            params = new URLSearchParams(window.location.search);
+
+            // FIND HOST
+            host = params.get('host');
+
+            // FIND PORT
+            port = params.get('port');
+
+            // FIND TICKET
+            ticket = params.get('ticket');
+
+            // CREATE ADDRESS
+            address = 'wss://@host:@port/ticket/@ticket';
+
+            parts = {
+                '@host': host, '@port': port, '@ticket': ticket
+            }
+
+            for (part in parts) {
+
+                address = address.replace(part, parts[part])
+            }
+
+            wmks.connect(address);
+        });
+    </script>
+</html>

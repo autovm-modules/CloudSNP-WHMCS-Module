@@ -3,7 +3,7 @@ app = createApp({
 
     data() {
         return {
-
+            systemurl: null,
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
@@ -82,6 +82,7 @@ app = createApp({
 
         // Load machine
         this.loadMachine()
+        this.loadSystemUrl()
 
         // Load user
         this.loadUser()
@@ -499,7 +500,6 @@ app = createApp({
             }
         },
 
-
         ConverHourlyFromAutoVmToWhmcs(value) {
             decimal = this.config.DefaultHourlyDecimalForWH
             if (this.CurrenciesRatioCloudToWhmcs) {
@@ -511,8 +511,6 @@ app = createApp({
             }
         },
 
-
-
         formatNumbers(number, decimal) {
             const formatter = new Intl.NumberFormat('en-US', {
                 style: 'decimal',
@@ -521,8 +519,6 @@ app = createApp({
             });
             return formatter.format(number);
         },
-
-
 
         findRationFromId(id){
             if(this.WhmcsCurrencies != null){
@@ -609,6 +605,20 @@ app = createApp({
             if (response.data) {
 
                 this.user = response.data
+            }
+        },
+
+        async loadSystemUrl() {
+            let response = await axios.get('/index.php?m=cloudsnp&action=getSystemUrl');
+            if(response.data){
+                systemurl = response.data.systemurl;
+                if(systemurl != 'empty'){
+                    this.systemurl = systemurl
+                } else {
+                    console.log('system URL is null');    
+                }
+            } else {
+                console.log('can not find system URL for console link');
             }
         },
 
@@ -909,14 +919,21 @@ app = createApp({
         },
 
         openConsole() {
+            let address = null
+            if(this.systemurl != null){
+                let address = this.systemurl
+            } else {
+                console.log('con not find console link');
+                
+            }
 
-            let address = 'https://qweasdvbn.github.io'
-
-            let params = new URLSearchParams({
-                'host': this.console.proxy.proxy, 'port': this.console.proxy.port, 'ticket': this.console.ticket
-            }).toString()
-
-            return window.open([address, params].join('?'))
+            if(address != null){
+                let params = new URLSearchParams({
+                    'host': this.console.proxy.proxy, 'port': this.console.proxy.port, 'ticket': this.console.ticket
+                }).toString()
+    
+                return window.open([address, params].join('?'))
+            }
         },
 
         async doStop() {
