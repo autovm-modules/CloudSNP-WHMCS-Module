@@ -37,18 +37,22 @@ createApp({
                 },
             },
 
+
             msg : null,
+
+            planMaxMemorySize: null,
+            planMaxDiskSize: null,
+            planMaxCpuCore: null,
+            planMaxCpuLimit: null,
 
             RangeValueMemoryString: 1,
             RangeValueCpuCoreString: 1,
             RangeValueDiskString: 1,
 
-
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
 
             userCurrencyIdFromWhmcs: null,
-
 
             regions: [],
             regionsAreLoaded: false,
@@ -301,7 +305,7 @@ createApp({
             this.SshNamePreviousValue = this.themachinessh;
         }
         },
-        
+                
         // Load User Credit
         async loadCredit() {
             let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
@@ -465,6 +469,11 @@ createApp({
             this.planDiskPrice = null
             this.planAddressPrice = null
             this.planTrafficPrice = null
+
+            this.planMaxMemorySize = null
+            this.planMaxDiskSize = null
+            this.planMaxCpuCore = null
+            this.planMaxCpuLimit = null
             
         },
 
@@ -512,6 +521,11 @@ createApp({
             this.planDiskPrice = parseFloat(plan.diskPrice)
             this.planAddressPrice = parseFloat(plan.addressPrice)
             this.planTrafficPrice = parseFloat(plan.trafficPrice)
+
+            this.planMaxMemorySize = parseFloat(plan.maxMemorySize)
+            this.planMaxCpuCore = parseFloat(plan.maxCpuCore)
+            this.planMaxCpuLimit = parseFloat(plan.maxCpuLimit)
+            this.planMaxDiskSize = parseFloat(plan.maxDiskSize)
         },
 
         isPlan(plan) {
