@@ -21,8 +21,31 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
 
 add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     include ('admincontroller.php');
-    
     $WhUserId = $vars['userid'];
+
+
+    $BackendUrl = null;
+    $ResellerToke = null;
+
+
+    // find Module aparams
+    try {
+        $moduleparams = Capsule::table('tbladdonmodules')->get();
+        foreach ($moduleparams as $item) {
+            if($item->module == 'cloudsnp'){
+                if($item->setting == 'BackendUrl'){
+                    $BackendUrl = $item->value;
+                }
+                
+                if($item->setting == 'ResellerToken'){
+                    $ResellerToken = $item->value;
+                }
+            }
+        }
+    } catch (\Exception $e) {
+        echo "Can not find module params table in database";
+    }
+    
     
     // find user token
     try {
@@ -37,14 +60,16 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     }
     
     
-    if(isset($userToken)){
-        $controller = new admincontroller($userToken, $WhUserId);
+    if(isset($WhUserId) && isset($userToken) && isset($BackendUrl) && isset($ResellerToken)){
+        $controller = new admincontroller($WhUserId, $userToken, $BackendUrl, $ResellerToken);
         if(isset($_GET['method'])){
             $controller->handle($_GET['method']);
         }
     } else {
         echo "Can not find token in database";
     }
+
+    
 
     
     $link = '/modules/addons/cloudsnp/views/autovm/adminpanel.php?userid=' . $WhUserId;

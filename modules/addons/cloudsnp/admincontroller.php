@@ -3,27 +3,37 @@ use PG\Request\Request;
 
 class AdminController
 {
-    protected $userToken;
     protected $WhUserId;
+    protected $userToken;
+    protected $BackendUrl;
+    protected $ResellerToken;
 
-    public function __construct($userToken, $WhUserId){
-        $this->userToken = $userToken;
+    public function __construct($WhUserId, $userToken, $BackendUrl, $ResellerToken){
         $this->WhUserId = $WhUserId;
+        $this->userToken = $userToken;
+        $this->BackendUrl = $BackendUrl;
+        $this->ResellerToken = $ResellerToken;
     }
 
     public function admin_getUseIdByToken(){
         $userToken = $this->userToken;
+        
+
+        $ResellerToken = $this->ResellerToken;
+        $headers = ['token' => $ResellerToken];
+        
 
         $params = [
             'token' => $userToken,
         ];
+        
 
-        $headers = ['token' => AUTOVM_Reseller_TOKEN];
-
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'frontend', 'auth', 'token', 'login'
+            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
         
+
         $response = Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
         return $response->data->id;
     }
@@ -36,10 +46,17 @@ class AdminController
     public function admin_sendShowUserRequest(){
         $AutovmUserId = $this->admin_getUseIdByToken();
         
-        $headers = ['token' => AUTOVM_Reseller_TOKEN];
+
+        $ResellerToken = $this->ResellerToken;
+        $headers = ['token' => $ResellerToken];
+
+
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'backend', 'user', 'show', $AutovmUserId
+            $BackendUrl, 'candy', 'backend', 'user', 'show', $AutovmUserId
         ];
+
+
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
     }
     
@@ -58,17 +75,20 @@ class AdminController
     
     public function admin_sendChargeCloudRequest($chargeamount){
         $AutovmUserId = $this->admin_getUseIdByToken();
+        
         $params = [
             'userId' => $AutovmUserId,
             'amount' => $chargeamount,
             'type' => 'balance',
             'status' => 'paid'
         ];
-
-        $headers = ['token' => AUTOVM_Reseller_TOKEN];
-
+        
+        $ResellerToken = $this->ResellerToken;
+        $headers = ['token' => $ResellerToken];
+        
+        $BackendUrl = $this->BackendUrl;
         $address = [
-            AUTOVM_BASE, 'candy', 'backend', 'trans', 'create'
+            $BackendUrl , 'candy', 'backend', 'trans', 'create'
         ];
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
     }
