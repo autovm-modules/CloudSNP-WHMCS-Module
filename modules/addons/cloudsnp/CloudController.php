@@ -127,19 +127,30 @@ class CloudController
 
     public function create()
     {
-        $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize']);
+        $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize', 'traffic']);
+
+        echo('paras:');
+
+        echo('<pre>');
+        print_r($params);
+        echo('</pre>');
 
         $token = $this->getUserTokenFromClientId();
 
         $response = $this->sendCreateRequest($token, $params);
 
+        echo('<pre>');
+        print_r($response);
+        echo('</pre>');
+        
         $this->response($response);
     }
 
     public function sendCreateRequest($token, $params)
     {
         $headers = ['token' => $token];
-    $BackendUrl = $this->BackendUrl;        
+        $BackendUrl = $this->BackendUrl;        
+
         $address = [
             $BackendUrlBASE, 'client', 'machine', 'plan'
         ];
@@ -664,6 +675,7 @@ class CloudController
 
         $headers = ['token' => $token];
         $BackendUrl = $this->BackendUrl;
+
         $address = [
             $BackendUrl, 'candy', 'backend', 'trans', 'create'
         ];

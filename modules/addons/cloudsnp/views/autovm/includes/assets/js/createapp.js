@@ -554,21 +554,22 @@ createApp({
                 if (this.RangeValueCpuCore != null) {formData.append('cpuCore', this.RangeValueCpuCore)}
                 if (this.RangeValueCpuLimit != null) {formData.append('cpuLimit', this.RangeValueCpuLimit * 1000)}
                 if (this.RangeValueDisk != null) {formData.append('diskSize', this.RangeValueDisk)}
+                
+                formData.append('traffic', 5)
 
 
                 let response = await axios.post('/index.php?m=cloudsnp&action=create', formData)
 
                 response = response.data
 
-                if (response?.message) {
-                    this.msg = response.message
-                    
-                    this.openMessageDialog(this.lang(response.message))
-                    this.createActionFailed = true
-                }
-
                 if (response?.data ) {
                     this.createActionSucced = true
+                } else if(response?.message) {
+                    this.msg = response?.message
+                    this.openMessageDialog(this.lang(response?.message))
+                    this.createActionFailed = true
+                } else {
+                    this.createActionFailed = true
                 }
             }
         },

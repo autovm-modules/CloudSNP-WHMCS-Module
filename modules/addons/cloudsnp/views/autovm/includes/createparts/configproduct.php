@@ -56,7 +56,7 @@
                         </span>
                     </div>
                     <input v-model="RangeValueMemoryString" type="range" class="form-range" :min="config.planConfig.Memory.min" :max="planMaxMemorySize" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
-                    <input v-model="RangeValueMemory" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Memory.min" :max="planMaxMemorySize" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
+                    <input v-model="RangeValueMemoryString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Memory.min" :max="planMaxMemorySize" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                         </span>
                     </div>
                     <input v-model="RangeValueCpuCoreString" type="range" class="form-range" :min="config.planConfig.CpuCore.min" :max="planMaxCpuCore" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
-                    <input v-model="RangeValueCpuCore" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.CpuCore.min" :max="planMaxCpuCore" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
+                    <input v-model="RangeValueCpuCoreString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.CpuCore.min" :max="planMaxCpuCore" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
                 </div>
             </div>
 
@@ -125,7 +125,7 @@
                         </span>
                     </div>
                     <input v-model="RangeValueDiskString" type="range" class="form-range" :min="config.planConfig.Disk.min" :max="planMaxDiskSize" :step="config.planConfig.Disk.step" id="DiskPriceRange">
-                    <input v-model="RangeValueDisk" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Disk.min" :max="planMaxDiskSize" :step="config.planConfig.Disk.step" id="DiskPriceRange">
+                    <input v-model="RangeValueDiskString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Disk.min" :max="planMaxDiskSize" :step="config.planConfig.Disk.step" id="DiskPriceRange">
                 </div>
             </div>
         </div>
