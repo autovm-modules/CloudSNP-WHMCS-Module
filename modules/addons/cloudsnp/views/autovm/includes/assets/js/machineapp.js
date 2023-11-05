@@ -13,7 +13,7 @@ app = createApp({
                 DefaultMonthlyDecimalForWH: 0,
                 DefaultHourlyDecimalForWH: 0,
             },
-
+            isVisibe: true,
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
 
@@ -137,6 +137,18 @@ app = createApp({
     },
 
     computed: {
+        softName() {
+            let softName = null
+            softName = this.getMachineProperty('software.name')
+            return softName
+        },
+
+        tempName() {
+            let tempName = null
+            tempName = this.getMachineProperty('template.name')
+            return tempName
+        },
+
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
                 let CurrencyArr = this.WhmcsCurrencies.currency
@@ -190,24 +202,8 @@ app = createApp({
         },
 
         actionStatus() {
-
-            let status = this.getMachineProperty('action.status')
-
-            if (status) {
-
-                if (status == 'pending' || status == 'processing') {
-
-                    this.isBetweenPending = false
-
-                }
-
-                return status
-
-            } else {
-
-                return 'fetching'
-            }
-
+            let actionStatus = this.getMachineProperty('action.status');
+            return actionStatus;
         },
 
         findTemplateName() {
@@ -337,14 +333,11 @@ app = createApp({
         },
 
         console() {
-
             return this.getMachineProperty('console')
         },
 
         consoleIsPending() {
-
             let status = this.getMachineProperty('console.status')
-
             if (this.isPending(status)) {
                 return true
             } else {
@@ -383,16 +376,6 @@ app = createApp({
             } else {
                 return false
             }
-        },
-
-        tempName() {
-
-            let tempName = ''
-
-            tempName = this.getMachineProperty('template.name')
-
-            return tempName
-
         },
 
         tempIcon() {
@@ -436,9 +419,17 @@ app = createApp({
         },
 
         actionMethod() {
-
-            return this.getMachineProperty('action.method')
-
+            let actionMethod = this.getMachineProperty('action.method');
+            if (actionMethod == 'reboot') { return "rebootaction"; }
+            else if (actionMethod == 'stop') { return "stopaction"; }
+            else if (actionMethod == 'start') { return "startaction"; }
+            else if (actionMethod == 'setup') { return "setupaction"; }
+            else if (actionMethod == 'console') { return "consoleaction"; }
+            else if (actionMethod == 'destroy') { return "destroyaction"; }
+            else if (actionMethod == 'suspend') { return "suspend"; }
+            else if (actionMethod == 'unsuspend') { return "unsuspend"; }
+            else if (actionMethod == 'snapshot') { return "snapshot"; }
+            else { return actionMethod; }
         },
 
         traffics() {
@@ -464,9 +455,46 @@ app = createApp({
             }
 
         },
+
+        theMemoryLimit() {
+            let memoryLimit = this.getMachineProperty('memoryLimit')
+            return memoryLimit
+        },
+
+        theCpuLimit() {
+            let cpuLimit = this.getMachineProperty('cpuLimit')
+            return cpuLimit
+        },
+
+        diskSize() {
+            let diskSize = this.getMachineProperty('diskSize')
+            return diskSize
+        },
+
+        memoryUsage() {
+            let memoryUsage = this.getDetailProperty('memoryUsage.value')
+            return memoryUsage
+        },
+
+        cpuUsage() {
+            let cpuUsage = this.getDetailProperty('cpuUsage.value')
+            return cpuUsage
+        },
+
+        diskUsage() {
+            let diskUsage = this.getDetailProperty('diskUsage.value')
+            return diskUsage
+        },
     },
 
     methods: {
+
+        changeTimeVisibilty() {
+            setTimeout(() => {
+                this.isVisibe = false;
+            }, 7000); // 10 seconds later
+        },
+        
         ConverFromWhmcsToCloud(value){
             decimal = this.config.DefaultMonthlyDecimalForAutoVM
             if (this.CurrenciesRatioWhmcsToCloud) {
@@ -816,13 +844,12 @@ app = createApp({
         },
 
         acceptConfirmDialog() {
-
             this.confirmResolve(true)
-
-
             this.confirmDialog = false
-            this.isBetweenPending = true
-
+            
+            if(this.confirmTitle != "console"){
+                this.isBetweenPending = true
+            }
         },
 
         closeConfirmDialog() {
@@ -920,20 +947,20 @@ app = createApp({
 
         openConsole() {
             let address = null
+            let params = null
             if(this.systemurl != null){
-                let address = this.systemurl
+                address = this.systemurl
             } else {
                 console.log('con not find console link');
-                
             }
 
             if(address != null){
-                let params = new URLSearchParams({
+                params = new URLSearchParams({
                     'host': this.console.proxy.proxy, 'port': this.console.proxy.port, 'ticket': this.console.ticket
                 }).toString()
-    
-                return window.open([address, params].join('?'))
             }
+            
+            return window.open([address, params].join('?'))
         },
 
         async doStop() {

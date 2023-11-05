@@ -236,6 +236,7 @@ let common = {
     "email" : "Email",
     "userdetailautovm" : "AutoVM'deki Kullanıcı Ayrıntıları",
     "taketimetoseeresult" : "Genellikle bulut bakiyenizdeki ücreti görmek bir dakikadan fazla sürer.",
+    "noaction" : "No Action Recorded",
 // end index
 
 

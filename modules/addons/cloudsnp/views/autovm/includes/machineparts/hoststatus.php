@@ -25,9 +25,12 @@
     <!-- BTNs -->
     <div class="col-auto m-0 p-0">
         <div class="row justify-content-end  m-0 p-0 ">
-        
+
             <!-- Action processing -->
-            <?php include('pendingdropdown.php'); ?>
+            <div class="col-auto m-0 p-0 d-none d-md-block">
+                <?php include('pendingdropdown.php'); ?>
+            </div>
+
 
             <!-- status (Passive | Active) -->
             <div v-if="machine.status == 'active' || machine.status == 'passive'" class="col-auto m-0 p-0 d-none d-md-block">

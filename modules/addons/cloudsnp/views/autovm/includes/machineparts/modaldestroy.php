@@ -128,8 +128,8 @@ aria-hidden="false">
 
                 <!-- Completed, Just open (ConfirmDialog=true)-->
                 <div v-if="machineIsLoaded" class="d-flex flex-row modal-footer justify-content-between">
-                    <!-- Last Action -->
-                    <?php include('lastaction.php'); ?>
+                    <!-- Action processing -->
+                    <?php include('pendingdropdown.php'); ?>
 
                     
                     <div class="d-flex flex-row align-items-center">

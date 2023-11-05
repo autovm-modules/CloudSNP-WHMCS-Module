@@ -32,7 +32,7 @@ aria-hidden="false">
                 <div v-if="machineIsLoaded" class="modal-body px-4 px-md-5" style="min-height: 350px !important;">
 
                     <!-- consoleIsCompleted -->
-                    <div v-if="consoleIsCompleted" class="row m-0 p-0 mt-4">
+                    <div v-if="!isBetweenPending && consoleIsCompleted" class="row m-0 p-0 mt-4">
                         <div class="col-12 m-0 p-0">
                             <div class="row justify-content-start px-3">
                                 <p class="text-start h5 mt-4">
@@ -49,11 +49,10 @@ aria-hidden="false">
                         <div v-if="!confirmTitle" class="col-12">
                             <p class="text-start h4 mt-4">Error NO Action</p>
                         </div>
-                    </div>
-                    
+                    </div>            
                     
                     <!-- consoleIsFailed -->
-                    <div v-if="consoleIsFailed" class="row m-0 p-0 mt-4">
+                    <div v-if="!isBetweenPending && consoleIsFailed" class="row m-0 p-0 mt-4">
                         <div class="col-12 m-0 p-0">
                             <div class="row justify-content-start px-3">
                                 <p class="text-start h5 mt-4">
@@ -67,7 +66,7 @@ aria-hidden="false">
                     </div>
                     
                     <!-- actionStatus == 'pending' OR 'processing'-->                    
-                    <div v-if="consoleIsPending || consoleIsProcessing" class="row m-0 p-0 mt-4">
+                    <div v-if="isBetweenPending || consoleIsPending || consoleIsProcessing" class="row m-0 p-0 mt-4">
                         <div v-if="confirmTitle" class="col-12">
                             <p class="text-start h4 mt-4">
                                 {{ lang('lastactionpending') }}
@@ -81,9 +80,8 @@ aria-hidden="false">
                         </div>
                     </div>
                 
-
                     <!-- None of them -->    
-                    <div v-if="!consoleIsCompleted && !consoleIsFailed && !consoleIsPending && !consoleIsProcessing" class="row m-0 p-0 mt-4">
+                    <div v-if="!isBetweenPending && !consoleIsCompleted && !consoleIsFailed && !consoleIsPending && !consoleIsProcessing" class="row m-0 p-0 mt-4">
                         <div class="col-12 m-0 p-0">
                             <div class="row text-end justify-content-start px-3">
                                 <p class="text-start h4 mt-4">
@@ -117,45 +115,26 @@ aria-hidden="false">
                     </div>
                 </div>    
 
-
-
-
                 <!-- Completed, Just open (ConfirmDialog=true)-->
-                <div v-if="machineIsLoaded" class="d-flex flex-row modal-footer justify-content-between">
-                    <!-- Last Action -->
-                    <?php include('lastaction.php'); ?>
-
-                    
+                <div v-if="machineIsLoaded" class="d-flex flex-row modal-footer justify-content-end">
                     <div class="d-flex flex-row align-items-center">
                         
-                        <!-- pending or processing -->
-                        <button @click="closeConfirmDialog" type="button" class="btn btn-secondary px-4 mx-2 border-0" data-bs-dismiss="modal">
-                            {{ lang('close') }}
-                        </button>
-                    
                         <!-- Action BTN 'consoleIsCompleted' -->
-                        <div v-if="consoleIsCompleted && !consoleIsPending && !consoleIsProcessing">
+                        <div v-if="confirmDialog && consoleIsCompleted && !consoleIsPending && !consoleIsProcessing">
                             <button @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('tryagain') }}</span>
                             </button>
                         </div>
                         
                         <!-- Action BTN 'failed' -->
-                        <div v-if="consoleIsFailed && !consoleIsPending && !consoleIsProcessing">
+                        <div v-if="confirmDialog && consoleIsFailed && !consoleIsPending && !consoleIsProcessing">
                             <button @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('tryagain') }}</span>
                             </button>
                         </div>
 
-                        <!-- Action BTN 'none of them' -->
-                        <div v-if="!consoleIsCompleted && !consoleIsFailed && !consoleIsPending && !consoleIsProcessing">
-                            <button @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
-                                <span>{{ lang('consoleaction') }}</span>
-                            </button>
-                        </div>
-
                         <!-- pending or processing -->
-                        <div v-if="consoleIsPending || consoleIsProcessing">
+                        <div v-if="isBetweenPending || consoleIsPending || consoleIsProcessing">
                             <button type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('consoleing') }}</span>
                                 <!-- spinner -->
@@ -164,6 +143,19 @@ aria-hidden="false">
                                 <span class="spinner-grow text-light my-auto mb-0 me-1" style="--bs-spinner-width: 5px; --bs-spinner-height: 5px; --bs-spinner-animation-speed: 1s;"></span>
                             </button>
                         </div> 
+
+                        <!-- Action BTN 'none of them' -->
+                        <div v-if="!consoleIsCompleted && !consoleIsFailed && !consoleIsPending && !consoleIsProcessing">
+                            <button @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
+                                <span>{{ lang('consoleaction') }}</span>
+                            </button>
+                        </div>
+
+
+                        <!-- close -->
+                        <button @click="closeConfirmDialog" type="button" class="btn btn-secondary px-4 mx-2 border-0" data-bs-dismiss="modal">
+                            {{ lang('close') }}
+                        </button>
                     </div>
                     
                 </div>

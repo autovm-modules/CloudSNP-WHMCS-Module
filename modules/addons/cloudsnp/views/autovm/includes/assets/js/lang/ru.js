@@ -236,6 +236,7 @@ let common = {
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
     "taketimetoseeresult" : "Обычно требуется больше минуты, чтобы увидеть списание на вашем облачном балансе.",
+    "noaction" : "No Action Recorded",
     // End index page
 
 

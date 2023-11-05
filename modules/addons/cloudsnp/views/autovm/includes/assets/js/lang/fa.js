@@ -236,6 +236,7 @@ let common = {
     "email" : "پست الکترونیک",
     "userdetailautovm" : "اطلاعات کاربر",
     "taketimetoseeresult" : "زمان تقریبی برای اعمال تراکنش در موجودی حساب ابری بیشتر از ۳۰ ثانیه است",
+    "noaction" : "بدون متد",
 // end index
     
 

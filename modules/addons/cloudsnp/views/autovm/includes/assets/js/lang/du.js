@@ -236,6 +236,7 @@ let common = {
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
     "taketimetoseeresult" : "Es dauert in der Regel länger als eine Minute, um die Gebühr auf Ihrem Cloud-Guthaben zu sehen.",
+    "noaction" : "No Action Recorded",
 // End index page
 
 

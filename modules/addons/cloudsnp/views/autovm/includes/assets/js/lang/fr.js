@@ -236,6 +236,7 @@ let common = {
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
     "taketimetoseeresult" : "En général, cela prend plus d'une minute pour voir la charge sur votre solde Cloud.",
+    "noaction" : "No Action Recorded",
     // end index page
 
 
