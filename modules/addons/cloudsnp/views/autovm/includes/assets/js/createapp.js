@@ -310,7 +310,7 @@ createApp({
         async loadCredit() {
             let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
 
-            if (response.data != null) {
+            if (response?.data) {
                 this.userCreditinWhmcs = response.data.credit;
                 this.userCurrencyIdFromWhmcs = response.data.userCurrencyId;
             } else {
@@ -329,18 +329,9 @@ createApp({
         },
 
         async loadUser() {
-
             let response = await axios.get('/index.php?m=cloudsnp&action=login')
-
             response = response.data
-
-            if (response.message) {
-
-                // Its not ok to show message here
-            }
-
-            if (response.data) {
-
+            if (response?.data) {
                 this.user = response.data
             }
         },
@@ -441,12 +432,12 @@ createApp({
             let response = await axios.get('/index.php?m=cloudsnp&action=regions')
             
             response = response.data
-            if (response.message) {
+            if (response?.message) {
                 this.regionsAreLoaded = true
                 this.plansAreLoaded = false
                 console.log('can not find regins');
             }
-            if (response.data) {
+            if (response?.data) {
                 this.regionsLength= response.data.length;
                 this.plansAreLoaded = false
                 this.regionsAreLoaded = true
@@ -497,13 +488,13 @@ createApp({
             })
             this.plansAreLoading = true
             response = response.data
-            if (response.message) {
+            if (response?.message) {
                 this.plansAreLoading = false;
                 this.plansAreLoaded = true;
                 console.log('can not find any plans in this regin');
             }
             
-            if (response.data) {
+            if (response?.data) {
                 this.plansLength= response.data.length;                
                 this.plansAreLoading = false;
                 this.plansAreLoaded = true;
@@ -538,18 +529,13 @@ createApp({
         },
 
         async loadCategories() {
-
             let response = await axios.get('/index.php?m=cloudsnp&action=categories')
-
             response = response.data
-
-            if (response.message) {
+            if (response?.message) {
 
                 // Its not ok to show message here
             }
-
-            if (response.data) {
-
+            if (response?.data) {
                 this.categories = response.data
             }
         },
@@ -574,14 +560,14 @@ createApp({
 
                 response = response.data
 
-                if (response.message) {
+                if (response?.message) {
                     this.msg = response.message
                     
                     this.openMessageDialog(this.lang(response.message))
                     this.createActionFailed = true
                 }
 
-                if (response.data) {
+                if (response?.data ) {
                     this.createActionSucced = true
                 }
             }
