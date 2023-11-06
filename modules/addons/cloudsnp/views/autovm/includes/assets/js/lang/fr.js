@@ -195,7 +195,7 @@ let common = {
     "noaccesscharge": "La facture a été créée avec succès, mais nous n'avons pas accès pour augmenter votre solde, veuillez réessayer ou contacter votre administrateur",
     "noaccessapply": "La facture a été créée avec succès et nous avons augmenté votre Solde Cloud, mais nous n'avons pas accès pour payer automatiquement votre facture, veuillez essayer de payer manuellement",
     "reload": "Recharger",
-    "cloudaccount": "Compte Cloud",
+    "cloudaccount" : "Global Cloud Account",  
     "movebalance": "Déplacer le Solde",
     "heretocharge": "Ici, vous pouvez augmenter votre Compte Cloud",
     "yourcredit": "Votre crédit",

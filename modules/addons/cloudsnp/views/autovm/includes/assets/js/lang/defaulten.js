@@ -195,7 +195,7 @@ let common = {
     "noaccesscharge" : "Invoice is created successfully but we can access to charge your balance, please try again or contact with your admin",    
     "noaccessapply" : "Invoice is created successfully and we charge your Cloud Balance, but we have no access to automatically pay your invoice, thus please try to pay the invoice manually",    
     "reload" : "Reload",    
-    "cloudaccount" : "Cloud Account",    
+    "cloudaccount" : "Global Cloud Account",    
     "movebalance" : "Move Balance",    
     "heretocharge" : "Here you can charge your Cloud Account",    
     "yourcredit" : "Your credit",    

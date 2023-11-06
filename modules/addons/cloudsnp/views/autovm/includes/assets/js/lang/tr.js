@@ -195,7 +195,7 @@ let common = {
     "noaccesscharge" : "Fatura başarıyla oluşturuldu, ancak bakiyenizi artırmak için erişimimiz yok, lütfen tekrar deneyin veya yöneticinizle iletişime geçin",
     "noaccessapply" : "Fatura başarıyla oluşturuldu ve Bulut Bakiyenizi artırıyoruz, ancak faturanızı otomatik olarak ödeme yetkimiz yok, bu nedenle lütfen faturayı manuel olarak ödemeyi deneyin",
     "reload" : "Yeniden Yükle",
-    "cloudaccount" : "Bulut Hesabı",
+    "cloudaccount" : "Global Cloud Account",  
     "movebalance" : "Bakiyeyi Taşı",
     "heretocharge" : "Burada Bulut Hesabınızı artırabilirsiniz",
     "yourcredit" : "Kredi Miktarınız",

@@ -195,7 +195,7 @@ let common = {
     "noaccesscharge" : "Die Rechnung wurde erfolgreich erstellt, aber wir können Ihr Guthaben nicht aufladen. Bitte versuchen Sie es erneut oder kontaktieren Sie Ihren Administrator",
     "noaccessapply" : "Die Rechnung wurde erfolgreich erstellt und wir haben Ihr Cloud-Guthaben aufgeladen, aber wir können Ihre Rechnung nicht automatisch bezahlen. Bitte versuchen Sie, die Rechnung manuell zu bezahlen",
     "reload" : "Neu laden",
-    "cloudaccount" : "Cloud-Konto",
+    "cloudaccount" : "Global Cloud Account",    
     "movebalance" : "Guthaben verschieben",
     "heretocharge" : "Hier können Sie Ihr Cloud-Konto aufladen",
     "yourcredit" : "Ihr Guthaben",
