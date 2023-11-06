@@ -949,7 +949,7 @@ app = createApp({
             let address = null
             let params = null
             if(this.systemurl != null){
-                address = this.systemurl
+                address = this.systemurl + 'console'
             } else {
                 console.log('con not find console link');
             }

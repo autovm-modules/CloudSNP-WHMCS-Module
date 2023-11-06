@@ -31,9 +31,9 @@
                 <!-- small -->
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
-                        <span class="d-flex flex-row justify-content-start align-items-center ms-3">
+                        <span class="d-flex flex-row justify-content-start align-items-center">
                             <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
-                            <span class="p-0 m-0 h6 me-2">
+                            <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('memory') }}
                             </span>
                             <span class="p-0 m-0 me-2 h6">
@@ -66,9 +66,9 @@
                 <!-- small -->
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
-                        <span class="d-flex flex-row justify-content-start align-items-center ms-3">
+                        <span class="d-flex flex-row justify-content-start align-items-center">
                             <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
-                            <span class="p-0 m-0 h6 me-2">
+                            <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('cpu') }}
                             </span>
                             <span class="p-0 m-0 me-2 h6">
@@ -101,8 +101,8 @@
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
-                            <i class="bi bi-device-hdd bi bi-hdd-network text-secondary p-0 m-0 h6 ms-3"></i>
-                            <span class="p-0 m-0 me-2 h6">
+                            <i class="bi bi-device-hdd bi bi-hdd-network text-secondary p-0 m-0 h6"></i>
+                            <span class="p-0 m-0 ms-2 me-2 h6">
                                 {{ lang('disk') }}
                             </span>
                             <span class="p-0 m-0 me-2 h6">

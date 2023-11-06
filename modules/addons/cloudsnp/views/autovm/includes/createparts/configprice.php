@@ -72,7 +72,7 @@
     <!-- Address -->
     <div v-if="planAddressPrice != null">
         <div class="input-group mb-1">
-            <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0; width: 220px;"  id="planAddressPrice">
+            <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0; width: 190px;"  id="planAddressPrice">
                 <i class="bi bi-globe me-3 h5"></i>
                 <span>
                     {{ lang('costoneip') }}
@@ -92,7 +92,7 @@
     <!-- Traffic -->
     <div v-if="planTrafficPrice != null">
         <div class="input-group mb-1">
-            <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0; width: 220px;"  id="planTrafficPrice">
+            <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0; width: 190px;"  id="planTrafficPrice">
                 <i class="bi bi-router-fill me-3 h5"></i>
                 <span>
                     {{ lang('costonegigtraffic') }}

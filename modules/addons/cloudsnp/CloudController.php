@@ -128,21 +128,8 @@ class CloudController
     public function create()
     {
         $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize', 'traffic']);
-
-        echo('paras:');
-
-        echo('<pre>');
-        print_r($params);
-        echo('</pre>');
-
         $token = $this->getUserTokenFromClientId();
-
         $response = $this->sendCreateRequest($token, $params);
-
-        echo('<pre>');
-        print_r($response);
-        echo('</pre>');
-        
         $this->response($response);
     }
 
@@ -152,7 +139,7 @@ class CloudController
         $BackendUrl = $this->BackendUrl;        
 
         $address = [
-            $BackendUrlBASE, 'client', 'machine', 'plan'
+            $BackendUrl, 'client', 'machine', 'plan'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
