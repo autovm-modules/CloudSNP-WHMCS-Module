@@ -5,10 +5,13 @@
 
             <!-- SSH Key -->
             <div class="m-0 p-0 py-5">
-                <div class="m-0 p-0">
-                    <p class="text-dark h5">
-                    {{ lang('Addssh') }}
-                    </p>
+                <div class="d-flex flex-row align-items-center justify-content-center m-0 p-0">
+                    <span class="text-dark h5">
+                        {{ lang('Addssh') }}
+                    </span>
+                    <span class="px-3 mb-4 text-primary small">
+                        {{ lang('optional') }}
+                    </span>
                 </div>
             
                 <div class="row m-0 p-0 my-3">

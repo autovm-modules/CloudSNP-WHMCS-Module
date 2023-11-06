@@ -304,6 +304,7 @@ let common = {
     "freeprice" : "Free",
     "pricestartsfrom" : "Price Starts From",
     "confirmationtext" : "I affirm my agreement with all the terms and regulations for utilizing the global network cloud.",
+    "optional" : "Optional",
     // create machine page
 
 

@@ -304,6 +304,7 @@ let common = {
     "freeprice" : "رایگان",
     "pricestartsfrom" : "شروع قیمت از ",
     "confirmationtext" : "قوانین را مطالعه کرده و با شرایط و قوانین  استفاده از شبکه جهانی ابری موافقت می‌کنم",
+    "optional" : "اختیاری",
 // create machine page
 
     
