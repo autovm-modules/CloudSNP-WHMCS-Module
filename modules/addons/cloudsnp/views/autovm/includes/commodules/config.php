@@ -23,5 +23,6 @@ $CloudDefaulCurrency = "$";
 /* Set 1 to enable charge Module or 0 zero to disable it */
 $DefaultChargeModuleEnable = true;
 $DefaultChargeModuleDetailsViews = true;
+$EnableShowRatioCurrency = true;
 
 ?>

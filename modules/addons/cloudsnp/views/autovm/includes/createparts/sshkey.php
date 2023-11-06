@@ -5,7 +5,7 @@
 
             <!-- SSH Key -->
             <div class="m-0 p-0 py-5">
-                <div class="d-flex flex-row align-items-center justify-content-center m-0 p-0">
+                <div class="d-flex flex-row align-items-center justify-content-start m-0 p-0">
                     <span class="text-dark h5">
                         {{ lang('Addssh') }}
                     </span>
