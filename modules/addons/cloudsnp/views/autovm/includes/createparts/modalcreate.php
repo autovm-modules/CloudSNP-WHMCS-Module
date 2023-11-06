@@ -125,9 +125,9 @@
                                         </tbody>
                                     </table>
 
-                                    <!-- configprice -->
+                                    <!-- ordertable -->
                                     <hr>
-                                    <?php include('configprice.php'); ?>
+                                    <?php include('ordertable.php'); ?>
                                     
 
                                     <!-- Total Price -->

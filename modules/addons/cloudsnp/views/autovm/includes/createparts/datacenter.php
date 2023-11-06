@@ -13,7 +13,7 @@
                 {{ lang('chooseregion') }}
                 </span>
             </div>
-        </div>
+        </div> 
         
         <div class="row">
             <div v-if="regionsAreLoaded && regionsLength > 0" v-for="region in regions" class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">

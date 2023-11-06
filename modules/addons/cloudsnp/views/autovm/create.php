@@ -20,7 +20,7 @@
             <?php  include('./includes/createparts/plans.php');        ?>
             <div class="row">
                 <div class="col-12 col-lg-7 m-0 p-0">
-                    <?php  include('./includes/createparts/configproduct.php');?>
+                    <?php  include('./includes/createparts/configuration.php');?>
                 </div>
                 <div class="col-12 col-lg-5 m-0 p-0">
                     <?php  include('./includes/createparts/pricetable.php');?>

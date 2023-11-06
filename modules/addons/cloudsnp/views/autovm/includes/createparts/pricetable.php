@@ -18,9 +18,9 @@
 
         <!-- Ready to show Table -->
         <div class="row p-0 m-0 mt-4">
-            <!-- Machien Config price  -->
+            <!-- ordertable  -->
             <div class="col-12 col-md-12 m-0 p-0 mb-4">
-                <?php include('configprice.php'); ?>
+                <?php include('ordertable.php'); ?>
             </div>
         </div>
     

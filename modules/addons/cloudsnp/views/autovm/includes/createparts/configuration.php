@@ -13,6 +13,7 @@
                     {{ lang('configinyourfavor') }}
                 </span>
             </div>
+            
         </div>
     
         <!-- No selection -->
