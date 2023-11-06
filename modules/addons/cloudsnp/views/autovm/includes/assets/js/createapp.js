@@ -47,7 +47,7 @@ createApp({
 
             RangeValueMemoryString: 1,
             RangeValueCpuCoreString: 1,
-            RangeValueDiskString: 1,
+            RangeValueDiskString: 20,
 
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
@@ -513,7 +513,7 @@ createApp({
             this.planAddressPrice = parseFloat(plan.addressPrice)
             this.planTrafficPrice = parseFloat(plan.trafficPrice)
 
-            this.planMaxMemorySize = parseFloat(plan.maxMemorySize)
+            this.planMaxMemorySize = parseFloat(plan.maxMemorySize) / 1024
             this.planMaxCpuCore = parseFloat(plan.maxCpuCore)
             this.planMaxCpuLimit = parseFloat(plan.maxCpuLimit)
             this.planMaxDiskSize = parseFloat(plan.maxDiskSize)
