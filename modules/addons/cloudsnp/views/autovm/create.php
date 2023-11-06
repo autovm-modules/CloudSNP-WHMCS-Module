@@ -23,7 +23,7 @@
                     <?php  include('./includes/createparts/configuration.php');?>
                 </div>
                 <div class="col-12 col-lg-5 m-0 p-0">
-                    <?php  include('./includes/createparts/pricetable.php');?>
+                    <?php  include('./includes/createparts/billsammery.php');?>
                 </div>
             </div>
             <?php  include('./includes/createparts/sshkey.php');       ?>

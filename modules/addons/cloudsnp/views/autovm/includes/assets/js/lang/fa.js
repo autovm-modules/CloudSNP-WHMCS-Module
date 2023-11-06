@@ -302,6 +302,8 @@ let common = {
     "costoneip" : "هزینه هر آدرس آی‌پی",
     "costonegigtraffic" : "هزینه هر گیگ ترافیک",
     "freeprice" : "رایگان",
+    "pricestartsfrom" : "شروع قیمت از ",
+    "confirmationtext" : "قوانین را مطالعه کرده و با شرایط و قوانین  استفاده از شبکه جهانی ابری موافقت می‌کنم",
 // create machine page
 
     

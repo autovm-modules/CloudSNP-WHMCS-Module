@@ -72,6 +72,18 @@
                                     </span>
                                 </div>
                             </div><!-- End MemDescriptionory -->
+                            
+                            <!-- Plan start from  -->
+                            <div v-if="planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice) != null && userCurrencySymbolFromWhmcs != null" class="d-flex flex-row justify-content-center py-2">
+                                <div class="d-flex flex-row justify-content-center">
+                                    <span class="fs-6 text-dark fw-medium me-2">
+                                    {{ lang('pricestartsfrom') }}
+                                    </span>
+                                    <span class="fs-6 text-dark fw-medium">
+                                        {{ ConverFromAutoVmToWhmcs(planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice)) }} {{ userCurrencySymbolFromWhmcs }}
+                                    </span>
+                                </div>
+                            </div><!-- End MemDescriptionory -->
 
                         </div>
                     </div>

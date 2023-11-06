@@ -1,6 +1,6 @@
 <!-- create machine modal -->
 <div class="modal fade modal-lg" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="false" v-cloak>
-    <div class="modal-dialog" style="max-width: 600px !important;">
+    <div class="modal-dialog" style="max-width: 800px !important;">
         <div class="modal-content border-0">
             <!-- Modal Body -->
             <div class="m-0 p-0">
@@ -175,6 +175,14 @@
                             </div> 
                         </div>
                     </div>
+                    <div v-if="!userClickedCreationBtn" class="row m-0 p-0 pt-5 mb-4">
+                        <div class="form-check form-switch d-flex flex-row justify-content-start align-items-center px-3">
+                            <input v-model="checkboxconfirmation" class="form-check-input ms-0" type="checkbox" role="switch" id="checkboxconfirmation">
+                            <label class="form-check-label ms-3" for="checkboxconfirmation">
+                                {{ lang('confirmationtext') }}
+                            </label>
+                        </div>
+                    </div>
                 </div>       
             </div>
 
@@ -225,7 +233,7 @@
                     
 
                     <!-- Create BTN -->
-                    <div v-if="!userClickedCreationBtn">
+                    <div v-if="!userClickedCreationBtn && checkboxconfirmation">
                         <div class="m-0 p-0" v-if="themachinename && regionName && planName && templateId && NewMachinePrice">
                             <a @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('createthismachine') }}</span>

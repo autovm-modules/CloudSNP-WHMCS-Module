@@ -37,7 +37,7 @@ createApp({
                 },
             },
 
-
+            checkboxconfirmation: null,
             msg : null,
 
             planMaxMemorySize: null,
@@ -580,14 +580,27 @@ createApp({
             window.open('/index.php?m=cloudsnp&action=pageIndex')
 
         },
+        
+        planStartFrom(MemoryPrice, CpuCorePrice, CpuLimitPrice, DiskPrice, AddressPrice) {
+            if(MemoryPrice != null && CpuCorePrice != null && CpuLimitPrice != null && DiskPrice != null && AddressPrice != null){
+                MemoryPrice = parseFloat(MemoryPrice)
+                CpuCorePrice = parseFloat(CpuCorePrice)
+                CpuLimitPrice = parseFloat(CpuLimitPrice)
+                DiskPrice = parseFloat(DiskPrice)
+                AddressPrice = parseFloat(AddressPrice)
 
+                let totalPrice = MemoryPrice + CpuCorePrice + CpuLimitPrice + 20*DiskPrice + AddressPrice
+                return totalPrice
+            } else {
+                return null
+            }
+        },
 
         reloadPage() {
 
             location.reload()
 
         },
-
 
         lang(name) {
 
