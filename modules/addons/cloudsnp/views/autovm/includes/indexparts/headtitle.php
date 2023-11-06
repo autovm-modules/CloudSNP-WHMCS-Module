@@ -35,14 +35,19 @@
         <div class="me-2">
             <a class="btn btn-outline-primary px-3 py-2" @click="opencreatepage">{{ lang('createmachine') }}</a>
         </div>
-        <div class="me-2">
-            <h2 class="accordion-header">
-                <button class="btn btn-outline-primary collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                <i class="bi bi-coin pe-2"></i> 
-                <span>{{ lang('finance') }}</span>
-                </button>
-            </h2>
-        </div>
+        <?php if($ChargeModuleEnable): ?> 
+            <div class="me-2">
+                <h2 class="accordion-header">
+                    <button class="btn btn-outline-primary collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <i class="bi bi-coin pe-2"></i> 
+                    <span>{{ lang('finance') }}</span>
+                    </button>
+                </h2>
+            </div>
+        <?php endif ?>
+        <?php if(!$ChargeModuleEnable): ?> 
+            <a class="btn btn-outline-primary collapsed py-2 me-2" target="_top" type="button" href="<?php echo($CloudTopupLink); ?>">{{ lang('topup') }}</a>
+        <?php endif ?>
         <div class="btn bg-primary text-dark d-flex flex-row justify-content-center align-items-center p-0" style="--bs-bg-opacity: 0.2">
             <?php include('./includes/commodules/langbtn.php'); ?>
         </div>
