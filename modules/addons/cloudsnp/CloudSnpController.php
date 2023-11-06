@@ -3,7 +3,7 @@
 use WHMCS\Database\Capsule;
 use PG\Request\Request;
 
-class CloudController
+class CloudSnpController
 {
     protected $clientId;
     protected $ResellerToken;

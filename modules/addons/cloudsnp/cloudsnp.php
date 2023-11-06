@@ -2,7 +2,7 @@
 
 $path = dirname(__FILE__);
 
-require $path . '/CloudController.php';
+require $path . '/CloudSnpController.php';
 
 // Set Module parameters, name, describ or so ..
 function cloudsnp_config()
@@ -51,7 +51,7 @@ function cloudsnp_clientarea($vars)
     $clientId = autovm_get_session('uid');
 
     if ($clientId) {
-        $controller = new CloudController($clientId, $ResellerToken, $BackendUrl);
+        $controller = new CloudSnpController($clientId, $ResellerToken, $BackendUrl);
         return $controller->handle($action);
     }
 }

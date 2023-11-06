@@ -1,7 +1,7 @@
 <?php
 use PG\Request\Request;
 
-class AdminController
+class AdminSnpController
 {
     protected $WhUserId;
     protected $userToken;

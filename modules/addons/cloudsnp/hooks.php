@@ -20,7 +20,7 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
 
 
 add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
-    include ('admincontroller.php');
+    include ('adminsnpcontroller.php');
     $WhUserId = $vars['userid'];
 
 
@@ -61,7 +61,7 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     
     
     if(isset($WhUserId) && isset($userToken) && isset($BackendUrl) && isset($ResellerToken)){
-        $controller = new admincontroller($WhUserId, $userToken, $BackendUrl, $ResellerToken);
+        $controller = new AdminSnpController($WhUserId, $userToken, $BackendUrl, $ResellerToken);
         if(isset($_GET['method'])){
             $controller->handle($_GET['method']);
         }
