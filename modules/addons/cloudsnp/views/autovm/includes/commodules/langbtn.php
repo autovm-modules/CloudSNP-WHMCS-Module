@@ -2,27 +2,27 @@
     <span class="border-0 p-2 px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="--bs-bg-opacity: 1.0"><i class="bi bi-translate"></i>
         <?php 
         switch ($templatelang) {
-            case "fa":
+            case "Farsi":
             echo "فارسی";
             break;
 
-            case "en":
-            echo "en";
+            case "English":
+            echo "English";
             break;
 
-            case "tr":
+            case "Turkish":
             echo "Türkçe";
             break;
 
-            case "fr":
+            case "French":
             echo "French";
             break;
 
-            case "du":
+            case "Deutsch":
             echo "Deutsch ";
             break;
 
-            case "ru":
+            case "Russian":
             echo "Russian";
             break;
 
@@ -33,19 +33,19 @@
     </span>
     <div class="dropdown-menu border-1 shadow-lg p-4" style="min-width: 300px !important;">
         <p class="fs-6">{{ lang('chooselanguage') }}</p>    
-        
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <select name="language" class="form-select" aria-label="Default select example">
-                <option value="en" <?php if( $templatelang == 'en'){echo 'selected';} ?>> English </option>
-                <option value="fa" <?php if( $templatelang == 'fa'){echo 'selected';} ?>> فارسی </option>
-                <option value="tr" <?php if( $templatelang == 'tr'){echo 'selected';} ?>> Türkçe </option>
-                <option value="fr" <?php if( $templatelang == 'fr'){echo 'selected';} ?>> Français </option>
-                <option value="du" <?php if( $templatelang == 'du'){echo 'selected';} ?>> Deutsch </option>
-                <option value="ru" <?php if( $templatelang == 'ru'){echo 'selected';} ?>> Pусский </option>
+        <div>
+            <select name="language" class="form-select" aria-label="Default select example" v-model="PanelLanguage">
+                <option value="English" <?php if( $templatelang == 'English'){echo 'selected';} ?>> English </option>
+                <option value="Farsi" <?php if( $templatelang == 'Farsi'){echo 'selected';} ?>> فارسی </option>
+                <option value="Turkish" <?php if( $templatelang == 'Turkish'){echo 'selected';} ?>> Türkçe </option>
+                <option value="French" <?php if( $templatelang == 'French'){echo 'selected';} ?>> Français </option>
+                <option value="Deutsch" <?php if( $templatelang == 'Deutsch'){echo 'selected';} ?>> Deutsch </option>
+                <option value="Russian" <?php if( $templatelang == 'Russian'){echo 'selected';} ?>> Pусский </option>
             </select>
             <input type="hidden" name="thisid" value="<?php echo $_GET['id'] ?? ''; ?>">
 
-            <button class="btn btn-primary mt-3 float-end" type="submit">{{ lang('setlanguage') }}</button>
-        </form>
+            <button class="btn btn-primary mt-3 float-end" @click="changeLanguage()">{{ lang('setlanguage') }}</button>
+        </div>
     </div>
 </div>
+English, Farsi, Turkish, Russian, Deutsch, French

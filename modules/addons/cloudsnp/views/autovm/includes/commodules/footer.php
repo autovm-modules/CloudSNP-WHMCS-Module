@@ -35,7 +35,7 @@
                         echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/createapp.js"></script>';
                         break;
                     case 'index':
-                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/indexapp.js"></script>';
+                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/indexapp7.js"></script>';
                         break;
                     case 'machine':
                         echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/machineapp.js"></script>';

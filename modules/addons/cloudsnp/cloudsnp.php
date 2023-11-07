@@ -24,7 +24,7 @@ function cloudsnp_config()
 // Run in client Page to start controller class [CloudController]
 function cloudsnp_clientarea($vars)
 {
-    
+
     // get BackendUrl from admin
     if (array_key_exists('BackendUrl', $vars)) {
         $BackendUrl = $vars['BackendUrl'];
@@ -44,6 +44,23 @@ function cloudsnp_clientarea($vars)
     } else {
         echo('go to addons module and insert your Token');
     }
+
+    // get Default Language
+    $DefLang = 'English';
+    if (array_key_exists('DefLang', $vars)) {
+        $DefLang = $vars['DefLang'];
+        if($DefLang != ''){
+            if (!isset($_COOKIE['temlangcookie'])) {
+                 setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
+            }
+        } else {
+            setcookie('temlangcookie', 'English', time() + (86400 * 30 * 12), '/');
+        }
+    } else {
+        setcookie('temlangcookie', 'English', time() + (86400 * 30 * 12), '/');
+    }
+
+
     
     // Find action
     $action = autovm_get_query('action');
