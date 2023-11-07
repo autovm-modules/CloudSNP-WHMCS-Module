@@ -1777,7 +1777,12 @@ app = createApp({
 
         formateduptime() {
 
-            seconds = this.getDetailProperty('uptime').value
+            let seconds = 1
+            const uptimeDetail = this.getDetailProperty('uptime');
+            
+            if (uptimeDetail && uptimeDetail.hasOwnProperty('value')) {
+                seconds = this.getDetailProperty('uptime').value
+            }
 
             if (seconds < 61) {
                 seconds = 61;

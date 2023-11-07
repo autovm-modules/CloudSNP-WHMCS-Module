@@ -3,8 +3,8 @@
 <?php
 
 /* Language */
-/* The language your peak here, will be set as your panel default language : */
 /* Turkish ==>> "tr", Farsi   ==>> "fa", English ==>> "en", Russian ==>> "ru" , Deutsch ==>> "du", French ==>> "fr",*/
+/* The language your peak here, will be set as your panel default language : */
 $CloudDefaulLanguage = "en";
 
 
@@ -22,7 +22,6 @@ $CloudDefaulCurrency = "$";
 /* Charge Module Enable */
 /* Set 1 to enable charge Module or 0 zero to disable it */
 $DefaultChargeModuleEnable = true;
-$DefaultChargeModuleDetailsViews = true;
-$EnableShowRatioCurrency = true;
+$DefaultChargeModuleDetailsViews = false;
 
 ?>

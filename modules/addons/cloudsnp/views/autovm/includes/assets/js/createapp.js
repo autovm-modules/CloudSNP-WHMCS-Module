@@ -40,6 +40,7 @@ createApp({
             checkboxconfirmation: null,
             msg : null,
 
+            RullesText: null,
             planMaxMemorySize: null,
             planMaxDiskSize: null,
             planMaxCpuCore: null,
@@ -108,6 +109,7 @@ createApp({
 
         // Load regions
         this.loadRegions()
+        this.loadRullesFromGit()
 
         // Load categories
         this.loadCategories()
@@ -336,6 +338,15 @@ createApp({
             }
         },
 
+        async loadRullesFromGit() {
+            try {
+                let response = await axios.get('https://raw.githubusercontent.com/autovm-modules/AutoVM-WhModules-Reseller/main/README.md');
+                this.RullesText = response.data; 
+            } catch (error) {
+                console.error('Error fetching the file:', error);
+            }
+        },
+
         openConfirmDialog(title, text) {
 
             // Open dialog
@@ -446,8 +457,11 @@ createApp({
         },
 
         selectRegion(region) {
+
             this.plansAreLoading = true
-            
+            if(this.regionId == region.id){
+                this.plansAreLoading = false
+            }
             this.planIsSelected = false
             this.regionId = region.id
             this.regionName = region.name

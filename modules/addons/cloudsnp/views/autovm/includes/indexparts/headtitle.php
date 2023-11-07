@@ -1,6 +1,7 @@
 <?php include_once('modalcharge.php'); ?>
 <?php include_once('successmodal.php'); ?>
 <?php include_once('failmodal.php'); ?>
+
 <?php 
     if(isset($DefaultChargeModuleEnable) && $DefaultChargeModuleEnable){
         $ChargeModuleEnable = true;

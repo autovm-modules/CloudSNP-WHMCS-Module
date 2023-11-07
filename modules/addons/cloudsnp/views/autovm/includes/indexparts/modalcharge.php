@@ -1,3 +1,24 @@
+<?php 
+    if(isset($DefaultChargeModuleEnable) && $DefaultChargeModuleEnable){
+        $ChargeModuleEnable = true;
+    } else {
+        $ChargeModuleEnable = false;
+    }
+
+
+    if(!isset($CloudTopupLink)){
+        $CloudTopupLink = "/index.php?m=cloudsnp&action=pageIndex";
+    }
+
+
+    if(isset($DefaultChargeModuleDetailsViews) && $DefaultChargeModuleDetailsViews){
+        $ChargeModuleDetailsViews = true;
+    } else {
+        $ChargeModuleDetailsViews = false;
+    }
+
+?>  
+
 <!-- create machine modal -->
 <div class="modal fade modal-lg" id="chargeModal"  data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="chargeModalLabel" aria-hidden="false">
     <div class="modal-dialog">
@@ -96,27 +117,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-if="config.AutovmDefaultCurrencyID != userCurrencyIdFromWhmcs" class="col-12 col-md-5 m-0 p-0 d-none d-md-block">
-                                        <div class="row m-0 p-0 ps-md-1 pt-4 pt-md-0 float-end">            
-                                            <div class="col-12 m-0 p-0">
-                                                <div class="row m-0 p-0">
-                                                    <div class="col-12 m-0 p-0 input-group">
-                                                        <span class="input-group-text" id="chargecredit" disabled>≈</span>
-                                                        <input type="number" class="form-control"  aria-label="qualchargecredite" aria-describedby="qualchargecredit" :value="showChargeAmountCloudUnit(chargeAmountInAutovmCurrency)" disabled style="max-width: 130px;">
-                                                        <span class="input-group-text" id="chargecredit" style="min-width: 50px;">
-                                                            {{ config.AutovmDefaultCurrencySymbol }}
-                                                        </span>
+                                    <?php if($ChargeModuleDetailsViews): ?>
+                                        <div v-if="config.AutovmDefaultCurrencyID != userCurrencyIdFromWhmcs" class="col-12 col-md-5 m-0 p-0 d-none d-md-block">
+                                            <div class="row m-0 p-0 ps-md-1 pt-4 pt-md-0 float-end">            
+                                                <div class="col-12 m-0 p-0">
+                                                    <div class="row m-0 p-0">
+                                                        <div class="col-12 m-0 p-0 input-group">
+                                                            <span class="input-group-text" id="chargecredit" disabled>≈</span>
+                                                            <input type="number" class="form-control"  aria-label="qualchargecredite" aria-describedby="qualchargecredit" :value="showChargeAmountCloudUnit(chargeAmountInAutovmCurrency)" disabled style="max-width: 130px;">
+                                                            <span class="input-group-text" id="chargecredit" style="min-width: 50px;">
+                                                                {{ config.AutovmDefaultCurrencySymbol }}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>
                         
 
-                        <?php if(true): ?>
+                        <?php if($ChargeModuleDetailsViews): ?>
                             <?php include('showratio.php'); ?> 
                         <?php endif ?>
 
