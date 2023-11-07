@@ -340,7 +340,7 @@ createApp({
 
         async loadRullesFromGit() {
             try {
-                let response = await axios.get('https://raw.githubusercontent.com/autovm-modules/AutoVM-WhModules-Reseller/main/README.md');
+                let response = await axios.get('https://raw.githubusercontent.com/autovm-modules/AutoVM-WhModules-Reseller/main/modules/addons/cloudsnp/views/autovm/includes/commodules/rulles.php');
                 this.RullesText = response.data; 
             } catch (error) {
                 console.error('Error fetching the file:', error);

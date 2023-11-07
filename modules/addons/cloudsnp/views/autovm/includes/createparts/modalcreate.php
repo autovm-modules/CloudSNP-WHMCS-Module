@@ -178,7 +178,7 @@
                     <div v-if="!userClickedCreationBtn" class="row m-0 p-0 pt-5 mb-2">
                         <div class="form-check form-switch d-flex flex-row justify-content-start align-items-center px-3">
                             <input v-model="checkboxconfirmation" class="form-check-input ms-0" type="checkbox" role="switch" id="checkboxconfirmation">
-                            <label class="form-check-label ms-3" for="checkboxconfirmation">
+                            <label class="form-check-label ms-3" :class="checkboxconfirmation ? '' : 'text-secondary'" for="checkboxconfirmation">
                                 {{ lang('confirmationtext') }}
                             </label>
                             <a class="text-decoration-none text-primary ps-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
