@@ -1,6 +1,6 @@
 
 <!doctype html>    
-    <html lang="<?php echo($templatelang) ?>" <?php if($templatelang == 'fa'){ echo("dir='rtl'"); } ?> style="font-size: 0.8em !important; background-color: #ff000000" !important;>
+    <html lang="<?php echo($templatelang) ?>" <?php if($templatelang == 'Farsi'){ echo("dir='rtl'"); } ?> style="font-size: 0.8em !important; background-color: #ff000000" !important;>
 
     <head>
         <meta charset="utf-8">
@@ -19,7 +19,7 @@
 
         
         <!-- RTL Persian BOOTSTRAP -->
-        <?php if ($templatelang == 'fa'): ?>
+        <?php if ($templatelang == 'Farsi'): ?>
             <link href="/modules/addons/cloudsnp/views/autovm/includes/assets/css/bootstrap.rtl.min.css" rel="stylesheet">
             <link href="/modules/addons/cloudsnp/views/autovm/includes/assets/style.css" rel="stylesheet">
             <style> * {font-family: 'Vazirmatn' !important;}</style>

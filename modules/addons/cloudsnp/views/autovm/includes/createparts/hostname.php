@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="row m-0 p-0">
-                    <input v-model="themachinename" @input="validateInput" type="text" class="form-control py-3 bg-body-secondary fs-6 ps-4 border-0" style="--bs-bg-opacity: 0.5;" placeholder="Machine-1 .....">
+                    <input v-model="themachinename" @input="validateInput" type="text" class="form-control py-3 bg-body-secondary fs-6 ps-4 border-0" style="--bs-bg-opacity: 0.5;" placeholder="Machine-1">
                 </div>
                 <p v-if="MachineNameValidationError" class="mt-4 w-50 small text-danger">{{ lang('onlyenglishletters') }}</p>
             </div>

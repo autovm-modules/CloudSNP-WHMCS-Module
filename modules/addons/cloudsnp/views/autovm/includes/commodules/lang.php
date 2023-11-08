@@ -1,7 +1,3 @@
-<!-- Same as cloud -->
-<!-- include adrress is different -->
-
-<?php  include('config.php');   ?>
 <?php 
 
 // Defaul if hook does not not work

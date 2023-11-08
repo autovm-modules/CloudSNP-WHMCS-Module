@@ -661,13 +661,12 @@ app = createApp({
 
         changeLanguage(){
             newLang = this.PanelLanguage;
-            document.cookie = `temlangcookie=${newLang}`;
+            document.cookie = `temlangcookie=${newLang}; expires=${new Date(Date.now() + 365 * 86400000).toUTCString()}; path=/`;
             window.location.reload();
         },
 
         readLanguageFirstTime(){
             this.PanelLanguage = this.getCookieValue('temlangcookie');
-            console.log('lang = ' + this.PanelLanguage);
         },
 
         

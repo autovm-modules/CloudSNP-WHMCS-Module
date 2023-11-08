@@ -1,6 +1,6 @@
 <div class="dropdown m-0 p-0 ">
-    <span class="border-0 p-2 px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="--bs-bg-opacity: 1.0"><i class="bi bi-translate"></i>
-        <?php 
+<span class="border-0 p-2 px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="--bs-bg-opacity: 1.0"><i class="bi bi-translate"></i>
+    <?php 
         switch ($templatelang) {
             case "Farsi":
             echo "فارسی";
@@ -48,4 +48,3 @@
         </div>
     </div>
 </div>
-English, Farsi, Turkish, Russian, Deutsch, French

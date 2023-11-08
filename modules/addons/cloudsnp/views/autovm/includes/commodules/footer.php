@@ -8,19 +8,18 @@
             <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/vue.global.js"></script>
             
             
-
             <!-- Language file -->
-            <?php if ($templatelang == 'ru'): ?>
+            <?php if ($templatelang == 'Russian'): ?>
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/ru.js"></script>
-            <?php elseif ($templatelang == 'fr'): ?>
+            <?php elseif ($templatelang == 'French'): ?>
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/fr.js"></script>
-            <?php elseif ($templatelang == 'du'): ?>
+            <?php elseif ($templatelang == 'Deutsch'): ?>
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/du.js"></script>
-            <?php elseif ($templatelang == 'fa'): ?>
+            <?php elseif ($templatelang == 'Farsi'): ?>
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/fa.js"></script>
-            <?php elseif($templatelang == 'tr'): ?> 
+            <?php elseif($templatelang == 'Turkish'): ?> 
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/tr.js"></script>
-            <?php elseif($templatelang == 'en'): ?> 
+            <?php elseif($templatelang == 'English'): ?> 
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/defaulten.js"></script>
             <?php else: ?> 
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/defaulten.js"></script>
@@ -35,7 +34,7 @@
                         echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/createapp.js"></script>';
                         break;
                     case 'index':
-                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/indexapp7.js"></script>';
+                        echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/indexapp.js"></script>';
                         break;
                     case 'machine':
                         echo '<script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/machineapp.js"></script>';

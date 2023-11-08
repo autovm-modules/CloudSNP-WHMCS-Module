@@ -88,16 +88,16 @@ function cloudsnp_output($vars) {
     echo($text);
     
     
-    $BackendUrl = $vars['BackendUrl'];
-    $text = '<h5> Backend URL : ' . $BackendUrl . '</h5>';
-    echo($text);
+    // $BackendUrl = $vars['BackendUrl'];
+    // $text = '<h5> Backend URL : ' . $BackendUrl . '</h5>';
+    // echo($text);
     
-    $Token = $vars['ResellerToken'];
-    $text = '<h5> Admin Token : ' . $Token . '</h5>';
-    echo($text);
+    // $Token = $vars['ResellerToken'];
+    // $text = '<h5> Admin Token : ' . $Token . '</h5>';
+    // echo($text);
     
-    $lang = $vars['DefLang'];
-    $text = '<h5> Default Language : ' . $lang . '</h5>';
+    $DefLang = $vars['DefLang'];
+    $text = '<h5> Default Language : ' . $DefLang . '</h5>';
     echo($text);
     
 }
