@@ -181,7 +181,7 @@
                             <label class="form-check-label ms-3" :class="checkboxconfirmation ? '' : 'text-secondary'" for="checkboxconfirmation">
                                 {{ lang('confirmationtext') }}
                             </label>
-                            <a class="text-decoration-none text-primary ps-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <a class="text-decoration-none text-primary ps-2 collapsed" type="button" href="/modules/addons/cloudsnp/views/autovm/includes/commodules/rulles.php" target=”_blank”>
                                 {{ lang('readmore') }} 
                             </a>
                         </div>

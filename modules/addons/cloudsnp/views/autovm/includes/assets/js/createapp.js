@@ -648,6 +648,11 @@ createApp({
 
           
 
+        formatDescription(description) {
+            return description.replace(/\n/g, "<br />");
+        },
+
+          
         lang(name) {
 
             let output = name

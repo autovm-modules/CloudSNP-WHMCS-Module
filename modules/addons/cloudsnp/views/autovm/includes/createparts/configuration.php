@@ -4,8 +4,13 @@
         <!-- title -->
         <div class="row">
             <div class="m-0 p-0">
-                <span class="text-dark h3">
-                    {{ lang('configuration') }}
+                <span class="text-dark">
+                    <span class="h3">
+                        {{ lang('configuration') }}
+                    </span>
+                    <span v-if="planName != null" class="h4">
+                        "{{ planName }}"
+                    </span>
                 </span>
             </div>
             <div class="m-0 p-0 mt-3">
