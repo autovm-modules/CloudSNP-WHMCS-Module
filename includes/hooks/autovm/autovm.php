@@ -140,10 +140,3 @@ if ($admin) {
     $service = Service::find($serviceId);
 }
 
-// Handle AutoVM requests
-if ($service) {
-
-    $controller = new AVMController($service->id);
-
-    $controller->handle($action);
-}
