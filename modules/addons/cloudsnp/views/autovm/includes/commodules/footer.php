@@ -6,6 +6,7 @@
             <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lodash.min.js"></script>
             <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/axios.min.js"></script>
             <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/vue.global.js"></script>
+            <!-- <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/vue.global.prod.js"></script> -->
             
             
             <!-- Language file -->
