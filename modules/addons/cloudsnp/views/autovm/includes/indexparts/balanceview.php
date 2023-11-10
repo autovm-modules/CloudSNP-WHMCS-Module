@@ -14,7 +14,7 @@
                 <div class="">        
                     <span v-if="user.balance != null && CurrenciesRatioCloudToWhmcs != null && config.ActivateRatioFunc" class="text-primary fw-medium ps-2">
                         <span class="">
-                            {{ showBalanceCloudUnit(ConverFromAutoVmToWhmcs(user.balance)) }}
+                            {{ showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(user.balance)) }}
                         </span>
                         <span v-if="userCurrencySymbolFromWhmcs != null" class="px-1">
                             {{ userCurrencySymbolFromWhmcs }}
