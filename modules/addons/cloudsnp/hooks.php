@@ -18,6 +18,78 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
     );
 });
 
+function admin_create_user($BackendUrl, $ResellerToken, $client)
+{
+    $params = [
+        'name' => $client->fullName, 'email' => $client->email
+    ];
+
+    $address = [
+        $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'register'
+    ];
+
+    return Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
+}
+
+function admin_get_user_token_from_database($WhUserId)
+{
+    $params = ['userId' => $WhUserId];
+    $user = Capsule::selectOne('SELECT token FROM autovm_user WHERE user_id = :userId', $params);
+    return current($user);
+}
+
+function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
+{
+    try {
+        // Find client info
+        $client = Client::find($WhUserId);
+        if (empty($client)) {
+            echo('can not find client');
+            return false; // We dont need to log anything here
+        }
+
+        // Find token in database
+        $token = admin_get_user_token_from_database($WhUserId);
+
+        // Create user in AutoVM if there is no token in data base
+        if (empty($token)) {
+            $response = admin_create_user($BackendUrl, $ResellerToken, $client);
+
+            if (empty($response)) {
+                echo('can not connect to backend');
+                return false; // We dont need to log anything here
+            }
+
+            $message = property_exists($response, 'message');
+            if ($message) {
+                echo('error accured, Err: ');
+                echo($response->message);
+                return false; // We dont need to log anything here
+            }
+
+            // Save token
+            $user = $response->data;
+            $params = ['user_id' => $client->id, 'token' => $user->token];
+
+            $answer = Capsule::table('autovm_user')->insert($params);
+
+            if($answer){
+                return true;
+            } else {
+                echo('can not able to insert user token');
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+    } catch (\Exception $e) {
+        echo "handle user token failed : ";
+        echo($e);
+        return false;
+    }
+}
+
 
 add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     include ('adminsnpcontroller.php');
@@ -46,6 +118,17 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
         echo "Can not find module params table in database";
     }
     
+
+
+    
+    $response = admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId);
+
+    if(!$response){
+        echo('handle did not work');
+        return false;
+    }
+
+
     
     // find user token
     try {
