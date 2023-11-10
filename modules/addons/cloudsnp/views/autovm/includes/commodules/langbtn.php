@@ -25,6 +25,14 @@
             case "Russian":
             echo "Russian";
             break;
+            
+            case "Brizilian":
+            echo "Brizilian";
+            break;
+            
+            case "Italian":
+            echo "Italian";
+            break;
 
             default:
             echo "!!!";
@@ -41,6 +49,8 @@
                 <option value="French" <?php if( $templatelang == 'French'){echo 'selected';} ?>> Français </option>
                 <option value="Deutsch" <?php if( $templatelang == 'Deutsch'){echo 'selected';} ?>> Deutsch </option>
                 <option value="Russian" <?php if( $templatelang == 'Russian'){echo 'selected';} ?>> Pусский </option>
+                <option value="Brizilian" <?php if( $templatelang == 'Brizilian'){echo 'selected';} ?>> Brizilian </option>
+                <option value="Italian" <?php if( $templatelang == 'Italian'){echo 'selected';} ?>> Italian </option>
             </select>
             <input type="hidden" name="thisid" value="<?php echo $_GET['id'] ?? ''; ?>">
 

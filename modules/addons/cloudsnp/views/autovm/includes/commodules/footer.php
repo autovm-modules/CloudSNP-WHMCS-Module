@@ -20,6 +20,10 @@
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/fa.js"></script>
             <?php elseif($templatelang == 'Turkish'): ?> 
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/tr.js"></script>
+            <?php elseif($templatelang == 'Brizilian'): ?> 
+                <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/br.js"></script>
+            <?php elseif($templatelang == 'Italian'): ?> 
+                <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/it.js"></script>
             <?php elseif($templatelang == 'English'): ?> 
                 <script src="/modules/addons/cloudsnp/views/autovm/includes/assets/js/lang/defaulten.js"></script>
             <?php else: ?> 

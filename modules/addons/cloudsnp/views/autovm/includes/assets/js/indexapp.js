@@ -660,7 +660,7 @@ app = createApp({
         },
 
         changeLanguage(){
-            newLang = this.PanelLanguage;
+            let newLang = this.PanelLanguage;
             document.cookie = `temlangcookie=${newLang}; expires=${new Date(Date.now() + 365 * 86400000).toUTCString()}; path=/`;
             window.location.reload();
         },
