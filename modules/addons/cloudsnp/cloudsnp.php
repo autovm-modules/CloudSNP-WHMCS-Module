@@ -15,7 +15,7 @@ function cloudsnp_config()
         "fields" => array(
             "BackendUrl" => array ("FriendlyName" => "Backend Url", "Type" => "text", "Size" => "45", "Description" => "insert backedn Url with http", "Default" => "http://backend.autovm.online"),
             "ResellerToken" => array ("FriendlyName" => "Admin Token", "Type" => "text", "Size" => "25", "Description" => "you should insert your token here", "Default" => ""),
-            "DefLang" => array ("FriendlyName" => "Default Language", "Type" => "dropdown", "Options" => "English, Farsi, Turkish, Russian, Deutsch, French", "Description" => "Select a language as default language for admin and users panel", "Default" => "en",),
+            "DefLang" => array ("FriendlyName" => "Default Language", "Type" => "dropdown", "Options" => "English, Farsi, Turkish, Russian, Deutsch, French, Brizilian, Italian", "Description" => "Select a language as default language for admin and users panel", "Default" => "English"),
         ));
         return $configarray;
 
