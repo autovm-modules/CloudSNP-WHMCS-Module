@@ -4,6 +4,8 @@ Use Whmcs as CRM for AUTOVM under Reseller user plan.
 Reseller User can sell their plans under one AUTOVM licence.
 <br><br>
 
+<p dir="auto">AutoVM Module For WHMCS
+This repo containes all needed code to work with AutoVM from WHMCS. Almost six modules are developing in this repo, all modules are copatible with WHMCS 8.0. For more information to know how to use this modules please look at our document here (<a href="https://autovm.net/docs/1-deploy-autovm/" rel="nofollow">https://autovm.net/docs/1-deploy-autovm/</a>)</p>
 
 
 <div>
