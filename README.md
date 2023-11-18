@@ -5,11 +5,11 @@ Reseller User can sell their plans under one AUTOVM licence.
 <br><br>
 
 <p dir="auto">AutoVM Module For WHMCS
-This repo containes all needed code to work with AutoVM from WHMCS. Almost six modules are developing in this repo, all modules are copatible with WHMCS 8.0. For more information to know how to use this modules please look at our document here (<a href="https://autovm.net/docs/1-deploy-autovm/" rel="nofollow">https://autovm.net/docs/1-deploy-autovm/</a>)</p>
+This repo containes all needed code to work with AutoVM from WHMCS. Almost six modules are developing for AutoVM, all modules are compatible with WHMCS 8.0 Or WiseCP. For more information to know how to use this modules please look at our document here  (<a href="https://autovm.net/docs/1-deploy-autovm/" rel="nofollow">https://autovm.net/docs/1-deploy-autovm/</a>)</p>
 
 
 <div>
-    <noscript><img src="https://autovm.net/wp-content/themes/autovm-theme/assets/images/png/feature-tour/whmcs_client.png" class="col-12 shadow-lg rounded-5" style="object-fit: cover; max-width: 70% !important;" alt=""></noscript>
+    <noscript><img src="https://autovm.net/wp-content/themes/autovm-theme/assets/images/png/feature-tour/whmcs_client.png" class="col-12 shadow-lg rounded mt-5" style="object-fit: cover; max-width: 70% !important;" alt=""></noscript>
 </div>
 <br><br>
 <p style="padding: 50px 30px;" class="text-muted py-5 fs-5">

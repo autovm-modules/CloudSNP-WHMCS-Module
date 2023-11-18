@@ -17,24 +17,17 @@ class AdminSnpController
 
     public function admin_getUseIdByToken(){
         $userToken = $this->userToken;
-        
-
-        $ResellerToken = $this->ResellerToken;
-        $headers = ['token' => $ResellerToken];
-        
 
         $params = [
             'token' => $userToken,
         ];
         
-
         $BackendUrl = $this->BackendUrl;
         $address = [
             $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
         
-
-        $response = Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
+        $response = Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
         return $response->data->id;
     }
 
@@ -43,21 +36,20 @@ class AdminSnpController
         $this->response($response);
     }
         
-    public function admin_sendShowUserRequest(){
-        $AutovmUserId = $this->admin_getUseIdByToken();
+    public function admin_sendShowUserRequest(){        
+        $userToken = $this->userToken;
+
+        $params = [
+            'token' => $userToken,
+        ];
         
-
-        $ResellerToken = $this->ResellerToken;
-        $headers = ['token' => $ResellerToken];
-
-
         $BackendUrl = $this->BackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'backend', 'user', 'show', $AutovmUserId
+            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
-
-
-        return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
+        
+        $response = Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
+        return $response;
     }
     
     public function admin_chargeCloud(){        

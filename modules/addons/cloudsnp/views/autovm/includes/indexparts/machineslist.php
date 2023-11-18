@@ -23,7 +23,7 @@
         
         <!-- show activ Machines -->
         <div v-if="machinsLoaded && !userHasNoMachine" >
-            <table class="table table-borderless pb-5 mb-5" style="--bs-table-bg: #ff000000;">
+            <table v-if="!isEmpty(activeMachines)" class="table table-borderless pb-5 mb-5" style="--bs-table-bg: #ff000000;">
                 <thead>
                     <tr class="border-bottom" style="--bs-border-width: 2px !important; --bs-border-color: #e1e1e1 !important;">
                         <th scope="col" class="fw-light fs-5 text-secondary pb-3">{{ lang('address') }}</th>
@@ -33,7 +33,6 @@
                         <th scope="col" class="fw-light fs-5 text-secondary pb-3 d-none d-md-block">{{ lang('statusontable') }}</th>
                     </tr>
                 </thead>
-                
                 <tbody v-for="machine in activeMachines">
                 
                     <tr class="border-bottom align-middle" style="--bs-border-width: 1px !important; --bs-border-color: #e1e1e1 !important;">
@@ -114,6 +113,11 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="" v-else>
+            <p class="fs-5 ps-3 text-danger">
+                {{ lang('noactivemachine') }} 
+            </p>
+            </div>
         </div>
 
         

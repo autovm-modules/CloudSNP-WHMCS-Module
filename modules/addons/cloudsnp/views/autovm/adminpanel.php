@@ -143,7 +143,10 @@
                                             </a>
                                         </div>
                                         <div class="row d-flex flex-row justify-content-start align-items-center">
-                                            <div v-if="AdminClickOnTrans && AdminTransSuccess == null" class="pt-5">
+                                            <div v-if="AdminClickOnTrans && AdminTransSuccess == null" class="py-2 mt-5 alert alert-primary">
+                                                <span class="text-primary pe-2 fw-medium">
+                                                    {{ lang('pleasedontreload') }}
+                                                </span>
                                                 <span class="text-primary">
                                                     <?php include('./includes/commodules/threespinner.php'); ?>
                                                 </span>

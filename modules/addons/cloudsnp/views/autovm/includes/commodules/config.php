@@ -10,6 +10,6 @@ $CloudTopupLink = "/clientarea.php?action=addfunds";
 /* Charge Module Enable */
 /* Set 1 to enable charge Module or 0 zero to disable it */
 $DefaultChargeModuleEnable = true;
-$DefaultChargeModuleDetailsViews = true;
+$DefaultChargeModuleDetailsViews = false;
 
 ?>
