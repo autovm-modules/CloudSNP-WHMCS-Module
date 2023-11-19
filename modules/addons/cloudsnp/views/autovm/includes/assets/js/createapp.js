@@ -50,6 +50,8 @@ createApp({
             RangeValueCpuCoreString: 1,
             RangeValueDiskString: 20,
 
+            RangeValueOverallString: 1,
+
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
 
@@ -142,6 +144,10 @@ createApp({
         RangeValueCpuLimit(){
             return parseFloat(this.RangeValueCpuCore)
         },
+        
+        RangeValueOverall(){
+            return parseFloat(this.RangeValueOverallString)
+        },
 
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
@@ -218,10 +224,30 @@ createApp({
         regionId() {
             this.loadPlans()
         },
+        
+        RangeValueOverall() {
+            let percentage = this.RangeValueOverall
+
+            if(percentage == 1){
+                this.RangeValueMemoryString = this.config.planConfig.Memory.min
+                this.RangeValueDiskString = this.config.planConfig.Disk.min
+                this.RangeValueCpuCoreString = this.config.planConfig.CpuCore.min
+            } else {
+                this.RangeValueMemoryString = this.normallizeRangeValues(percentage, this.config.planConfig.Memory.min, this.planMaxMemorySize, this.config.planConfig.Memory.step)
+                this.RangeValueDiskString = this.normallizeRangeValues(percentage, this.config.planConfig.Disk.min, this.planMaxDiskSize, this.config.planConfig.Disk.step)
+                this.RangeValueCpuCoreString = this.normallizeRangeValues(percentage, this.config.planConfig.CpuCore.min, this.planMaxCpuCore, this.config.planConfig.CpuCore.step)
+            }
+
+        },
     },
 
     methods: {
-        
+
+        normallizeRangeValues(percentage, min, max, step){
+            let value = Math.ceil(percentage / 100 * (max - min) / step) * step + min
+            return value.toString()
+        },
+
         formatNumbers(number, decimal) {
             const formatter = new Intl.NumberFormat('en-US', {
                 style: 'decimal',

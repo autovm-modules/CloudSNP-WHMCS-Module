@@ -32,53 +32,65 @@
 
         <div v-if="planIsSelected" class="m-0 p-0">
 
-            <!-- Memory -->
+            <!-- Overall -->
             <div class="row">
+                <div class="d-flex flex-row justify-content-end align-items-center m-0 p-0 mt-5 mb-4">
+                    <div class="">
+                        <span class="">
+                            <span class="btn btn-secondary py-2" v-if="RangeValueOverallString < 15">Basic Configuration</span>
+                            <span class="btn btn-success py-2" v-if="RangeValueOverallString > 14 && RangeValueOverallString < 25">Officers Configuration</span>
+                            <span class="btn btn-info py-2" v-if="RangeValueOverallString > 24 && RangeValueOverallString < 50">Developers Configuration</span>
+                            <span class="btn btn-warning py-2" v-if="RangeValueOverallString > 49 && RangeValueOverallString < 75">Engineers Configuration</span>
+                            <span class="btn btn-primary py-2" v-if="RangeValueOverallString > 74">Advance Configuration</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 mt-3">
+                    <input v-model="RangeValueOverallString" type="range" class="form-range" min=1 max=100 step=1 id="totalvalue">
+                </div>
+            </div>
+
+
+
+            <!-- Memory -->
+            <div class="row mt-5 pt-5">
                 <!-- small -->
                 <div class="d-block d-lg-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 120px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('memory') }}
                             </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('GB') }})
-                            </span>
                         </span>
                     </div>
                 </div>
                 <!-- medium -->
-                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
+                <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-4">
                     <div class=" d-none d-lg-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 120px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 me-2 h6">
                                 {{ lang('memory') }}
                             </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('GB') }})
-                            </span>
                         </span>
                     </div>
-                    <input v-model="RangeValueMemoryString" type="range" class="form-range" :min="config.planConfig.Memory.min" :max="planMaxMemorySize" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
-                    <input v-model="RangeValueMemoryString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Memory.min" :max="planMaxMemorySize" :step="config.planConfig.Memory.step" id="MemoryPriceRange">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="Memory" :aria-valuenow="RangeValueMemoryString" aria-valuemin="config.planConfig.Memory.min" :aria-valuemax="planMaxMemorySize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                        <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
+                        <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
+                    </div>
                 </div>
             </div>
-
 
             <!-- CpuCore -->
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-lg-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 120px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('cpu') }}
-                            </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('core') }})
                             </span>
                         </span>
                     </div>
@@ -86,18 +98,17 @@
                 <!-- medium -->
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-lg-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 120px !important;">
                             <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 me-2 h6">
                                 {{ lang('cpu') }}
                             </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('core') }})
-                            </span>
                         </span>
                     </div>
-                    <input v-model="RangeValueCpuCoreString" type="range" class="form-range" :min="config.planConfig.CpuCore.min" :max="planMaxCpuCore" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
-                    <input v-model="RangeValueCpuCoreString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.CpuCore.min" :max="planMaxCpuCore" :step="config.planConfig.CpuCore.step" id="CpuCorePriceRange">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="config.planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
+                        <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueCpuCoreString }} GHz, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
+                        <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueCpuCoreString }} GHz, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
+                    </div>
                 </div>
             </div>
 
@@ -105,14 +116,11 @@
             <div class="row">
                 <!-- small -->
                 <div class="d-block d-lg-none m-0 p-0">
-                    <div class="col-12 mt-3 mb-3" style="width: 150px !important;">
+                    <div class="col-12 mt-3 mb-3" style="width: 120px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
                             <i class="bi bi-device-hdd bi bi-hdd-network text-secondary p-0 m-0 h6"></i>
                             <span class="p-0 m-0 ms-2 me-2 h6">
                                 {{ lang('disk') }}
-                            </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('GB') }})
                             </span>
                         </span>
                     </div>
@@ -120,18 +128,17 @@
                 <!-- medium -->
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-lg-block">
-                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 150px !important;">
+                        <span class="d-flex flex-row justify-content-start align-items-center" style="width: 120px !important;">
                             <i class="bi bi-device-hdd text-secondary p-0 m-0 pe-3 h4"></i>
                             <span class="p-0 m-0 me-2 h6">
                                 {{ lang('disk') }}
                             </span>
-                            <span class="p-0 m-0 me-2 h6">
-                                ({{ lang('GB') }})
-                            </span>
                         </span>
                     </div>
-                    <input v-model="RangeValueDiskString" type="range" class="form-range" :min="config.planConfig.Disk.min" :max="planMaxDiskSize" :step="config.planConfig.Disk.step" id="DiskPriceRange">
-                    <input v-model="RangeValueDiskString" type="text" class="form-control ms-3 text-center m-0 p-0 py-1" style="width: 60px;" :min="config.planConfig.Disk.min" :max="planMaxDiskSize" :step="config.planConfig.Disk.step" id="DiskPriceRange">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="DiskPriceRange" :aria-valuenow="RangeValueDiskString" aria-valuemin="config.planConfig.Disk.min" :aria-valuemax="planMaxDiskSize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                        <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
+                        <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
+                    </div>
                 </div>
             </div>
         </div>
