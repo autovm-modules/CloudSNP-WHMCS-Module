@@ -12,6 +12,7 @@ let common = {
         
     // from product
         "backtoservices" : "بازگشت به خدمات",
+        "ghz" : "گیگاهرتز",
         "mb" : "مگابایت",
         "gb" : "گیگابایت",
         "core" : "هسته",
@@ -306,6 +307,12 @@ let common = {
     "confirmationtext" : "قوانین را مطالعه کرده و با شرایط و قوانین  استفاده از شبکه جهانی ابری موافقت می‌کنم",
     "optional" : "اختیاری",
     "readmore" : "مطالعه بیشتر ...",
+
+    "nanoconfiguration" : "پیکره‌بندی نانو",
+    "basicconfiguration" : "پیکره‌بندی پایه",
+    "standardconfiguration" : "پیکره‌بندی استاندارد",
+    "advancedconfiguration" : "پیکره‌بندی پیشرفته",
+    "enterpriseconfiguration" : "پیکره‌بندی اینترپرایز",
 // create machine page
 
     

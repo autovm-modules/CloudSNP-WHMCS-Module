@@ -653,7 +653,6 @@ class CloudSnpController
     public function sendChargeCloudRequest($token, $userId, $amount, $invoiceid)
     {
         $params = [
-            'userId' => $userId,
             'amount' => $amount,
             'type' => 'balance',
             'invoiceid' => $invoiceid,
@@ -664,7 +663,7 @@ class CloudSnpController
         $BackendUrl = $this->BackendUrl;
 
         $address = [
-            $BackendUrl, 'candy', 'backend', 'trans', 'create'
+            $BackendUrl, 'admin', 'reseller', 'user', 'balance', $userId
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();

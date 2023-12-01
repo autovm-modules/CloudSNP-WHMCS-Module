@@ -10,22 +10,22 @@ app = createApp({
                 minimumChargeInAutovmCurrency: 2,
                 ActivateRatioFunc: true,
 
-                DefaultBalanceDecimalWhmcs: 0,
-                DefaultBalanceDecimalCloud: 0,
+                DefaultBalanceDecimalWhmcs: 2,
+                DefaultBalanceDecimalCloud: 2,
                 
 
-                DefaultChargeAmountDecimalWhmcs: 0,
-                DefaultChargeAmountDecimalCloud: 0,
+                DefaultChargeAmountDecimalWhmcs: 2,
+                DefaultChargeAmountDecimalCloud: 2,
                 
                 
-                DefaultCreditDecimalWhmcs: 0,
-                DefaultCreditDecimalCloud: 0,
+                DefaultCreditDecimalWhmcs: 2,
+                DefaultCreditDecimalCloud: 2,
                 
-                DefaultMinimumDecimalWhmcs: 0,
-                DefaultMinimumDecimalCloud: 0,
+                DefaultMinimumDecimalWhmcs: 2,
+                DefaultMinimumDecimalCloud: 2,
                 
                 
-                DefaultRatioDecimalCloud: 0,
+                DefaultRatioDecimalCloud: 2,
 
             },
             PanelLanguage: null,

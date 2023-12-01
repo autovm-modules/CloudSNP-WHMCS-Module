@@ -46,8 +46,8 @@
             </div>
 
             <div v-if="plansLength > 0" v-for="plan in plans" class="col-12 col-md-6 col-lg-4 col-xl-3 m-0 p-0 mb-5 px-1" >
-                <div class="border rounded-4 bg-white shadow-sm" :class="{ 'shadow-lg border-primary': isPlan(plan) }" @click="selectPlan(plan)">
-                    <div class="bg-primary rounded-top-4 py-4 px-5 px-md-3 px-xl-4 text-light" style="--bs-bg-opacity: 0.9;">
+                <div class="border rounded-4 bg-white shadow-sm" :class="{ 'shadow-lg border-secondary border-2 ': isPlan(plan) }" @click="selectPlan(plan)">
+                    <div class="bg-body-secondary rounded-top-4 py-4 px-5 px-md-3 px-xl-4" style="--bs-bg-opacity: 0.5;">
                         <div class="p-0 m-0">
                             <div class="d-flex flex-row justify-content-center">
                                 <div class="">
@@ -85,8 +85,8 @@
                             <!-- End MemDescriptionory -->
                             <hr>
                             <!-- Plan start from  -->
-                            <div v-if="planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice) != null && userCurrencySymbolFromWhmcs != null" class="d-flex flex-row justify-content-center py-2 btn bg-primary text-primary" style="--bs-bg-opacity: 0.3;">
-                                <div class="d-flex flex-row justify-content-center text-primary">
+                            <div v-if="planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice) != null && userCurrencySymbolFromWhmcs != null" class="d-flex flex-row justify-content-center py-2 btn bg-secondary" style="--bs-bg-opacity: 0.1;">
+                                <div class="d-flex flex-row justify-content-center">
                                     <span class="fs-6 fw-medium me-2">
                                     {{ lang('pricestartsfrom') }}
                                     </span>

@@ -19,7 +19,7 @@
             <div v-if="regionsAreLoaded && regionsLength > 0" v-for="region in regions" class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
                 <div class="d-flex flex-column align-items-center border rounded-5 bg-light shadow-sm py-4 mx-1 px-2" 
                 style="max-width: 165px !important; --bs-bg-opacity: 0.5 !important;"
-                :class="{ 'shadow-lg border border-primary': isRegion(region) }" 
+                :class="{ 'shadow-lg border border-2 border-secondary': isRegion(region) }" 
                 @click="selectRegion(region)">
                     <div class="d-flex flex-row justify-content-center" style="width: 50px !important; height: 50px !important">
                         <img :src="region.icon.address" class="m-0 p-0" style="width: 50px !important; height: 50px !important">

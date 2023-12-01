@@ -69,7 +69,6 @@ class AdminSnpController
         $AutovmUserId = $this->admin_getUseIdByToken();
         
         $params = [
-            'userId' => $AutovmUserId,
             'amount' => $chargeamount,
             'type' => 'balance',
             'status' => 'paid'
@@ -80,7 +79,7 @@ class AdminSnpController
         
         $BackendUrl = $this->BackendUrl;
         $address = [
-            $BackendUrl , 'candy', 'backend', 'trans', 'create'
+            $BackendUrl , 'admin', 'reseller', 'user', 'balance', $AutovmUserId
         ];
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
     }
