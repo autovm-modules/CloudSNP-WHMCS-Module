@@ -31,17 +31,26 @@
         </div>
 
         <div v-if="planIsSelected" class="m-0 p-0">
-
             <!-- Overall -->
             <div class="row">
                 <div class="d-flex flex-row justify-content-end align-items-center m-0 p-0 mt-5 mb-4">
                     <div class="">
                         <span class="">
-                            <span class="btn btn-secondary py-2" v-if="RangeValueOverallString < 15">Basic Configuration</span>
-                            <span class="btn btn-success py-2" v-if="RangeValueOverallString > 14 && RangeValueOverallString < 25">Officers Configuration</span>
-                            <span class="btn btn-info py-2" v-if="RangeValueOverallString > 24 && RangeValueOverallString < 50">Developers Configuration</span>
-                            <span class="btn btn-warning py-2" v-if="RangeValueOverallString > 49 && RangeValueOverallString < 75">Engineers Configuration</span>
-                            <span class="btn btn-primary py-2" v-if="RangeValueOverallString > 74">Advance Configuration</span>
+                            <span class="btn btn-secondary py-2" v-if="RangeValueOverallString < 20">
+                                {{ lang('nanoconfiguration') }}
+                            </span>
+                            <span class="btn btn-success py-2" v-if="RangeValueOverallString > 19 && RangeValueOverallString < 40">
+                                {{ lang('basicconfiguration') }}
+                            </span>
+                            <span class="btn btn-info py-2" v-if="RangeValueOverallString > 39 && RangeValueOverallString < 60">
+                                {{ lang('standardconfiguration') }}
+                            </span>
+                            <span class="btn btn-warning py-2" v-if="RangeValueOverallString > 59 && RangeValueOverallString < 80">
+                                {{ lang('advancedconfiguration') }}
+                            </span>
+                            <span class="btn btn-primary py-2" v-if="RangeValueOverallString > 79">
+                                {{ lang('enterpriseconfiguration') }}
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -106,8 +115,8 @@
                         </span>
                     </div>
                     <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="config.planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
-                        <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueCpuCoreString }} GHz, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
-                        <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueCpuCoreString }} GHz, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
+                        <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
+                        <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
                     </div>
                 </div>
             </div>

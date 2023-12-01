@@ -12,6 +12,7 @@ let common = {
         
         // from product
         "backtoservices": "Torna ai Servizi",
+        "ghz" : "GHz",
         "mb": "MB",
         "gb": "GB",
         "core": "Core",
@@ -307,6 +308,12 @@ let common = {
     "confirmationtext": "Confermo il mio accordo con tutti i termini e le regole per utilizzare la rete cloud globale.",
     "optional": "Opzionale",
     "readmore": "Leggi Altro ...",
+
+    "nanoconfiguration" : "Nano Configuration",
+    "basicconfiguration" : "Basic Configuration",
+    "standardconfiguration" : "Standard Configuration",
+    "advancedconfiguration" : "Advanced Configuration",
+    "enterpriseconfiguration" : "Enterprise Configuration",
 // create machine page
 
 }

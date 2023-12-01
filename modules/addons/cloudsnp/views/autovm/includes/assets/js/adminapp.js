@@ -7,7 +7,7 @@ app = createApp({
             PanelLanguage: null,
             config: {
                 adminUrl: '/admin/clientssummary.php',
-                decimals: 0,
+                decimals: 2,
                 AutovmCurrency: 'USD',
                 AutovmCurrencyId: 1,
             },

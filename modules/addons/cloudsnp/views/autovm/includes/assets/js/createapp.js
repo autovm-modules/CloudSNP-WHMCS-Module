@@ -9,9 +9,9 @@ createApp({
             config: {
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'َUSD',
-                DefaultMonthlyDecimalForAutoVM: 0,
-                DefaultMonthlyDecimalForWH: 0,
-                DefaultHourlyDecimalForWH: 0,
+                DefaultMonthlyDecimalForAutoVM: 2,
+                DefaultMonthlyDecimalForWH: 2,
+                DefaultHourlyDecimalForWH: 2,
 
                 planConfig: {
                     Memory:{

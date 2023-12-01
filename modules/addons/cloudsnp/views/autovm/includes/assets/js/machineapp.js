@@ -8,11 +8,12 @@ app = createApp({
                 AutovmDefaultCurrencyID: 1,
                 AutovmDefaultCurrencySymbol: 'USD',
                 
-                DefaultBalanceDecimal: 0,
-                DefaultMonthlyDecimalForAutoVM: 0,
-                DefaultMonthlyDecimalForWH: 0,
-                DefaultHourlyDecimalForWH: 0,
+                DefaultBalanceDecimal: 2,
+                DefaultMonthlyDecimalForAutoVM: 2,
+                DefaultMonthlyDecimalForWH: 2,
+                DefaultHourlyDecimalForWH: 2,
             },
+            
             PanelLanguage: null,
             isVisibe: true,
             WhmcsCurrencies: null,
