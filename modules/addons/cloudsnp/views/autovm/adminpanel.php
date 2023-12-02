@@ -1,16 +1,13 @@
-<?php  include('./includes/commodules/lang.php');     ?>
-<?php  include('./includes/commodules/config.php');   ?>
-<?php  include('./includes/commodules/currency.php'); ?>
-<?php  include('./includes/commodules/header.php');   ?>
+<?php  include_once('./includes/commodules/header.php');   ?>
 
 <body class="container-fluid m-0 p-0" style="background-color: #ff000000 !important;">
 
-<div class="row">
+<div class="row py-5" >
     <div class="adminapp col-12">
-        <div class="p-3 p-md-4 p-lg-5" v-cloak>
+        <div class="bg-body-secondary rounded-4 border border-2 border-body-secondary p-3 p-md-4 p-lg-5" v-cloak>
             <div class="accordion" id="accordionExample">
                 <a class="h5 text-primary text-decoration-none px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    {{ lang('clicktoseeadmin') }}
+                    Click to see User account on Cloud
                     <i class="h5 ps-3 bi bi-chevron-bar-down"></i>
                 </a>
                 <div id="collapseOne" class="accordion-collapse collapse mt-4" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
@@ -56,26 +53,29 @@
                                             <span class="input-group-text text-start bg-body-secondary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 130px;">
                                                 {{ lang('accountcredit') }}
                                             </span>
-                                            <input class="form-control bg-light text-start" :value="userCreditinWhmcs" style="max-width: 250px;" disabled>
+                                            <input class="form-control bg-light text-start" :value="showCreditWhmcsUnit(userCreditinWhmcs)" style="max-width: 250px;" disabled>
+                                            <input class="form-control bg-body-secondary text-start" :placeholder="userCurrencySymbolFromWhmcs" style="max-width: 100px;" disabled>
+                                        </div>
+                                        <div v-if="userCreditinWhmcs != null && CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="input-group my-2">
+                                            <span class="input-group-text text-start bg-body-secondary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 130px;">
+                                                {{ lang('accountcredit') }}
+                                            </span>
+                                            <input class="form-control bg-light text-start" :value="showCreditCloudUnit(ConverFromWhmcsToCloud(userCreditinWhmcs))" style="max-width: 250px;" disabled>
+                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmDefaultCurrencySymbol" style="max-width: 100px;" disabled>
+                                        </div>
+                                        <div v-if="userBalance != null && CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" class="input-group my-2">
+                                            <span class="input-group-text text-start bg-body-secondary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 130px;">
+                                                {{ lang('cloudbalance') }}
+                                            </span>
+                                            <input class="form-control bg-light text-start" :value="showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(userBalance))" style="max-width: 250px;" disabled>
                                             <input class="form-control bg-body-secondary text-start" :placeholder="userCurrencySymbolFromWhmcs" style="max-width: 100px;" disabled>
                                         </div>
                                         <div v-if="userBalance != null" class="input-group my-2">
                                             <span class="input-group-text text-start bg-body-secondary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 130px;">
                                                 {{ lang('cloudbalance') }}
                                             </span>
-                                            <input class="form-control bg-light text-start" :value="userBalance" style="max-width: 250px;" disabled>
-                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmCurrency" style="max-width: 100px;" disabled>
-                                        </div>
-                                        <div class="text-primary" v-if="userBalance != null && CurrenciesRatioCloudToWhmcs != null && CurrenciesRatioCloudToWhmcs != 1" style="margin: 10px 10px 10px 130px">
-                                            <span>
-                                                <span class="px-2">≈</span>
-                                                <span>
-                                                    {{ ConverFromAutoVmToWhmcs(userBalance).toLocaleString() }} 
-                                                </span>
-                                                <span class="px-2">
-                                                    {{ userCurrencySymbolFromWhmcs }}
-                                                </span>
-                                            </span>
+                                            <input class="form-control bg-light text-start" :value="showBalanceCloudUnit(userBalance)" style="max-width: 250px;" disabled>
+                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmDefaultCurrencySymbol" style="max-width: 100px;" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -96,13 +96,13 @@
                                     <div v-if="userLoadStatus == 'fine'" class="col-12 lh-sm">
                                         <div v-if="userBalance != null" class="input-group my-2">
                                             <span class="input-group-text text-start bg-body-secondary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 200px;">{{ lang('currentbalanceautovm') }}</span>
-                                            <input class="form-control bg-light text-start" :placeholder="userBalance" style="min-width: 180px;" disabled>
-                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmCurrency" style="max-width: 100px;" disabled>
+                                            <input class="form-control bg-light text-start" :placeholder="showBalanceCloudUnit(userBalance)" style="min-width: 180px;" disabled>
+                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmDefaultCurrencySymbol" style="max-width: 100px;" disabled>
                                         </div> 
                                         <div v-if="userBalance != null" class="input-group my-2">
                                             <span class="input-group-text text-start bg-primary text-dark p-0 m-0 px-3" style="--bs-bg-opacity: 0.3; width: 200px;">{{ lang('addorremove') }}</span>
                                             <input v-model="chargeAmountAdminInput" class="form-control bg-light text-start" type="number" aria-label="clientbalance" aria-describedby="clientbalance" style="min-width: 180px;" placeholder="±99">
-                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmCurrency" style="max-width: 100px;" disabled>
+                                            <input class="form-control bg-body-secondary text-start" :placeholder="config.AutovmDefaultCurrencySymbol" style="max-width: 100px;" disabled>
                                         </div>
                                         <div class="row mb-4 ps-2">
                                             <div class="col-12">
@@ -116,7 +116,7 @@
                                             <span v-if="chargeAmountAdminInput" class="text-primary">
                                                 <span class="px-2">≈</span>
                                                 <span>
-                                                    {{ ConverFromAutoVmToWhmcs(chargeAmountAdminInput).toLocaleString() }}
+                                                    {{ showChargeAmountWhmcsUnit(ConverFromAutoVmToWhmcs(chargeAmountAdminInput)) }}
                                                 </span>
                                                 <span class="px-2">
                                                     {{ userCurrencySymbolFromWhmcs }}
@@ -131,24 +131,21 @@
                                                 <span>
                                                     {{ lang('increase') }}
                                                 </span>
-                                                <span class="px-1">( {{ chargeAmountAdminInput }}</span>
-                                                <span class="px-1">{{ config.AutovmCurrency }} )</span>
+                                                <span class="px-1">( {{ showChargeAmountCloudUnit(chargeAmountAdminInput) }}</span>
+                                                <span class="px-1">{{ config.AutovmDefaultCurrencySymbol }} )</span>
                                             </a>
                                             <a v-else-if="chargeAmountAdminInputisvalide && chargeAmountAdminInput < 0" @click="chargeCloudAdmin" class="btn btn-danger">
                                                 <span>
                                                     {{ lang('decrease') }}
                                                 </span>
-                                                <span class="px-1">( {{ chargeAmountAdminInput }}</span>
-                                                <span class="px-1">{{ config.AutovmCurrency }} )</span>
+                                                <span class="px-1">( {{ showChargeAmountCloudUnit(chargeAmountAdminInput) }}</span>
+                                                <span class="px-1">{{ config.AutovmDefaultCurrencySymbol }} )</span>
                                             </a>
                                         </div>
                                         <div class="row d-flex flex-row justify-content-start align-items-center">
-                                            <div v-if="AdminClickOnTrans && AdminTransSuccess == null" class="py-2 mt-5 alert alert-primary">
-                                                <span class="text-primary pe-2 fw-medium">
-                                                    {{ lang('pleasedontreload') }}
-                                                </span>
+                                            <div v-if="AdminClickOnTrans && AdminTransSuccess == null" class="pt-5">
                                                 <span class="text-primary">
-                                                    <?php include('./includes/commodules/threespinner.php'); ?>
+                                                    <?php include_once('./includes/commodules/threespinner.php'); ?>
                                                 </span>
                                             </div>
                                             <div v-if="AdminTransSuccess != null" class="pt-5">
@@ -188,7 +185,7 @@
                             {{ lang('loadingmsg') }}
                         </div>
                         <div class="m-0 p-0 ps-2">
-                            <?php include('./includes/commodules/threespinner.php'); ?>
+                            <?php include_once('./includes/commodules/threespinner.php'); ?>
                         </div>
                     </div>
                 </div>
@@ -197,4 +194,4 @@
     </div>
 </div>
 
-<?php include('./includes/commodules/footer.php'); ?>
+<?php include_once('./includes/commodules/footer.php'); ?>

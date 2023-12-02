@@ -1,3 +1,5 @@
+<?php  include('./includes/commodules/config.php');   ?>
+<?php  include('./includes/commodules/lang.php');   ?>
 
 <!doctype html>    
     <html lang="<?php echo($templatelang) ?>" <?php if($templatelang == 'Farsi'){ echo("dir='rtl'"); } ?> style="font-size: 0.8em !important; background-color: #ff000000" !important;>
