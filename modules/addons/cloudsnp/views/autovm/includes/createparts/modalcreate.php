@@ -141,6 +141,7 @@
                                     <p class="alert alert-danger text-center py-2 mt-5">
                                         {{ lang('balanceisnotenough') }}
                                     </p>
+                                    <a class="btn btn-danger float-end" href="/index.php?m=cloudsnp&action=pageIndex">{{ lang('movebalance') }}</a>
                                 </div>
                             </div>
 
@@ -214,7 +215,7 @@
                     <span class="text-dark fw-medium me-2">{{ lang('balance') }} : </span>
                     <span v-if="user.balance" class="text-primary fw-medium">
                         <span v-if="CurrenciesRatioCloudToWhmcs != null">
-                            {{ ConverFromAutoVmToWhmcs(user.balance) }} {{ userCurrencySymbolFromWhmcs }}
+                            {{ showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(user.balance)) }} {{ userCurrencySymbolFromWhmcs }}
                         </span>
                         <span v-else>
                             <?php include('./includes/commodules/threespinner.php'); ?>

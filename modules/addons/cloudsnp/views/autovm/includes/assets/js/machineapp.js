@@ -11,9 +11,9 @@ app = createApp({
             isVisibe: true,
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
-
             userCurrencyIdFromWhmcs: null,
-            
+
+            AddressCopied:false,
             detailIsLoaded: false,
             templateId: null,
             softwareId: null,
@@ -158,7 +158,7 @@ app = createApp({
             }
         },
 
-        consoleRoute(){
+        ConsoleRoute(){
             if(this.moduleConfig != null && this.moduleConfigIsLoaded){
                 return this.moduleConfig.ConsoleRoute
             } else {
@@ -234,6 +234,20 @@ app = createApp({
             tempName = this.getMachineProperty('template.name')
             return tempName
         },
+
+        
+        tempIcon() {
+            let tempIcon = null;
+            tempIcon = this.getMachineProperty('template.icon.address')
+            return tempIcon
+        },
+
+        softIcon() {
+            let softIcon = null;
+            softIcon = this.getMachineProperty('software.template.icon.address')
+            return softIcon
+        },
+
 
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
@@ -530,6 +544,19 @@ app = createApp({
 
             return traffics
 
+        },
+
+        hasalias() {
+            let alias = this.getMachineProperty('reserve.address.alias')
+            if (alias) {
+                return true
+            } else {
+                return false
+            }
+        },
+
+        alias() {
+            return this.getMachineProperty('reserve.address.alias')
         },
 
         ipaddress() {
@@ -1050,8 +1077,8 @@ app = createApp({
             let address = null
             let params = null
             
-            if(this.consoleRoute != null){
-                address = this.consoleRoute
+            if(this.ConsoleRoute != null){
+                address = this.ConsoleRoute
             } else {
                 console.log('can not find console route in open console');
             }
@@ -1603,10 +1630,8 @@ app = createApp({
                 }
             })
             
-            console.log(response);
             response = response.data
             if (response.message) {
-                
             }
 
             if (response.data) {

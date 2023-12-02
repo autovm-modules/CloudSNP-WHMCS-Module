@@ -91,7 +91,7 @@
                                     {{ lang('pricestartsfrom') }}
                                     </span>
                                     <span class="fs-6 fw-medium">
-                                        {{ ConverFromAutoVmToWhmcs(planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice)) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ formatCostMonthly(ConverFromAutoVmToWhmcs(planStartFrom(plan.memoryPrice, plan.cpuCorePrice, plan.cpuLimitPrice, plan.diskPrice, plan.addressPrice))) }} {{ userCurrencySymbolFromWhmcs }}
                                     </span>
                                 </div>
                             </div><!-- End MemDescriptionory -->

@@ -12,7 +12,7 @@
             <input type="text" class="form-control col-4" :placeholder="RangeValueMemory + 'GB'" aria-label="RangeValueMemory" aria-describedby="RangeValueMemory" style="background-color: #ffffff00; border: 0;" disabled>
             <span class="input-group-text col-4"style="background-color: #ffffff00; border: 0;"  id="RangeValueMemory">
                 <span v-if="planMemoryPrice != 0">
-                    {{ ConverFromAutoVmToWhmcs(RangeValueMemory*planMemoryPrice) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(RangeValueMemory*planMemoryPrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span v-if="planMemoryPrice == 0">
                     {{ lang('freeprice') }}
@@ -34,7 +34,7 @@
             <input type="text" class="form-control col-4" :placeholder="RangeValueCpuCore + 'Core (' + RangeValueCpuLimit + 'Ghz)'" aria-label="RangeValueCpuCore" aria-describedby="RangeValueCpuCore" style="background-color: #ffffff00; border: 0;" disabled>
             <span class="input-group-text col-4"style="background-color: #ffffff00; border: 0;"  id="RangeValueCpuCore">
                 <span v-if="planCpuCorePrice != 0">
-                    {{ ConverFromAutoVmToWhmcs(RangeValueCpuCore*(planCpuCorePrice + planCpuLimitPrice)) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(RangeValueCpuCore*(planCpuCorePrice + planCpuLimitPrice))) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span v-if="planCpuCorePrice == 0">
                     {{ lang('freeprice') }}
@@ -55,7 +55,7 @@
             <input type="text" class="form-control col-4" :placeholder="RangeValueDisk + 'GB'" aria-label="RangeValueDisk" aria-describedby="RangeValueDisk" style="background-color: #ffffff00; border: 0;" disabled>
             <span class="input-group-text col-4"style="background-color: #ffffff00; border: 0;"  id="RangeValueDisk">
                 <span v-if="planDiskPrice != 0">
-                    {{ ConverFromAutoVmToWhmcs(RangeValueDisk*planDiskPrice) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(RangeValueDisk*planDiskPrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span v-if="planDiskPrice == 0">
                     {{ lang('freeprice') }}
@@ -80,7 +80,7 @@
             </span>
             <span class="input-group-text col-4 text-secondary"style="background-color: #ffffff00; border: 0;"  id="RangeValueMemory">
                 <span v-if="planAddressPrice != 0">
-                    {{ ConverFromAutoVmToWhmcs(planAddressPrice) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(planAddressPrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span v-if="planAddressPrice == 0">
                     {{ lang('freeprice') }}
@@ -100,7 +100,7 @@
             </span>
             <span class="input-group-text col-4 text-secondary"style="background-color: #ffffff00; border: 0;"  id="RangeValueMemory">
                 <span v-if="planTrafficPrice != 0">
-                    {{ ConverFromAutoVmToWhmcs(planTrafficPrice) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(planTrafficPrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span v-if="planTrafficPrice == 0">
                     {{ lang('freeprice') }}

@@ -9,6 +9,26 @@ createApp({
             moduleConfig: null,
             moduleConfigIsLoaded: null,
 
+            planConfig: {
+                Memory:{
+                    min: 1,
+                    step: 1,
+                },
+                CpuCore:{
+                    min: 1,
+                    step: 1,
+                },
+                CpuLimit:{
+                    min: 1,
+                    step: 1,
+                },
+                Disk:{
+                    min: 20,
+                    step: 10,
+                },
+            },
+        
+
             checkboxconfirmation: null,
             msg : null,
 
@@ -105,7 +125,8 @@ createApp({
                 ConsoleRoute: this.moduleConfig.ConsoleRoute,
                 DefaultMonthlyDecimal: this.moduleConfig.DefaultMonthlyDecimal,
                 DefaultHourlyDecimal: this.moduleConfig.DefaultHourlyDecimal,
-                DefaultBalanceDecimal: this.moduleConfig.DefaultBalanceDecimal,
+                DefaultBalanceDecimalCloud: this.moduleConfig.DefaultBalanceDecimalCloud,
+                DefaultBalanceDecimalWhmcs: this.moduleConfig.DefaultBalanceDecimalWhmcs,
                 // Add more properties as needed
                 };
             } else {
@@ -113,8 +134,9 @@ createApp({
                     AutovmDefaultCurrencyID: null,
                     AutovmDefaultCurrencySymbol: null,
                     DefaultMonthlyDecimal: 0,
-                    DefaultHourlyDecimal: 0,
-                    DefaultBalanceDecimal: 0,
+                    DefaultHourlyDecimal: 2,
+                    DefaultBalanceDecimalCloud: 0,
+                    DefaultBalanceDecimalWhmcs: 0,
                 };
             }
         },
@@ -219,13 +241,13 @@ createApp({
             let percentage = this.RangeValueOverall
 
             if(percentage == 1){
-                this.RangeValueMemoryString = this.config.planConfig.Memory.min
-                this.RangeValueDiskString = this.config.planConfig.Disk.min
-                this.RangeValueCpuCoreString = this.config.planConfig.CpuCore.min
+                this.RangeValueMemoryString = this.planConfig.Memory.min
+                this.RangeValueDiskString = this.planConfig.Disk.min
+                this.RangeValueCpuCoreString = this.planConfig.CpuCore.min
             } else {
-                this.RangeValueMemoryString = this.normallizeRangeValues(percentage, this.config.planConfig.Memory.min, this.planMaxMemorySize, this.config.planConfig.Memory.step)
-                this.RangeValueDiskString = this.normallizeRangeValues(percentage, this.config.planConfig.Disk.min, this.planMaxDiskSize, this.config.planConfig.Disk.step)
-                this.RangeValueCpuCoreString = this.normallizeRangeValues(percentage, this.config.planConfig.CpuCore.min, this.planMaxCpuCore, this.config.planConfig.CpuCore.step)
+                this.RangeValueMemoryString = this.normallizeRangeValues(percentage, this.planConfig.Memory.min, this.planMaxMemorySize, this.planConfig.Memory.step)
+                this.RangeValueDiskString = this.normallizeRangeValues(percentage, this.planConfig.Disk.min, this.planMaxDiskSize, this.planConfig.Disk.step)
+                this.RangeValueCpuCoreString = this.normallizeRangeValues(percentage, this.planConfig.CpuCore.min, this.planMaxCpuCore, this.planConfig.CpuCore.step)
             }
 
         },
@@ -236,6 +258,15 @@ createApp({
         normallizeRangeValues(percentage, min, max, step){
             let value = Math.ceil(percentage / 100 * (max - min) / step) * step + min
             return value.toString()
+        },
+
+        formatNumbers(number, decimal) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: decimal,
+                maximumFractionDigits: decimal,
+            });
+            return formatter.format(number);
         },
 
         ConverFromWhmcsToCloud(value) {
@@ -315,6 +346,7 @@ createApp({
               
         async loadModuleConfig() {
             let response = await axios.get('/index.php?m=cloudsnp&action=getModuleConfig');
+            
             if(response.data){
                 const answer = response.data
                 const requiredProperties = [
@@ -323,7 +355,8 @@ createApp({
                     'ConsoleRoute',
                     'DefaultMonthlyDecimal',
                     'DefaultHourlyDecimal',
-                    'DefaultBalanceDecimal'
+                    'DefaultBalanceDecimalCloud',
+                    'DefaultBalanceDecimalWhmcs',
                   ];
                   
                   if (requiredProperties.every(prop => answer.hasOwnProperty(prop))) {
@@ -464,6 +497,16 @@ createApp({
             }
         },
 
+        showBalanceWhmcsUnit(value){
+            let decimal = this.config.DefaultBalanceDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showBalanceCloudUnit(value){
+            let decimal = this.config.DefaultBalanceDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+
         formatPrice(price, decimal = 2) {
             return Number(price).toFixed(decimal)
         },
@@ -479,7 +522,6 @@ createApp({
 
         formatCostHourly(value) {
             let decimal = this.config.DefaultHourlyDecimal
-            
             if(value < 99999999999999  && value != null){
                 value = value / (30 * 24)
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })

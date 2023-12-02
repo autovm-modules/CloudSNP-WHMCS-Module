@@ -11,6 +11,8 @@ let common = {
     // Machine view
 
     // from product
+    "download" : "Download",
+    "upload" : "Upload",
     "backtoservices": "Вернуться к услугам",
     "ghz" : "GHz",
     "mb": "MB",
@@ -153,6 +155,7 @@ let common = {
     "remainingtime": "Оставшееся время :",
     "failactionmsg": "Последнее действие не было выполнено полностью, статус все еще неудачный. Пожалуйста, попробуйте новое действие!",
     "snapshot": "Snapshot",
+    "traffic" : "TRAFFIC",
     // end from Product
 
     // Unique for this cloud

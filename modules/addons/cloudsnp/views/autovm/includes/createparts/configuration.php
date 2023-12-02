@@ -84,7 +84,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="Memory" :aria-valuenow="RangeValueMemoryString" aria-valuemin="config.planConfig.Memory.min" :aria-valuemax="planMaxMemorySize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="Memory" :aria-valuenow="RangeValueMemoryString" aria-valuemin="planConfig.Memory.min" :aria-valuemax="planMaxMemorySize" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
                     </div>
@@ -114,7 +114,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="config.planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
                     </div>
@@ -144,7 +144,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="DiskPriceRange" :aria-valuenow="RangeValueDiskString" aria-valuemin="config.planConfig.Disk.min" :aria-valuemax="planMaxDiskSize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="DiskPriceRange" :aria-valuenow="RangeValueDiskString" aria-valuemin="planConfig.Disk.min" :aria-valuemax="planMaxDiskSize" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
                     </div>
