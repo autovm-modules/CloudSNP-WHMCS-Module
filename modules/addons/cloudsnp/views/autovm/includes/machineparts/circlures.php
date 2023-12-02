@@ -65,6 +65,15 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="isVisibe" class="row w-100 m-0 p-0">
+                    <div v-if="detailIsLoaded && machineIsLoaded" class="d-flex flex-column m-0 p-0 justify-content-center align-items-center w-100 mb-3">
+                        <div v-if="diskSize && diskUsage" class="text-center p-0 m-0 alert alert-danger w-75 py-2">
+                            <span v-if="DiskErrorOverFlow">
+                                Err: Disk Overflow, not availible
+                            </span>    
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

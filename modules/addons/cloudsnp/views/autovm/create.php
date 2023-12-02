@@ -1,5 +1,3 @@
-<?php  include('./includes/commodules/lang.php');     ?>
-<?php  include('./includes/commodules/config.php');   ?>
 <?php  include('./includes/commodules/header.php');   ?>
 
 <body class="container-fluid p-1 p-md-3" style="background-color: #ff000000 !important;" > 
@@ -33,4 +31,4 @@
         </div>
     </div>
 </div>
-<?php       include('./includes/commodules/footer.php');               ?>
+<?php include('./includes/commodules/footer.php'); ?>

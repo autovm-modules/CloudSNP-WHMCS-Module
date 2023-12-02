@@ -3,6 +3,7 @@ app = createApp({
 
     data() {
         return {
+            DiskErrorOverFlow: false,
             PanelLanguage: null,
             moduleConfig: null,
             moduleConfigIsLoaded: null,
@@ -1512,6 +1513,10 @@ app = createApp({
             if (diskSize) {
                 percent = ((diskUsage / 1024) / diskSize) * 100
             }
+            
+            if(percent && percent > 100){
+                this.DiskErrorOverFlow = true
+            }
 
             // Format
             return Number(percent).toFixed()
@@ -1520,9 +1525,14 @@ app = createApp({
         createDISKRadialGraph() {
             let element = document.querySelector('.diskRadial')
             let percent = this.getDiskPercent();
+
+            if(percent && percent > 100){
+                this.DiskErrorOverFlow = true
+            }
+
             // create
             if (!this.hasDISKradial) {
-                if (percent == 0 || percent > 100) {
+                if (percent == 0) {
                     let options = {};
                     options = this.createOptionRadials(
                         series = [100],
@@ -1533,8 +1543,19 @@ app = createApp({
                     this.diskRadial.render()
                     this.hasDISKradial = true
 
-                } else {
+                } else if (percent > 100) {
+                    let options = {};
+                    options = this.createOptionRadials(
+                        series = [0],
+                        colors = ["#56D9C1"],
+                        labels = ["DISK Usage"],
+                    );
 
+                    this.diskRadial = new ApexCharts(element, options)
+                    this.diskRadial.render()
+                    this.hasDISKradial = true
+
+                } else {
                     let options = {};
                     options = this.createOptionRadials(
                         series = percent,
@@ -1547,8 +1568,7 @@ app = createApp({
                 }
 
             } else {
-                if (percent != 0) {
-                    // Update
+                if (percent != 0 && percent < 100) {
                     this.diskRadial.updateSeries([percent], true)
                 } else {
                     this.diskRadial.updateSeries([0], true)

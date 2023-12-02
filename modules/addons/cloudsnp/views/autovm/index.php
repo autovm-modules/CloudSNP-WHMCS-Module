@@ -1,6 +1,3 @@
-<?php  include('./includes/commodules/lang.php');     ?>
-<?php  include('./includes/commodules/config.php');   ?>
-<?php  include('./includes/commodules/currency.php'); ?>
 <?php  include('./includes/commodules/header.php');   ?>
 
 <body class="container-fluid m-0 p-0" style="background-color: #ff000000 !important;">
