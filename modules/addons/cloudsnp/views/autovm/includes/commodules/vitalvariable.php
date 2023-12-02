@@ -2,7 +2,7 @@
   'AutovmDefaultCurrencyID' => '1',
   'AutovmDefaultCurrencySymbol' => '$',
   'PlaceCurrencySymbol' => 'option3',
-  'ShowExchange' => 'option2',
+  'ShowExchange' => 'option1',
   'ChargeModuleEnable' => 'option1',
   'ConsoleRoute' => 'https://www.mywhmcs.com/console',
   'TopupLink' => '/clientarea.php?action=addfunds',

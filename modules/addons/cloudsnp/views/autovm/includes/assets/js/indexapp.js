@@ -10,7 +10,7 @@ app = createApp({
             
             machinsLoaded: false,
             userHasNoMachine: false,
-
+            
             machines: [],
             user: {},
             WhmcsCurrencies: null,
@@ -222,28 +222,27 @@ app = createApp({
     },
 
     methods: { 
+        isIntOrFloat(value) {
+            if (typeof value === 'number' && !Number.isNaN(value)) {
+                return true
+            } else {
+                return false
+            }
+        },
 
-        ConverFromWhmcsToCloud(value, decimal = 100000){
+        ConverFromWhmcsToCloud(value){
             if(this.CurrenciesRatioWhmcsToCloud){
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                if(decimal != 0){
-                    return Math.round(value*ratio * decimal) / decimal
-                } else {
-                    return Math.round(value*ratio)
-                }
+                return value * ratio
             } else {
                 return null
             }
         },
 
-        ConverFromAutoVmToWhmcs(value, decimal = 100000){
+        ConverFromAutoVmToWhmcs(value){
             if(this.CurrenciesRatioCloudToWhmcs){
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                if(decimal != 0){
-                    return Math.round(value*ratio * decimal) / decimal
-                } else {
-                    return Math.round(value*ratio)
-                }
+                return value * ratio
             } else {
             return null
             }

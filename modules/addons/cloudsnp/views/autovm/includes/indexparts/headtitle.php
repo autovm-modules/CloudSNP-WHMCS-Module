@@ -10,17 +10,17 @@
     }
 
 
-    if(!isset($CloudTopupLink)){
-        $CloudTopupLink = "/index.php?m=cloudsnp&action=pageIndex";
-    }
-
-
     if(isset($DefaultChargeModuleDetailsViews) && $DefaultChargeModuleDetailsViews){
         $ChargeModuleDetailsViews = true;
     } else {
         $ChargeModuleDetailsViews = false;
     }
 
+
+
+    if(empty($CloudTopupLink)){
+        $CloudTopupLink = '/clientarea.php?action=addfunds';
+    }
 ?>  
 
 
