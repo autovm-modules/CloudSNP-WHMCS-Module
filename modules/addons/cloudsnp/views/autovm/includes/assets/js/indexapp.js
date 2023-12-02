@@ -4,31 +4,10 @@ app = createApp({
 
     data() {
         return {
-            config: {
-                AutovmDefaultCurrencyID: 1,
-                AutovmDefaultCurrencySymbol: 'USD',
-                minimumChargeInAutovmCurrency: 2,
-                ActivateRatioFunc: true,
-
-                DefaultBalanceDecimalWhmcs: 2,
-                DefaultBalanceDecimalCloud: 2,
-                
-
-                DefaultChargeAmountDecimalWhmcs: 2,
-                DefaultChargeAmountDecimalCloud: 2,
-                
-                
-                DefaultCreditDecimalWhmcs: 2,
-                DefaultCreditDecimalCloud: 2,
-                
-                DefaultMinimumDecimalWhmcs: 2,
-                DefaultMinimumDecimalCloud: 2,
-                
-                
-                DefaultRatioDecimalCloud: 2,
-
-            },
             PanelLanguage: null,
+            moduleConfig: null,
+            moduleConfigIsLoaded: null,
+            
             machinsLoaded: false,
             userHasNoMachine: false,
 
@@ -61,6 +40,7 @@ app = createApp({
 
         // Load machines
         this.loadMachines()
+        this.loadModuleConfig()
 
         // Load user
         this.loadUser()
@@ -75,6 +55,45 @@ app = createApp({
     },
 
     computed: {
+        config() {
+            if(this.moduleConfig != null && this.moduleConfigIsLoaded){
+                return {
+                    AutovmDefaultCurrencyID: this.moduleConfig.AutovmDefaultCurrencyID,
+                    AutovmDefaultCurrencySymbol: this.moduleConfig.AutovmDefaultCurrencySymbol,
+                    ConsoleRoute: this.moduleConfig.ConsoleRoute,
+                    minimumChargeInAutovmCurrency: this.moduleConfig.minimumChargeInAutovmCurrency,
+                    DefaultMonthlyDecimal: this.moduleConfig.DefaultMonthlyDecimal,
+                    DefaultHourlyDecimal: this.moduleConfig.DefaultHourlyDecimal,
+                    DefaultBalanceDecimalWhmcs: this.moduleConfig.DefaultBalanceDecimalWhmcs,
+                    DefaultBalanceDecimalCloud: this.moduleConfig.DefaultBalanceDecimalCloud,
+                    DefaultChargeAmountDecimalWhmcs: this.moduleConfig.DefaultChargeAmountDecimalWhmcs,
+                    DefaultChargeAmountDecimalCloud: this.moduleConfig.DefaultChargeAmountDecimalCloud,
+                    DefaultCreditDecimalWhmcs: this.moduleConfig.DefaultCreditDecimalWhmcs,
+                    DefaultCreditDecimalCloud: this.moduleConfig.DefaultCreditDecimalCloud,
+                    DefaultMinimumDecimalWhmcs: this.moduleConfig.DefaultMinimumDecimalWhmcs,
+                    DefaultMinimumDecimalCloud: this.moduleConfig.DefaultMinimumDecimalCloud,
+                    DefaultRatioDecimal: this.moduleConfig.DefaultRatioDecimal,
+                };
+            } else {
+                return {
+                    AutovmDefaultCurrencyID: null,
+                    AutovmDefaultCurrencySymbol: null,
+                    ConsoleRoute: null,
+                    minimumChargeInAutovmCurrency: 2,
+                    DefaultMonthlyDecimal: 0,
+                    DefaultHourlyDecimal: 0,
+                    DefaultBalanceDecimalWhmcs: 0,
+                    DefaultBalanceDecimalCloud: 0,
+                    DefaultChargeAmountDecimalWhmcs: 0,
+                    DefaultChargeAmountDecimalCloud: 0,
+                    DefaultCreditDecimalWhmcs: 0,
+                    DefaultCreditDecimalCloud: 0,
+                    DefaultMinimumDecimalWhmcs: 0,
+                    DefaultMinimumDecimalCloud: 0,
+                    DefaultRatioDecimal: 0,
+                };
+            }
+        },
 
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
@@ -204,6 +223,32 @@ app = createApp({
 
     methods: { 
 
+        ConverFromWhmcsToCloud(value, decimal = 100000){
+            if(this.CurrenciesRatioWhmcsToCloud){
+                let ratio = this.CurrenciesRatioWhmcsToCloud
+                if(decimal != 0){
+                    return Math.round(value*ratio * decimal) / decimal
+                } else {
+                    return Math.round(value*ratio)
+                }
+            } else {
+                return null
+            }
+        },
+
+        ConverFromAutoVmToWhmcs(value, decimal = 100000){
+            if(this.CurrenciesRatioCloudToWhmcs){
+                let ratio = this.CurrenciesRatioCloudToWhmcs
+                if(decimal != 0){
+                    return Math.round(value*ratio * decimal) / decimal
+                } else {
+                    return Math.round(value*ratio)
+                }
+            } else {
+            return null
+            }
+        },
+
         formatNumbers(number, decimal) {
             const formatter = new Intl.NumberFormat('en-US', {
                 style: 'decimal',
@@ -212,33 +257,7 @@ app = createApp({
             });
             return formatter.format(number);
         },
-
-        ConverFromWhmcsToCloud(value){
-            if(this.CurrenciesRatioWhmcsToCloud){
-                let ratio = this.CurrenciesRatioWhmcsToCloud
-                if(ratio != null){
-                    return value*ratio
-                } else {
-                    return null
-                }
-            } else {
-                return null
-            }
-        },
-
-        ConverFromAutoVmToWhmcs(value){
-            if(this.CurrenciesRatioCloudToWhmcs){
-                let ratio = this.CurrenciesRatioCloudToWhmcs
-                if(ratio != null){
-                    return value*ratio
-                } else {
-                    return null
-                }
-            } else {
-            return null
-            }
-        },
-
+        
         showBalanceWhmcsUnit(value){
             decimal = this.config.DefaultBalanceDecimalWhmcs        
             return this.formatNumbers(value, decimal)
@@ -270,7 +289,7 @@ app = createApp({
         },
         
         showRatio(value){
-            decimal = this.config.DefaultRatioDecimalCloud        
+            decimal = this.config.DefaultRatioDecimal        
             return this.formatNumbers(value, decimal)
         },
         
@@ -283,6 +302,7 @@ app = createApp({
             decimal = this.config.DefaultMinimumDecimalWhmcs        
             return this.formatNumbers(value, decimal)
         },
+
 
         findRationFromId(id){
             if(this.WhmcsCurrencies != null){
@@ -314,14 +334,6 @@ app = createApp({
         formatCost(value, decimal = 2) {
 
             return Number(value).toFixed(decimal)
-        },
-
-        isIntOrFloat(value) {
-            if (typeof value === 'number' && !Number.isNaN(value)) {
-                return true
-            } else {
-                return false
-            }
         },
 
         SuccessWindow(){
@@ -358,6 +370,39 @@ app = createApp({
             if (response.data) {
                 this.user = response.data
                 this.ConstUserId = Object.freeze({value: response.data.id});
+            }
+        },
+
+        async loadModuleConfig() {
+            let response = await axios.get('/index.php?m=cloudsnp&action=getModuleConfig');
+            if(response.data){
+                const answer = response.data
+                const requiredProperties = [
+                    'AutovmDefaultCurrencyID',
+                    'AutovmDefaultCurrencySymbol',
+                    'ConsoleRoute',
+                    'minimumChargeInAutovmCurrency',
+                    'DefaultMonthlyDecimal',
+                    'DefaultHourlyDecimal',
+                    'DefaultBalanceDecimalWhmcs',
+                    'DefaultBalanceDecimalCloud',
+                    'DefaultChargeAmountDecimalWhmcs',
+                    'DefaultChargeAmountDecimalCloud',
+                    'DefaultCreditDecimalWhmcs',
+                    'DefaultCreditDecimalCloud',
+                    'DefaultMinimumDecimalWhmcs',
+                    'DefaultMinimumDecimalCloud',
+                    'DefaultRatioDecimal'
+                ];
+                  
+                if (requiredProperties.every(prop => answer.hasOwnProperty(prop))) {
+                this.moduleConfigIsLoaded = true;
+                this.moduleConfig = response.data
+                } else {
+                console.log('Module properties does not exist');
+                }
+            } else {
+                console.log('can not get config');
             }
         },
 
@@ -668,7 +713,6 @@ app = createApp({
         readLanguageFirstTime(){
             this.PanelLanguage = this.getCookieValue('temlangcookie');
         },
-
         
         getCookieValue(cookieName) {
             const name = cookieName + "=";
@@ -686,7 +730,6 @@ app = createApp({
             }
             return null; // Return an empty string if the cookie is not found
           },
-
           
         lang(name) {
 

@@ -3,18 +3,11 @@ app = createApp({
 
     data() {
         return {
-            systemurl: null,
-            config: {
-                AutovmDefaultCurrencyID: 1,
-                AutovmDefaultCurrencySymbol: 'USD',
-                
-                DefaultBalanceDecimal: 2,
-                DefaultMonthlyDecimalForAutoVM: 2,
-                DefaultMonthlyDecimalForWH: 2,
-                DefaultHourlyDecimalForWH: 2,
-            },
-            
             PanelLanguage: null,
+            moduleConfig: null,
+            moduleConfigIsLoaded: null,
+            machineTraffic: null,
+            
             isVisibe: true,
             WhmcsCurrencies: null,
             userCreditinWhmcs: null,
@@ -84,7 +77,6 @@ app = createApp({
 
         // Load machine
         this.loadMachine()
-        this.loadSystemUrl()
 
         // Load user
         this.loadUser()
@@ -113,6 +105,7 @@ app = createApp({
         
         // load Whmcs Data
         this.loadCredit()
+        this.loadModuleConfig()
         this.loadWhCurrencies()
         this.readLanguageFirstTime()
     },
@@ -140,6 +133,96 @@ app = createApp({
     },
 
     computed: {
+
+        config() {
+            if(this.moduleConfig != null && this.moduleConfigIsLoaded){
+                return {
+                AutovmDefaultCurrencyID: this.moduleConfig.AutovmDefaultCurrencyID,
+                AutovmDefaultCurrencySymbol: this.moduleConfig.AutovmDefaultCurrencySymbol,
+                PlaceCurrencySymbol: this.moduleConfig.PlaceCurrencySymbol,
+                ConsoleRoute: this.moduleConfig.ConsoleRoute,
+                DefaultMonthlyDecimal: this.moduleConfig.DefaultMonthlyDecimal,
+                DefaultHourlyDecimal: this.moduleConfig.DefaultHourlyDecimal,
+                DefaultBalanceDecimalWhmcs: this.moduleConfig.DefaultBalanceDecimalWhmcs,
+                // Add more properties as needed
+                };
+            } else {
+                return {
+                    AutovmDefaultCurrencyID: null,
+                    AutovmDefaultCurrencySymbol: null,
+                    PlaceCurrencySymbol: null,
+                    DefaultMonthlyDecimal: 0,
+                    DefaultHourlyDecimal: 0,
+                    DefaultBalanceDecimalWhmcs: 0,
+                };
+            }
+        },
+
+        consoleRoute(){
+            if(this.moduleConfig != null && this.moduleConfigIsLoaded){
+                return this.moduleConfig.ConsoleRoute
+            } else {
+                return null
+            }
+        },
+
+        trafficTotal(){
+            const value = this.machineTraffic?.total;
+            if (value === 0 || value === '0') { return 0; }
+            if (value) {
+                const numericValue = Number(value);
+                if (!isNaN(numericValue)) {
+                    const result = numericValue / (1024 * 1024 * 1024);
+                    if(result < 1){
+                        return Number(result.toFixed(2));
+                    } else if(result < 10){
+                        return Number(result.toFixed(1));
+                    } else {
+                        return Number(result.toFixed(0));
+                    }
+                }
+            }
+            return null;
+        },
+        
+        trafficSend(){
+            const value = this.machineTraffic?.sent;
+            if (value === 0 || value === '0') { return 0; }
+            if (value) {
+                const numericValue = Number(value);
+                if (!isNaN(numericValue)) {
+                    const result = numericValue / (1024 * 1024 * 1024);
+                    if(result < 1){
+                        return Number(result.toFixed(2));
+                    } else if(result < 10){
+                        return Number(result.toFixed(1));
+                    } else {
+                        return Number(result.toFixed(0));
+                    }
+                }
+            }
+            return null;
+        },
+        
+        trafficReceived(){
+            const value = this.machineTraffic?.received;
+            if (value === 0 || value === '0') { return 0; }
+            if (value) {
+                const numericValue = Number(value);
+                if (!isNaN(numericValue)) {
+                    const result = numericValue / (1024 * 1024 * 1024);
+                    if(result < 1){
+                        return Number(result.toFixed(2));
+                    } else if(result < 10){
+                        return Number(result.toFixed(1));
+                    } else {
+                        return Number(result.toFixed(0));
+                    }
+                }
+            }
+            return null
+        },
+
         softName() {
             let softName = null
             softName = this.getMachineProperty('software.name')
@@ -274,8 +357,12 @@ app = createApp({
         },
 
         uptime() {
-
-            return this.getDetailProperty('uptime.value')
+            let uptime =  this.getDetailProperty('uptime.value')
+            if(uptime == null){
+                return null
+            } else {
+                return uptime
+            }
         },
 
         machineId() {
@@ -499,22 +586,20 @@ app = createApp({
         },
         
         ConverFromWhmcsToCloud(value){
-            decimal = this.config.DefaultMonthlyDecimalForAutoVM
-            if (this.CurrenciesRatioWhmcsToCloud) {
+            if(this.CurrenciesRatioWhmcsToCloud  && value != null){
                 let ratio = this.CurrenciesRatioWhmcsToCloud
-                let v = value * ratio
-                return this.formatNumbers(v, decimal)
+                let number = value*ratio
+                return number
             } else {
                 return null
             }
         },
 
         ConverFromAutoVmToWhmcs(value){
-            decimal = this.config.DefaultMonthlyDecimalForWH
-            if (this.CurrenciesRatioCloudToWhmcs) {
+            if(this.CurrenciesRatioCloudToWhmcs  && value != null){
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                let v = value * ratio 
-                return this.formatNumbers(v, decimal)
+                let number = value*ratio
+                return number
             } else {
                 return null
             }
@@ -574,7 +659,7 @@ app = createApp({
         },
 
         formatBalance(value) {
-            let decimal = this.config.DefaultBalanceDecimal            
+            let decimal = this.config.DefaultBalanceDecimalWhmcs            
             if(value < 99999999999999  && value != null){
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
             } else {
@@ -583,7 +668,7 @@ app = createApp({
         },
 
         formatCostMonthly(value) {
-            let decimal = this.config.DefaultMonthlyDecimalForWH            
+            let decimal = this.config.DefaultMonthlyDecimal            
             if(value < 99999999999999  && value != null){
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
             } else {
@@ -592,13 +677,38 @@ app = createApp({
         },
 
         formatCostHourly(value) {
-            let decimal = this.config.DefaultHourlyDecimalForWH
+            let decimal = this.config.DefaultHourlyDecimal
             
             if(value < 99999999999999  && value != null){
                 value = value / (30 * 24)
                 return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
             } else {
                 return null
+            }
+        },
+
+        async loadModuleConfig() {
+            let response = await axios.get('/index.php?m=cloudsnp&action=getModuleConfig');
+            if(response.data){
+                const answer = response.data
+                const requiredProperties = [
+                    'AutovmDefaultCurrencyID',
+                    'AutovmDefaultCurrencySymbol',
+                    'PlaceCurrencySymbol',
+                    'ConsoleRoute',
+                    'DefaultMonthlyDecimal',
+                    'DefaultHourlyDecimal',
+                    'DefaultBalanceDecimalWhmcs'
+                ];
+                  
+                if (requiredProperties.every(prop => answer.hasOwnProperty(prop))) {
+                this.moduleConfigIsLoaded = true;
+                this.moduleConfig = response.data
+                } else {
+                console.log('Module properties does not exist');
+                }
+            } else {
+                console.log('can not get config');
             }
         },
 
@@ -639,19 +749,7 @@ app = createApp({
             }
         },
 
-        async loadSystemUrl() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=getSystemUrl');
-            if(response.data){
-                systemurl = response.data.systemurl;
-                if(systemurl != 'empty'){
-                    this.systemurl = systemurl
-                } else {
-                    console.log('system URL is null');    
-                }
-            } else {
-                console.log('can not find system URL for console link');
-            }
-        },
+        
 
         setLastAction() {
 
@@ -892,10 +990,10 @@ app = createApp({
             setInterval(this.loadDetail, 30000)
 
             // Load Credit
-            setInterval(this.loadCredit, 30000)
+            setInterval(this.loadCredit, 2 * 60000)
             
             // Load Currencies
-            setInterval(this.loadWhCurrencies, 60000)
+            setInterval(this.loadWhCurrencies, 3 * 60000)
         },
 
         async loadMachine() {
@@ -951,19 +1049,20 @@ app = createApp({
         openConsole() {
             let address = null
             let params = null
-            if(this.systemurl != null){
-                address = this.systemurl + 'console'
+            
+            if(this.consoleRoute != null){
+                address = this.consoleRoute
             } else {
-                console.log('con not find console link');
+                console.log('can not find console route in open console');
             }
 
             if(address != null){
-                params = new URLSearchParams({
+                let params = new URLSearchParams({
                     'host': this.console.proxy.proxy, 'port': this.console.proxy.port, 'ticket': this.console.ticket
                 }).toString()
+    
+                return window.open([address, params].join('?'))
             }
-            
-            return window.open([address, params].join('?'))
         },
 
         async doStop() {
@@ -1138,6 +1237,29 @@ app = createApp({
             }
         },
 
+        async CopyAddress() {
+            this.AddressCopied = true;
+            let ValueToCopy = null;
+            if(this.hasalias){
+                ValueToCopy = this.alias;
+            } else {
+                ValueToCopy = this.ipaddress;
+            }
+
+            if(ValueToCopy){
+                try {
+                    await navigator.clipboard.writeText(ValueToCopy);
+                } catch (err) {
+                    console.log('Unable to copy Address to clipboard', err);
+                }    
+            }
+
+            setTimeout(() => {
+                this.AddressCopied = false;
+            }, 1000);
+            
+        },
+
         async loadDetail() {
 
             let response = await axios.get('/index.php?m=cloudsnp&action=detail', {
@@ -1241,7 +1363,7 @@ app = createApp({
             let percent = this.getMemoryPercent();
             // create
             if (!this.hasRAMradial) {
-                if (percent == 0) {
+                if (percent == 0 || percent > 100) {
                     let options = {};
                     options = this.createOptionRadials(
                         series = [100],
@@ -1307,7 +1429,7 @@ app = createApp({
             let percent = this.getCPUPercent();
             // create
             if (!this.hasCPUradial) {
-                if (percent == 0) {
+                if (percent == 0 || percent > 100) {
                     let options = {};
                     options = this.createOptionRadials(
                         series = [100],
@@ -1373,7 +1495,7 @@ app = createApp({
             let percent = this.getDiskPercent();
             // create
             if (!this.hasDISKradial) {
-                if (percent == 0) {
+                if (percent == 0 || percent > 100) {
                     let options = {};
                     options = this.createOptionRadials(
                         series = [100],
@@ -1480,17 +1602,15 @@ app = createApp({
                     id: this.machineId
                 }
             })
-
+            
+            console.log(response);
             response = response.data
-
             if (response.message) {
-
-                // Its not ok to show message here
+                
             }
 
             if (response.data) {
-
-                this.traffic = response.data
+                this.machineTraffic = response.data
             }
         },
 
@@ -1674,7 +1794,9 @@ app = createApp({
             // similiar from here
             let memoryChart = [{ x: '8/1', y: 0 }, { x: '8/2', y: 0 }]
 
-            if (response) {
+            if(response.data.message) {
+                console.log('getMemoryLinearData: ' + response.data.message)
+            } else {
                 memoryChart = []
                 response = response.data['data']
                 for (let item of response) {
@@ -1683,8 +1805,6 @@ app = createApp({
                         y: item.value,
                     })
                 }
-            } else {
-                console.log("Fetching data from MemoryUsage error")
             }
 
             if (memoryChart.length > 0) {
@@ -1706,7 +1826,9 @@ app = createApp({
             // similiar from here
             let CPUChart = [{ x: '8/1', y: 0 }, { x: '8/2', y: 0 }]
 
-            if (response) {
+            if(response.data.message) {
+                console.log('getCPULinearData: ' + response.data.message)
+            } else {
                 CPUChart = []
                 response = response.data['data']
 
@@ -1717,8 +1839,6 @@ app = createApp({
                     })
                 }
 
-            } else {
-                console.log("Fetching data from CPU Usage error")
             }
 
             if (CPUChart.length > 0) {
@@ -1779,19 +1899,13 @@ app = createApp({
         },
 
         formateduptime() {
-
-            let seconds = 1
-            const uptimeDetail = this.getDetailProperty('uptime');
-            
-            if (uptimeDetail && uptimeDetail.hasOwnProperty('value')) {
-                seconds = this.getDetailProperty('uptime').value
-            }
-
-            if (seconds < 61) {
+            let seconds = 1            
+            seconds = this.getDetailProperty('uptim.value')
+            if (seconds < 61 || seconds == null) {
                 seconds = 61;
             }
 
-            if (seconds > 61) {
+            if (seconds > 60) {
                 let days = Math.floor(seconds / (3600 * 24));
 
                 seconds -= days * 3600 * 24;

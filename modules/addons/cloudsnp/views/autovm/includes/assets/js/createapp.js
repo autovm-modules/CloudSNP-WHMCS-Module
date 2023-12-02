@@ -6,36 +6,8 @@ createApp({
     data() {
         return {
             PanelLanguage: null,
-            config: {
-                AutovmDefaultCurrencyID: 1,
-                AutovmDefaultCurrencySymbol: 'َUSD',
-                DefaultMonthlyDecimalForAutoVM: 2,
-                DefaultMonthlyDecimalForWH: 2,
-                DefaultHourlyDecimalForWH: 2,
-
-                planConfig: {
-                    Memory:{
-                        min: 1,
-                        max: 16,
-                        step: 1,
-                    },
-                    CpuCore:{
-                        min: 1,
-                        max: 8,
-                        step: 1,
-                    },
-                    CpuLimit:{
-                        min: 1,
-                        max: 8,
-                        step: 1,
-                    },
-                    Disk:{
-                        min: 20,
-                        max: 1000,
-                        step: 10,
-                    },
-                },
-            },
+            moduleConfig: null,
+            moduleConfigIsLoaded: null,
 
             checkboxconfirmation: null,
             msg : null,
@@ -109,46 +81,44 @@ createApp({
 
     mounted() {
 
-        // Load regions
-        this.loadRegions()
         this.loadRullesFromGit()
 
-        // Load categories
+        // Load regions
+        this.loadRegions()
         this.loadCategories()
-
-        // Load user
         this.loadUser()
 
         // load Whmcs Data
         this.loadCredit()
         this.loadWhCurrencies()
-        
+        this.loadModuleConfig()
         this.readLanguageFirstTime()
     },
 
     computed: {
 
-
-        RangeValueMemory(){
-            return parseFloat(this.RangeValueMemoryString);
-        },
-
-        RangeValueCpuCore(){
-            return parseFloat(this.RangeValueCpuCoreString);
-        },
-
-        RangeValueDisk(){
-            return parseFloat(this.RangeValueDiskString);
-        },  
-
-        RangeValueCpuLimit(){
-            return parseFloat(this.RangeValueCpuCore)
+        config() {
+            if(this.moduleConfig != null && this.moduleConfigIsLoaded){
+                return {
+                AutovmDefaultCurrencyID: this.moduleConfig.AutovmDefaultCurrencyID,
+                AutovmDefaultCurrencySymbol: this.moduleConfig.AutovmDefaultCurrencySymbol,
+                ConsoleRoute: this.moduleConfig.ConsoleRoute,
+                DefaultMonthlyDecimal: this.moduleConfig.DefaultMonthlyDecimal,
+                DefaultHourlyDecimal: this.moduleConfig.DefaultHourlyDecimal,
+                DefaultBalanceDecimal: this.moduleConfig.DefaultBalanceDecimal,
+                // Add more properties as needed
+                };
+            } else {
+                return {
+                    AutovmDefaultCurrencyID: null,
+                    AutovmDefaultCurrencySymbol: null,
+                    DefaultMonthlyDecimal: 0,
+                    DefaultHourlyDecimal: 0,
+                    DefaultBalanceDecimal: 0,
+                };
+            }
         },
         
-        RangeValueOverall(){
-            return parseFloat(this.RangeValueOverallString)
-        },
-
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
                 let CurrencyArr = this.WhmcsCurrencies.currency
@@ -201,6 +171,26 @@ createApp({
             }
         },
 
+        RangeValueMemory(){
+            return parseFloat(this.RangeValueMemoryString);
+        },
+
+        RangeValueCpuCore(){
+            return parseFloat(this.RangeValueCpuCoreString);
+        },
+
+        RangeValueDisk(){
+            return parseFloat(this.RangeValueDiskString);
+        },  
+
+        RangeValueCpuLimit(){
+            return parseFloat(this.RangeValueCpuCore)
+        },
+        
+        RangeValueOverall(){
+            return parseFloat(this.RangeValueOverallString)
+        },
+
         NewMachinePrice(){
             let decimal = this.config.DefaultMonthlyDecimal
             if(this.planCpuCorePrice != null && this.planCpuLimitPrice != null && this.planDiskPrice != null && this.planMemoryPrice != null && this.planAddressPrice != null){
@@ -248,47 +238,25 @@ createApp({
             return value.toString()
         },
 
-        formatNumbers(number, decimal) {
-            const formatter = new Intl.NumberFormat('en-US', {
-                style: 'decimal',
-                minimumFractionDigits: decimal,
-                maximumFractionDigits: decimal,
-            });
-            return formatter.format(number);
-        },
-
         ConverFromWhmcsToCloud(value) {
-            decimal = this.config.DefaultMonthlyDecimalForAutoVM
             if (this.CurrenciesRatioWhmcsToCloud) {
-                let ratio = this.CurrenciesRatioWhmcsToCloud
-                let v = value * ratio
-                return this.formatNumbers(v, decimal)
-            } else {
-                return null
-            }
-        },
-
-        ConverFromAutoVmToWhmcs(value) {
-            decimal = this.config.DefaultMonthlyDecimalForWH
-            if (this.CurrenciesRatioCloudToWhmcs) {
-                let ratio = this.CurrenciesRatioCloudToWhmcs
-                let v = value * ratio 
-                return this.formatNumbers(v, decimal)
+                let ratio = this.CurrenciesRatioWhmcsToCloud                
+                return (value * ratio)
             } else {
                 return null
             }
         },
         
-        ConverFromAutoVmToWhmcsHourly(value) {
-            decimal = this.config.DefaultHourlyDecimalForWH
+
+        ConverFromAutoVmToWhmcs(value) {
             if (this.CurrenciesRatioCloudToWhmcs) {
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                let v = value * ratio 
-                return this.formatNumbers(v, decimal)
+                return (value * ratio )
             } else {
                 return null
             }
         },
+        
 
         findRationFromId(id) {
             if (this.WhmcsCurrencies != null) {
@@ -312,6 +280,15 @@ createApp({
             }
         },
         
+        formatBalance(value) {
+            let decimal = this.config.DefaultBalanceDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+
         validateInput() {
             // Regular expression to allow only English letters and numbers
         const pattern = /^[A-Za-z0-9]+$/;
@@ -335,7 +312,31 @@ createApp({
             this.SshNamePreviousValue = this.themachinessh;
         }
         },
-                
+              
+        async loadModuleConfig() {
+            let response = await axios.get('/index.php?m=cloudsnp&action=getModuleConfig');
+            if(response.data){
+                const answer = response.data
+                const requiredProperties = [
+                    'AutovmDefaultCurrencyID',
+                    'AutovmDefaultCurrencySymbol',
+                    'ConsoleRoute',
+                    'DefaultMonthlyDecimal',
+                    'DefaultHourlyDecimal',
+                    'DefaultBalanceDecimal'
+                  ];
+                  
+                  if (requiredProperties.every(prop => answer.hasOwnProperty(prop))) {
+                    this.moduleConfigIsLoaded = true;
+                    this.moduleConfig = response.data
+                  } else {
+                    console.log('Module properties does not exist');
+                  }
+            } else {
+                console.log('can not get config');
+            }
+        },
+
         // Load User Credit
         async loadCredit() {
             let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
@@ -467,6 +468,26 @@ createApp({
             return Number(price).toFixed(decimal)
         },
 
+        formatCostMonthly(value) {
+            let decimal = this.config.DefaultMonthlyDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+
+        formatCostHourly(value) {
+            let decimal = this.config.DefaultHourlyDecimal
+            
+            if(value < 99999999999999  && value != null){
+                value = value / (30 * 24)
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+        
         async loadRegions() {
             let response = await axios.get('/index.php?m=cloudsnp&action=regions')
             

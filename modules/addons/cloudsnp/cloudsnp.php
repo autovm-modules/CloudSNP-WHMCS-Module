@@ -128,101 +128,6 @@ function autovm_get_ResellerToken_baseurl_cloudsnp(){
     } 
 }
 
-// Run in client Page to start controller class [CloudController]
-function cloudsnp_clientarea($vars)
-{
-    $response = autovm_get_ResellerToken_baseurl_cloudsnp();
-
-    if(isset($response['ResellerToken']) && isset($response['BackendUrl']) && isset($response['DefLang'])){
-        $ResellerToken = $response['ResellerToken'];
-        $BackendUrl = $response['BackendUrl'];
-        $DefLang = $response['DefLang'];
-    }
-
-
-    // get Default Language
-    if(empty($DefLang)){
-        $DefLang = 'English';
-    }
-
-    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
-        $DefLang = 'English';
-    }
-
-    if(!empty($DefLang)){
-        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
-            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
-        }
-    }
-    
-    $action = autovm_get_query('action');
-    $clientId = autovm_get_session('uid');
-
-    if(!empty($clientId) && !empty($ResellerToken) && !empty($BackendUrl)) {
-        try {
-            $controller = new CloudSnpController($clientId, $ResellerToken, $BackendUrl);
-            return $controller->handle($action);
-        } catch (Exception $e) {
-            return "Error";
-        }
-    } else {
-        echo "Error: Missing required parameters";
-    }
-
-}
-
-// Show in admin panel in addon menu page
-function cloudsnp_output($vars) {
-    $response = autovm_get_ResellerToken_baseurl_cloudsnp();
-
-    if(!empty($vars['version'])){
-        $version = $vars['version'];
-        $text = '<h2> Version : ' . $version . '</h2>';
-        echo($text);
-    }
-    
-    if(!empty($response['DefLang'])){
-        $DefLang = $response['DefLang'];
-        $text = '<h3> Default Language : ' . $DefLang . '</h3>';
-        echo($text);
-    }
-
-
-    $text = '
-            <p style="padding: 50px 0px 0px 0px; !important">
-            <span style="font-weight: 800 !important;">AutoVM Cloud SNP</span> is a module to facilitate connection to AUTOVM Backend from WHMCS to have a smart way to easily manage your clients and their machines within WHMCS environment.
-            </p>
-        ';
-    echo($text);
-    
-    $text = '
-        <p>
-        You can always get the latest version from the <a href="https://github.com/autovm-modules/CloudSNP-WHMCS-Module" style="font-weight: 800 !important;" target="_blank">AutoVM CloudSNP git repository</a>
-        </p>
-        <p>
-        To learn how to use AutoVM modules, please check out the <a href="https://AutoVM.net/docs/" style="font-weight: 800 !important;" target="_blank"> AutoVM documentation page</a>
-        </p>
-        ';
-    echo($text);
-
-
-    // show Messgaes
-    if(!empty($response['message'])){
-        echo('<pre style="padding: 20px 20px 20px 20px; margin: 30px 0px 30px 0px">');
-        print_r($response['message']);
-        echo('</pre>');
-    } 
-    
-    // show Errors
-    if(!empty($response['error'])){
-        echo('<pre style="padding: 20px 20px 20px 20px; margin: 30px 0px 30px 0px">');
-        print_r($response['error']);
-        echo('</pre>');
-    } 
-    
-}
-
-
 // Get Token From AutoVm module
 function autovm_get_config_cloud(){
     $response = [];
@@ -283,8 +188,6 @@ function autovm_get_config_cloud(){
     return $response;
 }
 
-
-
 // Add functionality to client area env
 function cloud_create_config_file($variables){
     
@@ -294,3 +197,101 @@ function cloud_create_config_file($variables){
     // Write the array to the configuration file
     file_put_contents($configFilePath, '<?php return ' . var_export($configArray, true) . ';');
 }
+
+
+// Run in client Page to start controller class [CloudController]
+function cloudsnp_clientarea($vars)
+{
+    $response = autovm_get_ResellerToken_baseurl_cloudsnp();
+
+    if(isset($response['ResellerToken']) && isset($response['BackendUrl']) && isset($response['DefLang'])){
+        $ResellerToken = $response['ResellerToken'];
+        $BackendUrl = $response['BackendUrl'];
+        $DefLang = $response['DefLang'];
+    }
+
+
+    // get Default Language
+    if(empty($DefLang)){
+        $DefLang = 'English';
+    }
+
+    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
+        $DefLang = 'English';
+    }
+
+    if(!empty($DefLang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
+        }
+    }
+    
+    $action = autovm_get_query('action');
+    $clientId = autovm_get_session('uid');
+
+    if(!empty($clientId) && !empty($ResellerToken) && !empty($BackendUrl)) {
+        autovm_get_config_cloud();
+        try {
+            $controller = new CloudSnpController($clientId, $ResellerToken, $BackendUrl);
+            return $controller->handle($action);
+        } catch (Exception $e) {
+            return "Error";
+        }
+    } else {
+        echo "Error: Missing required parameters";
+    }
+}
+
+// Show in admin panel in addon menu page
+function cloudsnp_output($vars) {
+    $response = autovm_get_ResellerToken_baseurl_cloudsnp();
+
+    if(!empty($vars['version'])){
+        $version = $vars['version'];
+        $text = '<h2> Version : ' . $version . '</h2>';
+        echo($text);
+    }
+    
+    if(!empty($response['DefLang'])){
+        $DefLang = $response['DefLang'];
+        $text = '<h3> Default Language : ' . $DefLang . '</h3>';
+        echo($text);
+    }
+
+
+    $text = '
+            <p style="padding: 50px 0px 0px 0px; !important">
+            <span style="font-weight: 800 !important;">AutoVM Cloud SNP</span> is a module to facilitate connection to AUTOVM Backend from WHMCS to have a smart way to easily manage your clients and their machines within WHMCS environment.
+            </p>
+        ';
+    echo($text);
+    
+    $text = '
+        <p>
+        You can always get the latest version from the <a href="https://github.com/autovm-modules/CloudSNP-WHMCS-Module" style="font-weight: 800 !important;" target="_blank">AutoVM CloudSNP git repository</a>
+        </p>
+        <p>
+        To learn how to use AutoVM modules, please check out the <a href="https://AutoVM.net/docs/" style="font-weight: 800 !important;" target="_blank"> AutoVM documentation page</a>
+        </p>
+        ';
+    echo($text);
+
+
+    // show Messgaes
+    if(!empty($response['message'])){
+        echo('<pre style="padding: 20px 20px 20px 20px; margin: 30px 0px 30px 0px">');
+        print_r($response['message']);
+        echo('</pre>');
+    } 
+    
+    // show Errors
+    if(!empty($response['error'])){
+        echo('<pre style="padding: 20px 20px 20px 20px; margin: 30px 0px 30px 0px">');
+        print_r($response['error']);
+        echo('</pre>');
+    } 
+    
+}
+
+
+
