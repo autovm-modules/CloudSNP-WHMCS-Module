@@ -12,7 +12,7 @@
             <!-- Balance in Desktop -->
             <div class="row d-none d-md-block">
                 <div class="">        
-                    <span v-if="user.balance != null && CurrenciesRatioCloudToWhmcs != null && config.ActivateRatioFunc" class="text-primary fw-medium ps-2">
+                    <span v-if="user.balance != null && CurrenciesRatioCloudToWhmcs != null" class="text-primary fw-medium ps-2">
                         <span class="">
                             {{ showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(user.balance)) }}
                         </span>
@@ -28,7 +28,7 @@
             <!-- Balance for mobile -->
             <div class="row d-block d-md-none">
                 <div class="">        
-                    <span v-if="user.balance != null && CurrenciesRatioCloudToWhmcs != null && config.ActivateRatioFunc" class="text-primary fw-medium">
+                    <span v-if="user.balance != null && CurrenciesRatioCloudToWhmcs != null" class="text-primary fw-medium">
                         <span class="px-1">{{ showBalanceWhmcsUnit(ConverFromAutoVmToWhmcs(user.balance)) }}</span> 
                         <span v-if="userCurrencySymbolFromWhmcs">
                             {{ userCurrencySymbolFromWhmcs }}

@@ -1,4 +1,3 @@
-
 <iframe src="/modules/addons/cloudsnp/views/autovm/machine.php?id={$smarty.get.id}" class="autovm"></iframe>
 
 <style type="text/css">

@@ -4,7 +4,7 @@
         <div class="d-flex flex-row align-items-center justify-content-end">
             <span v-if="NewMachinePrice != 0">
                 <span v-if="CurrenciesRatioCloudToWhmcs != null" class="m-0 p-0 px-2" style="background-color: rgba(255, 255, 255, 0); border: 0px;">
-                    {{ ConverFromAutoVmToWhmcs(NewMachinePrice) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostMonthly(ConverFromAutoVmToWhmcs(NewMachinePrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span class="m-0 p-0 px-2 py-1" style="width: 80px;">
                     /{{ lang('monthly') }}
@@ -21,7 +21,7 @@
         <div class="d-flex flex-row align-items-center justify-content-end">
             <span v-if="NewMachinePrice != 0">
                 <span v-if="CurrenciesRatioCloudToWhmcs != null" class="m-0 p-0 px-2" style="background-color: rgba(255, 255, 255, 0); border: 0px;">
-                    {{ ConverFromAutoVmToWhmcsHourly(NewMachinePrice / (30 * 24)) }} {{ userCurrencySymbolFromWhmcs }}
+                    {{ formatCostHourly(ConverFromAutoVmToWhmcs(NewMachinePrice)) }} {{ userCurrencySymbolFromWhmcs }}
                 </span>
                 <span class="m-0 p-0 px-2 py-1" style="width: 80px;">
                     /{{ lang('hourly') }}

@@ -5,37 +5,30 @@ createApp({
     
     data() {
         return {
+            PersonalRootDirectoryURL: '',
             PanelLanguage: null,
-            config: {
-                AutovmDefaultCurrencyID: 1,
-                AutovmDefaultCurrencySymbol: 'َUSD',
-                DefaultMonthlyDecimalForAutoVM: 2,
-                DefaultMonthlyDecimalForWH: 2,
-                DefaultHourlyDecimalForWH: 2,
+            moduleConfig: null,
+            moduleConfigIsLoaded: null,
 
-                planConfig: {
-                    Memory:{
-                        min: 1,
-                        max: 16,
-                        step: 1,
-                    },
-                    CpuCore:{
-                        min: 1,
-                        max: 8,
-                        step: 1,
-                    },
-                    CpuLimit:{
-                        min: 1,
-                        max: 8,
-                        step: 1,
-                    },
-                    Disk:{
-                        min: 20,
-                        max: 1000,
-                        step: 10,
-                    },
+            planConfig: {
+                Memory:{
+                    min: 1,
+                    step: 1,
+                },
+                CpuCore:{
+                    min: 1,
+                    step: 1,
+                },
+                CpuLimit:{
+                    min: 1,
+                    step: 1,
+                },
+                Disk:{
+                    min: 20,
+                    step: 10,
                 },
             },
+        
 
             checkboxconfirmation: null,
             msg : null,
@@ -109,46 +102,46 @@ createApp({
 
     mounted() {
 
-        // Load regions
-        this.loadRegions()
         this.loadRullesFromGit()
 
-        // Load categories
+        // Load regions
+        this.loadRegions()
         this.loadCategories()
-
-        // Load user
         this.loadUser()
 
         // load Whmcs Data
         this.loadCredit()
         this.loadWhCurrencies()
-        
+        this.loadModuleConfig()
         this.readLanguageFirstTime()
     },
 
     computed: {
 
-
-        RangeValueMemory(){
-            return parseFloat(this.RangeValueMemoryString);
-        },
-
-        RangeValueCpuCore(){
-            return parseFloat(this.RangeValueCpuCoreString);
-        },
-
-        RangeValueDisk(){
-            return parseFloat(this.RangeValueDiskString);
-        },  
-
-        RangeValueCpuLimit(){
-            return parseFloat(this.RangeValueCpuCore)
+        config() {
+            if(this.moduleConfig != null && this.moduleConfigIsLoaded){
+                return {
+                AutovmDefaultCurrencyID: this.moduleConfig.AutovmDefaultCurrencyID,
+                AutovmDefaultCurrencySymbol: this.moduleConfig.AutovmDefaultCurrencySymbol,
+                ConsoleRoute: this.moduleConfig.ConsoleRoute,
+                DefaultMonthlyDecimal: this.moduleConfig.DefaultMonthlyDecimal,
+                DefaultHourlyDecimal: this.moduleConfig.DefaultHourlyDecimal,
+                DefaultBalanceDecimalCloud: this.moduleConfig.DefaultBalanceDecimalCloud,
+                DefaultBalanceDecimalWhmcs: this.moduleConfig.DefaultBalanceDecimalWhmcs,
+                // Add more properties as needed
+                };
+            } else {
+                return {
+                    AutovmDefaultCurrencyID: null,
+                    AutovmDefaultCurrencySymbol: null,
+                    DefaultMonthlyDecimal: 0,
+                    DefaultHourlyDecimal: 2,
+                    DefaultBalanceDecimalCloud: 0,
+                    DefaultBalanceDecimalWhmcs: 0,
+                };
+            }
         },
         
-        RangeValueOverall(){
-            return parseFloat(this.RangeValueOverallString)
-        },
-
         userCurrencySymbolFromWhmcs(){
             if(this.WhmcsCurrencies != null && this.userCurrencyIdFromWhmcs != null){
                 let CurrencyArr = this.WhmcsCurrencies.currency
@@ -201,6 +194,26 @@ createApp({
             }
         },
 
+        RangeValueMemory(){
+            return parseFloat(this.RangeValueMemoryString);
+        },
+
+        RangeValueCpuCore(){
+            return parseFloat(this.RangeValueCpuCoreString);
+        },
+
+        RangeValueDisk(){
+            return parseFloat(this.RangeValueDiskString);
+        },  
+
+        RangeValueCpuLimit(){
+            return parseFloat(this.RangeValueCpuCore)
+        },
+        
+        RangeValueOverall(){
+            return parseFloat(this.RangeValueOverallString)
+        },
+
         NewMachinePrice(){
             let decimal = this.config.DefaultMonthlyDecimal
             if(this.planCpuCorePrice != null && this.planCpuLimitPrice != null && this.planDiskPrice != null && this.planMemoryPrice != null && this.planAddressPrice != null){
@@ -229,13 +242,13 @@ createApp({
             let percentage = this.RangeValueOverall
 
             if(percentage == 1){
-                this.RangeValueMemoryString = this.config.planConfig.Memory.min
-                this.RangeValueDiskString = this.config.planConfig.Disk.min
-                this.RangeValueCpuCoreString = this.config.planConfig.CpuCore.min
+                this.RangeValueMemoryString = this.planConfig.Memory.min
+                this.RangeValueDiskString = this.planConfig.Disk.min
+                this.RangeValueCpuCoreString = this.planConfig.CpuCore.min
             } else {
-                this.RangeValueMemoryString = this.normallizeRangeValues(percentage, this.config.planConfig.Memory.min, this.planMaxMemorySize, this.config.planConfig.Memory.step)
-                this.RangeValueDiskString = this.normallizeRangeValues(percentage, this.config.planConfig.Disk.min, this.planMaxDiskSize, this.config.planConfig.Disk.step)
-                this.RangeValueCpuCoreString = this.normallizeRangeValues(percentage, this.config.planConfig.CpuCore.min, this.planMaxCpuCore, this.config.planConfig.CpuCore.step)
+                this.RangeValueMemoryString = this.normallizeRangeValues(percentage, this.planConfig.Memory.min, this.planMaxMemorySize, this.planConfig.Memory.step)
+                this.RangeValueDiskString = this.normallizeRangeValues(percentage, this.planConfig.Disk.min, this.planMaxDiskSize, this.planConfig.Disk.step)
+                this.RangeValueCpuCoreString = this.normallizeRangeValues(percentage, this.planConfig.CpuCore.min, this.planMaxCpuCore, this.planConfig.CpuCore.step)
             }
 
         },
@@ -258,37 +271,24 @@ createApp({
         },
 
         ConverFromWhmcsToCloud(value) {
-            decimal = this.config.DefaultMonthlyDecimalForAutoVM
             if (this.CurrenciesRatioWhmcsToCloud) {
-                let ratio = this.CurrenciesRatioWhmcsToCloud
-                let v = value * ratio
-                return this.formatNumbers(v, decimal)
-            } else {
-                return null
-            }
-        },
-
-        ConverFromAutoVmToWhmcs(value) {
-            decimal = this.config.DefaultMonthlyDecimalForWH
-            if (this.CurrenciesRatioCloudToWhmcs) {
-                let ratio = this.CurrenciesRatioCloudToWhmcs
-                let v = value * ratio 
-                return this.formatNumbers(v, decimal)
+                let ratio = this.CurrenciesRatioWhmcsToCloud                
+                return (value * ratio)
             } else {
                 return null
             }
         },
         
-        ConverFromAutoVmToWhmcsHourly(value) {
-            decimal = this.config.DefaultHourlyDecimalForWH
+
+        ConverFromAutoVmToWhmcs(value) {
             if (this.CurrenciesRatioCloudToWhmcs) {
                 let ratio = this.CurrenciesRatioCloudToWhmcs
-                let v = value * ratio 
-                return this.formatNumbers(v, decimal)
+                return (value * ratio )
             } else {
                 return null
             }
         },
+        
 
         findRationFromId(id) {
             if (this.WhmcsCurrencies != null) {
@@ -312,6 +312,15 @@ createApp({
             }
         },
         
+        formatBalance(value) {
+            let decimal = this.config.DefaultBalanceDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+
         validateInput() {
             // Regular expression to allow only English letters and numbers
         const pattern = /^[A-Za-z0-9]+$/;
@@ -335,10 +344,36 @@ createApp({
             this.SshNamePreviousValue = this.themachinessh;
         }
         },
-                
+              
+        async loadModuleConfig() {
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=getModuleConfig');
+            
+            if(response.data){
+                const answer = response.data
+                const requiredProperties = [
+                    'AutovmDefaultCurrencyID',
+                    'AutovmDefaultCurrencySymbol',
+                    'ConsoleRoute',
+                    'DefaultMonthlyDecimal',
+                    'DefaultHourlyDecimal',
+                    'DefaultBalanceDecimalCloud',
+                    'DefaultBalanceDecimalWhmcs',
+                  ];
+                  
+                  if (requiredProperties.every(prop => answer.hasOwnProperty(prop))) {
+                    this.moduleConfigIsLoaded = true;
+                    this.moduleConfig = response.data
+                  } else {
+                    console.log('Module properties does not exist');
+                  }
+            } else {
+                console.log('can not get config');
+            }
+        },
+
         // Load User Credit
         async loadCredit() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=loadCredit');
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=loadCredit');
 
             if (response?.data) {
                 this.userCreditinWhmcs = response.data.credit;
@@ -350,7 +385,7 @@ createApp({
 
         // Test Load Currencies
         async loadWhCurrencies() {
-            let response = await axios.post('/index.php?m=cloudsnp&action=getAllCurrencies')
+            let response = await axios.post(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=getAllCurrencies')
             if (response.data.result == 'success') {
                 this.WhmcsCurrencies = response.data.currencies
             } else {
@@ -359,7 +394,7 @@ createApp({
         },
 
         async loadUser() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=login')
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=login')
             response = response.data
             if (response?.data) {
                 this.user = response.data
@@ -463,12 +498,41 @@ createApp({
             }
         },
 
+        showBalanceWhmcsUnit(value){
+            let decimal = this.config.DefaultBalanceDecimalWhmcs        
+            return this.formatNumbers(value, decimal)
+        },
+        
+        showBalanceCloudUnit(value){
+            let decimal = this.config.DefaultBalanceDecimalCloud        
+            return this.formatNumbers(value, decimal)
+        },
+
         formatPrice(price, decimal = 2) {
             return Number(price).toFixed(decimal)
         },
 
+        formatCostMonthly(value) {
+            let decimal = this.config.DefaultMonthlyDecimal
+            if(value < 99999999999999  && value != null){
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+
+        formatCostHourly(value) {
+            let decimal = this.config.DefaultHourlyDecimal
+            if(value < 99999999999999  && value != null){
+                value = value / (30 * 24)
+                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+            } else {
+                return null
+            }
+        },
+        
         async loadRegions() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=regions')
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=regions')
             
             response = response.data
             if (response?.message) {
@@ -523,7 +587,7 @@ createApp({
         async loadPlans() {
 
             this.plans = []
-            let response = await axios.get('/index.php?m=cloudsnp&action=getPlans', {
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=getPlans', {
                 params: {
                     id: this.regionId
                 }
@@ -571,7 +635,7 @@ createApp({
         },
 
         async loadCategories() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=categories')
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=categories')
             response = response.data
             if (response?.message) {
 
@@ -600,7 +664,7 @@ createApp({
                 formData.append('traffic', 5)
 
 
-                let response = await axios.post('/index.php?m=cloudsnp&action=create', formData)
+                let response = await axios.post(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=create', formData)
 
                 response = response.data
 

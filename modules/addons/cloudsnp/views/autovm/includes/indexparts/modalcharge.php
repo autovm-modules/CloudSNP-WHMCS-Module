@@ -1,15 +1,13 @@
 <?php 
-    if(isset($DefaultChargeModuleEnable) && $DefaultChargeModuleEnable){
-        $ChargeModuleEnable = true;
-    } else {
+    if(isset($DefaultChargeModuleEnable) && $DefaultChargeModuleEnable == false){
         $ChargeModuleEnable = false;
+    } else {
+        $ChargeModuleEnable = true;
     }
-
-
-    if(!isset($CloudTopupLink)){
-        $CloudTopupLink = "/index.php?m=cloudsnp&action=pageIndex";
+    
+    if(empty($CloudTopupLink)){
+        $CloudTopupLink = $PersonalRootDirectoryURL . '/clientarea.php?action=addfunds';
     }
-
 
     if(isset($DefaultChargeModuleDetailsViews) && $DefaultChargeModuleDetailsViews){
         $ChargeModuleDetailsViews = true;
@@ -17,6 +15,7 @@
         $ChargeModuleDetailsViews = false;
     }
 
+    
 ?>  
 
 <!-- create machine modal -->
@@ -68,6 +67,7 @@
                     </a>
                 </div>
             </div>
+
             <div v-else class="modal-body mt-4 px-3 px-md-4 pb-5">
                 <div class="row m-0 p-0 align-items-start">
                     <div class="col-12 m-0 p-0">
@@ -83,7 +83,7 @@
                                     <div class="col-auto">
                                         <table class="table table-borderless">
                                             <tr>
-                                                <td class="bg-body-secondary rounded-3 px-3 py-3 px-4 text-center">
+                                                <td class="bg-body-secondary rounded-3 px-3 py-3 px-4 text-center fs-6">
                                                     <?php include('showcredit.php'); ?> 
                                                 </td>
                                             </tr>
@@ -197,7 +197,6 @@
                                     </p>
                                 </div>
 
-                                
                             </div>
                         </div>
 
