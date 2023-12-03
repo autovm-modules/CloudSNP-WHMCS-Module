@@ -6,7 +6,7 @@
     }
     
     if(empty($CloudTopupLink)){
-        $CloudTopupLink = '/clientarea.php?action=addfunds';
+        $CloudTopupLink = $PersonalRootDirectoryURL . '/clientarea.php?action=addfunds';
     }
 
     if(isset($DefaultChargeModuleDetailsViews) && $DefaultChargeModuleDetailsViews){
@@ -197,7 +197,6 @@
                                     </p>
                                 </div>
 
-                                
                             </div>
                         </div>
 

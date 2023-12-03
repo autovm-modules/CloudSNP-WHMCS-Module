@@ -4,6 +4,7 @@ app = createApp({
 
     data() {
         return {
+            PersonalRootDirectoryURL: '',
             PanelLanguage: null,
             moduleConfig: null,
             moduleConfigIsLoaded: null,
@@ -292,7 +293,7 @@ app = createApp({
         },
 
         async loadModuleConfig() {
-            let response = await axios.get('/index.php?m=cloudsnp&action=getModuleConfig');
+            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=getModuleConfig');
             if(response.data){
                 const answer = response.data
                 const requiredProperties = [
@@ -372,7 +373,7 @@ app = createApp({
                 let link = this.config.AdminUserSummeryPagePath
                 let userid = this.userid
                 if(userid != null){
-                    link = this.config.AdminUserSummeryPagePath + '?' + 'userid=' + this.userid + '&' + 'method=' + method;
+                    link = this.PersonalRootDirectoryURL + this.config.AdminUserSummeryPagePath + '?' + 'userid=' + this.userid + '&' + 'method=' + method;
                 }
                 return link
             } else {

@@ -145,7 +145,7 @@
                         {{ lang('networkinformation') }}
                     </span>
                     </span>
-                    <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/internet.svg" alt="internet">
+                    <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/internet.svg" alt="internet">
                 </div>
 
                 <!-- ip -->
@@ -174,7 +174,7 @@
                     <div class="m-0 p-0">
                         <a @click="CopyAddress" class="btn btn-sm btn-outline p-0 m-0 ms-1 p-1" style="font-size: 70%;">
                             <span v-if="!AddressCopied" class="small">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ip.svg" alt="copy" style="width: 23px;">
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ip.svg" alt="copy" style="width: 23px;">
                             </span>    
                             <span v-if="AddressCopied" class="d-flex flex-row justify-content-center align-items-end text-primary">
                                 <i class="bi bi-check-all"></i>
@@ -201,7 +201,7 @@
                     <div v-if="online || offline" class="row d-flex flex-row m-0 p-0">
                         <div v-if="reserve" class="m-0 p-0 ps-3">
                             <div v-if="online" class="d-flex flex-row m-0 p-0 align-items-center">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/online.svg"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/online.svg"
                                     width="20"
                                     class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
@@ -211,7 +211,7 @@
                             </div>
 
                             <div v-else-if="offline" class="d-flex flex-row m-0 p-0 align-items-center">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/offline.svg"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/offline.svg"
                                     width="20"
                                     class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
@@ -224,7 +224,7 @@
                     <div v-else class="row d-flex flex-row m-0 p-0">
                         <div class="m-0 p-0 ps-3">
                             <div class="d-flex flex-row align-items-center m-0 p-0">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/nounstatus.svg" width="20"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/nounstatus.svg" width="20"
                                 class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
                                 <!-- Three spinner -->

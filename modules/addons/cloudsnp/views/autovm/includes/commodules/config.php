@@ -38,9 +38,9 @@ if(isset($configArray['ChargeModuleEnable'])){
 
 /* TopUp Link */
 if(isset($configArray['TopupLink'])){
-    $CloudTopupLink = $configArray['TopupLink'];
+    $CloudTopupLink = $PersonalRootDirectoryURL . $configArray['TopupLink'];
 } else {
-    $CloudTopupLink = '/clientarea.php?action=addfunds';
+    $CloudTopupLink = $PersonalRootDirectoryURL . '/clientarea.php?action=addfunds';
 }
 
 

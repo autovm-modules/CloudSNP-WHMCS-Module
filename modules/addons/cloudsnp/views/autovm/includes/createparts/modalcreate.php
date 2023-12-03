@@ -141,7 +141,7 @@
                                     <p class="alert alert-danger text-center py-2 mt-5">
                                         {{ lang('balanceisnotenough') }}
                                     </p>
-                                    <a class="btn btn-danger float-end" href="/index.php?m=cloudsnp&action=pageIndex">{{ lang('movebalance') }}</a>
+                                    <a class="btn btn-danger float-end" href="<?php echo($PersonalRootDirectoryURL); ?>/index.php?m=cloudsnp&action=pageIndex">{{ lang('movebalance') }}</a>
                                 </div>
                             </div>
 
@@ -158,7 +158,7 @@
                                         </p>
                                     </div> 
                                     <div class="row d-flex flex-row justify-content-end p-0 m-0">
-                                        <a class="col-auto btn btn-primary px-4 py-2" href="/index.php?m=cloudsnp&action=pageIndex">{{ lang('machinelink') }}</a>        
+                                        <a class="col-auto btn btn-primary px-4 py-2" href="<?php echo($PersonalRootDirectoryURL); ?>/index.php?m=cloudsnp&action=pageIndex">{{ lang('machinelink') }}</a>        
                                     </div> 
                                 </div>
 
@@ -182,7 +182,7 @@
                             <label class="form-check-label ms-3" :class="checkboxconfirmation ? '' : 'text-secondary'" for="checkboxconfirmation">
                                 {{ lang('confirmationtext') }}
                             </label>
-                            <a class="text-decoration-none text-primary ps-2 collapsed" type="button" href="/modules/addons/cloudsnp/views/autovm/includes/commodules/rulles.php" target=”_blank”>
+                            <a class="text-decoration-none text-primary ps-2 collapsed" type="button" href="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/commodules/rulles.php" target=”_blank”>
                                 {{ lang('readmore') }} 
                             </a>
                         </div>
@@ -223,7 +223,7 @@
                     </span>
                     <span v-else class="text-primary fw-medium"> --- </span>
                 </div>
-                
+
                 <!-- BTN's -->
                 <div class="d-flex flex-row">
                     <!-- Close BTN ( two typ: 1-[normal close] , 2-[close+relaod] )-->
@@ -252,9 +252,9 @@
                     
 
                     <!-- Create BTN -->
-                    <div v-if="!userClickedCreationBtn && checkboxconfirmation">
+                    <div v-if="!userClickedCreationBtn">
                         <div class="m-0 p-0" v-if="themachinename && regionName && planName && templateId && NewMachinePrice">
-                            <a @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
+                            <a v-if="checkboxconfirmation" @click="acceptConfirmDialog" type="button" class="btn btn-primary px-5 mx-2">
                                 <span>{{ lang('createthismachine') }}</span>
                             </a>
                         </div>

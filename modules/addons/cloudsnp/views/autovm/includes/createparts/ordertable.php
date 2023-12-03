@@ -4,7 +4,7 @@
     <div v-if="planMemoryPrice != null && RangeValueMemory != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueMemory">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="20" class="p-0 m-0 me-3">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="20" class="p-0 m-0 me-3">
                 <span>
                     {{ lang('memory') }}
                 </span>
@@ -26,7 +26,7 @@
     <div v-if="planCpuCorePrice != null && RangeValueCpuCore != null">
         <div class="input-group mb-1">
             <span class="input-group-text col-4 m-0 p-0"style="background-color: #ffffff00; border: 0;"  id="RangeValueCpuCore">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" width="20" class="p-0 m-0 me-3">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" width="20" class="p-0 m-0 me-3">
                 <span>
                     {{ lang('cpu') }}
                 </span>

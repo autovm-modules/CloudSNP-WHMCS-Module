@@ -225,10 +225,10 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
 
     
 
-    
-    $link = '/modules/addons/cloudsnp/views/autovm/adminpanel.php?userid=' . $WhUserId;
+    $PersonalRootDirectoryURL = '';
+    $link = $PersonalRootDirectoryURL . '/modules/addons/cloudsnp/views/autovm/admin.php?userid=' . $WhUserId;
 
-    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 600px;border: none;}</style>';
+    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 650px;border: none;}</style>';
     
     return $value;
 }); 

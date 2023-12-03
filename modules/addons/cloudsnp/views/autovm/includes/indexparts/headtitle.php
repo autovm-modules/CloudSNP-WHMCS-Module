@@ -19,7 +19,7 @@
 
 
     if(empty($CloudTopupLink)){
-        $CloudTopupLink = '/clientarea.php?action=addfunds';
+        $CloudTopupLink = $PersonalRootDirectoryURL . '/clientarea.php?action=addfunds';
     }
 ?>  
 
