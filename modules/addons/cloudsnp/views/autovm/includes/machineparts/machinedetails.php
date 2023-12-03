@@ -3,10 +3,10 @@
 <div class="row d-flex flex-row m-0 p-0">
 
     <!-- memory -->
-    <div class="col-6 col-md-4 col-xxl-2 p-0 m-0 mb-3">
+    <div class="col-6 col-md-4 p-0 m-0 mb-3">
         <div class="border border-2 rounded-4 bg-white py-4 m-0 p-0 px-3 me-1">
             <div class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" width="18">
                 <span class="text-secondary m-0 p-0 ps-2">
                     {{ lang('memory') }}
                 </span>
@@ -30,12 +30,11 @@
     </div><!-- end memory -->
 
 
-
     <!-- Disk -->
-    <div class="col-6 col-md-4 col-xxl-2 p-0 m-0 mb-3">
-        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 ms-1 me-md-1">
+    <div class="col-6 col-md-4 p-0 m-0 mb-3">
+        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 ms-1 me-0 me-md-1">
             <div class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/diskicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/diskicon.svg" width="18">
                 <span class="m-0 p-0 text-secondary ps-2">
                     {{ lang('disk') }}
                 </span>
@@ -59,12 +58,11 @@
     </div><!-- end Disk -->
 
 
-
     <!-- CPU -->
-    <div class="col-12 col-md-4 col-xxl-2 p-0 m-0 mb-3">
-        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 mx-0 me-1 me-md-0 ms-md-1 me-xxl-1">
+    <div class="col-6 col-md-4 p-0 m-0 mb-3">
+        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 me-1 me-md-0 ms-md-1">
             <div class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" width="18">
                 <span class="m-0 p-0 text-secondary ps-2">
                     {{ lang('cpu') }}
                 </span>
@@ -87,20 +85,20 @@
         </div>
     </div><!-- End CPU -->
 
-    <!-- Template Or Software -->
-    <div class="col-12 col-md-4 col-xxl-3 p-0 m-0 mb-3">
-        <!-- Template -->
-        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 ms-1 ms-md-0 me-md-1 ms-xxl-1">
+
+    <!-- Template OS -->
+    <div class="col-6 col-md-4 p-0 m-0 mb-3">
+        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 ms-1 ms-md-0 me-md-1">
             <!-- Title -->
             <div v-if="!machineIsLoaded" class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/osicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/osicon.svg" width="18">
                 <span class="m-0 p-0 text-secondary ps-2">
                     {{ lang('template') }}
                 </span>
             </div><!-- end Title -->
             
             <div v-if="machineIsLoaded" class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/osicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/osicon.svg" width="18">
                 <span v-if="tempName" class="m-0 p-0 text-secondary ps-2">
                     {{ lang('template') }}
                 </span>
@@ -137,12 +135,12 @@
 
                 <!-- Has Template -->
                 <div class="p-0 m-0" v-if="tempName && !softName">     
-                    <img :src="tempIcon" alt="templateicon" width="23">
+                    <img v-if="tempIcon != null" :src="tempIcon" alt="templateicon" width="23">
+                    <img v-if="softIcon != null" :src="softIcon" alt="templateicon" width="23">
                 </div>
                 <span v-if="tempName" class="m-0 p-0 fs-4 ms-2">
                     {{ tempName }}
                 </span>
-                
                 <span v-if="softName" class="m-0 p-0 fs-4 ms-2">
                     {{ softName }}
                 </span>
@@ -150,12 +148,11 @@
         </div>
     </div><!-- End OS -->
 
-    
     <!-- UpTime -->
-    <div class="col-12 col-sm-6 col-md-4 col-xxl-auto p-0 m-0 mb-3 flex-grow-1">
-        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 mx-0 ms-md-1 h-100">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 p-0 m-0 mb-3">
+        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 ms-0 h-100 me-0 ms-md-1 me-sm-1">
             <div class="m-0 p-0 mb-3 text-start">
-                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/uptimeicon.svg" width="18">
+                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/uptimeicon.svg" width="18">
                 <span class="m-0 p-0 text-secondary ps-2">
                     {{ lang('uptime') }}
                 </span>
@@ -216,6 +213,97 @@
             </div>
         </div>
     </div><!-- end UpTime -->
+    
+
+    <!-- Traffic -->
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 p-0 m-0 mb-3 flex-grow-1">
+        <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-3 px-md-4 h-100 mx-0 ms-0 ms-sm-1">
+            <div class="d-flex flex-row align-items-end justify-content-between">
+                <!-- First Column -->
+                <div class="d-flex flex-column align-items-start justify-content-between">
+                    <div class="m-0 p-0 mb-3 text-start">
+                        <i class="bi bi-arrow-down-up"></i>
+                        <span class="m-0 p-0 text-secondary ps-2">
+                            {{ lang('traffic') }}
+                        </span>
+                    </div>
+                    <div v-if="trafficTotal == null" class="m-0 p-0">
+                        <span class="m-0 p-0 text-primary fs-5 fw-medium">
+                            <span class="">
+                                ---
+                            </span>
+                        </span>
+                    </div>
+                    <div v-if="trafficTotal != null" class="m-0 p-0">
+                        <span class="m-0 p-0 text-primary fs-5 fw-medium">
+                            <span>
+                                {{ trafficTotal }}
+                            </span>
+                            <span class="px-1">
+                                {{ lang('gb') }}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <!-- second Column -->
+                <div class="d-flex flex-column align-items-start justify-content-between d-block d-sm-none d-lg-block">
+                    <div v-if="trafficReceived != null" class="m-0 p-0 text-start my-1">
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="m-0 p-0 me-3">
+                                <span class="text-secondary" style="--bs-text-opacity: 0.7;">
+                                    <i class="bi bi-cloud-download-fill h5 me-2"></i>
+                                    <span>
+                                        {{ lang('download') }}
+                                     </span>
+                                    <span>:</span>
+                                </span>
+                            </div>
+                            <div class="m-0 p-0">
+                                <span v-if="trafficReceived != null"  class="text-primary ms-2" style="--bs-text-opacity: 0.7;">
+                                    <span>
+                                        {{ trafficReceived }}
+                                    </span>
+                                    <span class="px-1">
+                                        {{ lang('gb') }}
+                                    </span>
+                                </span>
+                                <span v-else class="text-primary ms-2">
+                                    ---
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="trafficSend != null" class="m-0 p-0 text-start my-1">
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="m-0 p-0 me-3">
+                                <span class="text-secondary" style="--bs-text-opacity: 0.7;">
+                                    <i class="bi bi-cloud-upload h5 me-2"></i>
+                                    <span>
+                                        {{ lang('upload') }}
+                                    </span>
+                                    <span>:</span>
+                                </span>
+                            </div>
+                            <div class="m-0 p-0">
+                                <span v-if="trafficSend != null" class="text-primary ms-2" style="--bs-text-opacity: 0.7;">
+                                    <span>
+                                        {{ trafficSend }}
+                                    </span>
+                                    <span class="px-1">
+                                        {{ lang('gb') }}
+                                    </span>
+                                </span>
+                                <span v-else class="text-primary ms-2">
+                                    ---
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end Traffic -->
     
 </div>
 <!-- End Machine details -->

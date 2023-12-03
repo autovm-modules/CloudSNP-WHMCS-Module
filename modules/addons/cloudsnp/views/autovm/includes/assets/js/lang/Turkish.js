@@ -11,6 +11,8 @@ let common = {
 // Machine view 
         
     // from product
+    "download" : "Download",
+    "upload" : "Upload",
     "backtoservices" : "Hizmetlere Geri Dön",
     "ghz" : "GHz",
     "mb" : "MB",
@@ -153,6 +155,7 @@ let common = {
     "remainingtime" : "Kalan Zaman :",
     "failactionmsg" : "Son işlem tam olarak gerçekleştirilmedi, durum hala başarısız. Lütfen yeni bir işlem deneyin!",
     "snapshot" : "Snapshot",
+    "traffic" : "TRAFFIC",
 // end from Product
 
 // Unique for this cloud

@@ -4,37 +4,9 @@ use WHMCS\Database\Capsule;
 use PG\Request\Request;
 use WHMCS\User\Client;
 
-function autovm_get_resselertoken_baseurl(){
-    // find Module aparams
-    try {
-        $moduleparams = Capsule::table('tbladdonmodules')->get();
-        foreach ($moduleparams as $item) {
-            if($item->module == 'cloudsnp'){
-                if($item->setting == 'BackendUrl'){
-                    $BackendUrl = $item->value;
-                }
-                
-                if($item->setting == 'ResellerToken'){
-                    $ResellerToken = $item->value;
-                }
-            }
-        }
-    } catch (\Exception $e) {
-        echo "Can not find module params table in database";
-    }
-
-    $arr = array(
-        'ResellerToken' => $ResellerToken,
-        'BackendUrl' => $BackendUrl
-    );
-
-    return $arr;
-}
-
-
 function autovm_create_user($client)
 {
-    $infos = autovm_get_resselertoken_baseurl();
+    $infos = autovm_get_ResellerToken_baseurl_client();
     $ResellerToken = $infos['ResellerToken'];
     $BackendUrl = $infos['BackendUrl'];
 
@@ -51,60 +23,141 @@ function autovm_create_user($client)
     return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
 }
 
-
 function autovm_get_user_token($userId)
 {
     $params = ['userId' => $userId];
-
     $user = Capsule::selectOne('SELECT token FROM autovm_user WHERE user_id = :userId', $params);
-
-    // The first value
     return current($user);
 }
 
+
+function autovm_get_ResellerToken_baseurl_client(){
+    $response = [];
+
+    try {
+        $moduleparams = Capsule::table('tbladdonmodules')->get();
+        foreach ($moduleparams as $item) {
+            if($item->module == 'autovm'){
+                if($item->setting == 'BackendUrl'){
+                    $BackendUrl = $item->value;
+                }
+                
+                if($item->setting == 'ResellerToken'){
+                    $ResellerToken = $item->value;
+                }
+
+                if($item->setting == 'DefLang'){
+                    $DefLang = $item->value;
+                }
+            }
+        }
+    } catch (\Exception $e) {
+        $error = 'Database ERR ===> Client: Can not find module params table in database';
+        $response['error'] = $error;
+        return $response;
+    }
+
+    if(empty($BackendUrl)){
+        $message = 'Backend URL ERR ===> Go to addons module and insert your backend adrress';
+        $response['message'] = $message;
+        return $response;
+    }
+    
+    if(empty($ResellerToken)){
+        $message = 'Reseller Token ERR ===> Go to addons module and insert your Token';
+        $response['message'] = $message;
+        return $response;
+    }
+   
+    if(empty($DefLang)){
+        $message = 'Defaul Language ERR ===> Go to addons module and select a language';
+        $response['message'] = $message;
+        return $response;
+    }
+
+    if(isset($ResellerToken) && isset($BackendUrl) && isset($DefLang)){
+        $response['ResellerToken'] = $ResellerToken;
+        $response['BackendUrl'] = $BackendUrl;
+        $response['DefLang'] = $DefLang;
+        return $response;
+    } 
+}
+
+
 add_hook('ClientAreaPage', 100, function($params) {
-
-    // Find client
-    $clientId = autovm_get_session('uid');
-
-    if (empty($clientId)) {
-        return false; // We dont need to log anything here
+    $response =  autovm_get_ResellerToken_baseurl_client();
+    
+    if(!empty($response['error'])){
+        return false;
+    }
+    
+    if(!empty($response['message'])){
+        return false;
     }
 
-    // Find client
-    $client = Client::find($clientId);
-
-    if (empty($client)) {
-        return false; // We dont need to log anything here
+    if(isset($response['ResellerToken']) && isset($response['BackendUrl'])){
+        $ResellerToken = $response['ResellerToken'];
+        $BackendUrl = $response['BackendUrl'];
     }
 
-    // Find token
-    $token = autovm_get_user_token($clientId);
+    // create token if have infos
+    if(!empty($ResellerToken) && !empty($BackendUrl)){
+        
+        $clientId = autovm_get_session('uid');
+        if (empty($clientId)) {
+            return false;
+        }
 
-    if ($token) {
-        return false; // We dont need to log anything here
+        $client = Client::find($clientId);
+        if (empty($client)) {
+            echo('can not find the client');
+            return false;
+        }
+
+        // Find token
+        $token = autovm_get_user_token($clientId);
+        if ($token) {
+            return false;
+        }
+
+        // create new user if can not find Token
+        $CreateResponse = autovm_create_user($client);
+        if (empty($CreateResponse)) {
+            return false;
+        }
+
+        $message = property_exists($CreateResponse, 'message');
+        if ($message) {
+            return false;
+        }
+
+        $user = $CreateResponse->data;
+
+        // Save token in WHMCS
+        $params = ['user_id' => $client->id, 'token' => $user->token];
+
+        Capsule::table('autovm_user')
+            ->insert($params);
+
+    } else {
+        return false;
     }
 
-    // Create user in AutoVM
-    $response = autovm_create_user($client);
 
-    if (empty($response)) {
-        return false; // We dont need to log anything here
-    }
 
-    $message = property_exists($response, 'message');
 
-    if ($message) {
-        return false; // We dont need to log anything here
-    }
 
-    $user = $response->data;
 
-    // Save token in WHMCS
-    $params = ['user_id' => $client->id, 'token' => $user->token];
 
-    Capsule::table('autovm_user')
-        ->insert($params);
+
+
+
+
+
+
+
+
+    
 });
 
 

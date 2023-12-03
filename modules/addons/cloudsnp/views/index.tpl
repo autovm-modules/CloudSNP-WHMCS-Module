@@ -1,4 +1,3 @@
-
 <iframe src="/modules/addons/cloudsnp/views/autovm/index.php" class="autovm" style="padding-top: 50px !important;"></iframe>
 
 <style type="text/css">

@@ -67,7 +67,7 @@
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 120px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
-                            <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
+                            <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('memory') }}
                             </span>
@@ -78,13 +78,13 @@
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-4">
                     <div class=" d-none d-lg-block">
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 120px !important;">
-                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
+                            <img class="text-secondary p-0 m-0 pe-3" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ramicon.svg" alt="Memory">
                             <span class="p-0 m-0 me-2 h6">
                                 {{ lang('memory') }}
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="Memory" :aria-valuenow="RangeValueMemoryString" aria-valuemin="config.planConfig.Memory.min" :aria-valuemax="planMaxMemorySize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="Memory" :aria-valuenow="RangeValueMemoryString" aria-valuemin="planConfig.Memory.min" :aria-valuemax="planMaxMemorySize" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueMemoryString }} {{ lang('GB') }}</div>
                     </div>
@@ -97,7 +97,7 @@
                 <div class="d-block d-lg-none m-0 p-0">
                     <div class="col-12 mt-3 mb-3" style="width: 120px !important;">
                         <span class="d-flex flex-row justify-content-start align-items-center">
-                            <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
+                            <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 h6 ms-2 me-2">
                                 {{ lang('cpu') }}
                             </span>
@@ -108,13 +108,13 @@
                 <div class="d-flex flex-row justify-content-between align-items-center m-0 p-0 pt-0 pt-md-5">
                     <div class=" d-none d-lg-block">
                         <span class="d-flex flex-row justify-content-start align-items-center" style="width: 120px !important;">
-                            <img class="text-secondary p-0 m-0 pe-3" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
+                            <img class="text-secondary p-0 m-0 pe-3" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/cpuicon.svg" alt="CpuCore">
                             <span class="p-0 m-0 me-2 h6">
                                 {{ lang('cpu') }}
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="config.planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="CpuCorePriceRange" :aria-valuenow="RangeValueCpuCoreString" aria-valuemin="planConfig.CpuCore.min" :aria-valuemax="planMaxCpuCore" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueCpuCoreString }} {{ lang('ghz') }}, {{ RangeValueCpuCoreString }} {{ lang('core') }}</div>
                     </div>
@@ -144,7 +144,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="DiskPriceRange" :aria-valuenow="RangeValueDiskString" aria-valuemin="config.planConfig.Disk.min" :aria-valuemax="planMaxDiskSize" style="height: 25px; --bs-bg-opacity: 0.1;">
+                    <div class="progress w-100 rounded-5 bg-primary" role="progressbar" aria-label="DiskPriceRange" :aria-valuenow="RangeValueDiskString" aria-valuemin="planConfig.Disk.min" :aria-valuemax="planMaxDiskSize" style="height: 25px; --bs-bg-opacity: 0.1;">
                         <div v-if="RangeValueOverall < 15" class="progress-bar m-0 p-0 fs-6 bg-primary" style="width: 20%; --bs-bg-opacity: 0.7;">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
                         <div v-if="RangeValueOverall > 14" class="progress-bar m-0 p-0 fs-6" :style="{ width: RangeValueOverall + '%'}">{{ RangeValueDiskString }} {{ lang('GB') }}</div>
                     </div>

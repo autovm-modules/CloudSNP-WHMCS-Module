@@ -24,7 +24,7 @@
                             <div v-if="machineIsLoaded" class="m-0 p-0">
                                 <span v-if="machine.price != null" class="">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="h4 text-primary m-0 p-0">
-                                        {{ ConverFromAutoVmToWhmcs(machine.price) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ formatCostMonthly(ConverFromAutoVmToWhmcs(machine.price)) }} {{ userCurrencySymbolFromWhmcs }}
                                         <span class="ps-1 text-dark h6 fw-light">
                                             <span>
                                                 {{ lang('monthly') }}
@@ -58,7 +58,7 @@
                             <div v-if="machineIsLoaded" class="m-0 p-0">
                                 <span v-if="machine.price != null" class="d-flex flex-row align-items-center text-primary fs-6">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null" class="m-0 p-0">
-                                        {{ ConverHourlyFromAutoVmToWhmcs(machine.price/30/24) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ formatCostHourly(ConverFromAutoVmToWhmcs(machine.price)) }} {{ userCurrencySymbolFromWhmcs }}
                                     </span>
                                     <span v-else class="m-0 p-0">
                                         <?php include('./includes/commodules/threespinner.php'); ?>
@@ -97,7 +97,7 @@
                             <div class="col-5 m-0 p-0">
                                 <span v-if="user.balance != null" class="text-secondary align-middle m-0 p-0 fw-medium">
                                     <span v-if="CurrenciesRatioCloudToWhmcs != null">
-                                        {{ ConverBalanceFromAutoVmToWhmcs(user.balance) }} {{ userCurrencySymbolFromWhmcs }}
+                                        {{ formatBalance(ConverFromAutoVmToWhmcs(user.balance)) }} {{ userCurrencySymbolFromWhmcs }}
                                     </span>
                                     <span v-else>
                                         ...
@@ -133,7 +133,7 @@
     </div><!-- End finance  -->
 
     <!-- Network -->
-    <div class="col-12 col-md-8 col-lg-6 col-xl-5 m-0 p-0 flex-grow-1 p-0 m-0 mb-3 order-2 order-md-2 order-lg-2 order-xl-2">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-4 m-0 p-0 flex-grow-1 p-0 m-0 mb-3 order-2 order-md-2 order-lg-2 order-xl-2">
         <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-4 mx-0 mx-xl-1  pb-5 h-100">
             <!-- top slice -->
             <div class="m-0 p-0">
@@ -145,7 +145,7 @@
                         {{ lang('networkinformation') }}
                     </span>
                     </span>
-                    <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/internet.svg" alt="internet">
+                    <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/internet.svg" alt="internet">
                 </div>
 
                 <!-- ip -->
@@ -155,8 +155,11 @@
                             {{ lang('ipaddress') }}
                         </span>
                         <span v-if="machineIsLoaded" class="m-0 p-0">
-                            <span v-if="ipaddress != null" class="text-primary fw-medium m-0 p-0 ps-4 fs-2 align-middle">
+                            <span v-if="ipaddress && !alias" class="text-primary fw-medium m-0 p-0 ps-4 fs-2 align-middle">
                                 {{ ipaddress }}
+                            </span>
+                            <span v-if="alias" class="text-primary fw-medium m-0 p-0 ps-4 fs-2 align-middle">
+                                {{ alias }}
                             </span>
                             <span v-if="!ipaddress" class="text-primary fw-medium m-0 p-0 ps-4 fs-2 align-middle">
                                 ---
@@ -169,7 +172,15 @@
                         </span>
                     </div>
                     <div class="m-0 p-0">
-                        <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/ip.svg" alt="ipaddress">
+                        <a @click="CopyAddress" class="btn btn-sm btn-outline p-0 m-0 ms-1 p-1" style="font-size: 70%;">
+                            <span v-if="!AddressCopied" class="small">
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/ip.svg" alt="copy" style="width: 23px;">
+                            </span>    
+                            <span v-if="AddressCopied" class="d-flex flex-row justify-content-center align-items-end text-primary">
+                                <i class="bi bi-check-all"></i>
+                                <span class="small">Copied</span>
+                            </span>
+                        </a>
                     </div>
                    
                 </div>
@@ -190,7 +201,7 @@
                     <div v-if="online || offline" class="row d-flex flex-row m-0 p-0">
                         <div v-if="reserve" class="m-0 p-0 ps-3">
                             <div v-if="online" class="d-flex flex-row m-0 p-0 align-items-center">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/online.svg"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/online.svg"
                                     width="20"
                                     class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
@@ -200,7 +211,7 @@
                             </div>
 
                             <div v-else-if="offline" class="d-flex flex-row m-0 p-0 align-items-center">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/offline.svg"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/offline.svg"
                                     width="20"
                                     class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
@@ -213,7 +224,7 @@
                     <div v-else class="row d-flex flex-row m-0 p-0">
                         <div class="m-0 p-0 ps-3">
                             <div class="d-flex flex-row align-items-center m-0 p-0">
-                                <img src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/nounstatus.svg" width="20"
+                                <img src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/nounstatus.svg" width="20"
                                 class="spinner-grow align-middle bg-light"
                                     style="--bs-spinner-width: 17px; --bs-spinner-height: 17px; --bs-spinner-animation-speed: 2s;">
                                 <!-- Three spinner -->
@@ -229,7 +240,7 @@
     </div><!-- end Network -->
 
     <!-- Login -->
-    <div class="col-12 col-md-4 col-lg-4 col-xl-3 p-0 m-0 mb-3 order-3 order-md-1 order-lg-1 order-xl-3">
+    <div class="col-12 col-md-4 col-lg-4 col-xl-4 p-0 m-0 mb-3 order-3 order-md-1 order-lg-1 order-xl-3">
         <div class="border border-2 rounded-4 bg-white m-0 p-0 py-4 px-4 mx-0 me-md-2 ms-xl-1 me-xl-0 pb-5 h-100">
             
             <!-- username -->

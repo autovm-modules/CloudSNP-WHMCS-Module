@@ -726,28 +726,113 @@ class CloudSnpController
     }
 
 
-    public function getSystemUrl()
+    public function getConsoleRoute()
     {
-        $command = 'GetConfigurationValue';
-        $postData = array(
-            'setting' => 'SystemURL',
-        );
-
-        $results = localAPI($command, $postData);
-        if($results['result'] == "success"){
-            $systemurl = $results['value'];
-            $response = array(
-                'systemurl' => $systemurl,
-            );
-        } else {
-            $response = array(
-                'systemurl' => 'empty',
-            );
+        $response =  autovm_get_config_cloud();
+        if(!empty($response['error'])){
+            echo($response['error']);
+            return false;
         }
 
-        $this->response($response); 
+        if(!empty($response['message'])){
+            echo($response['message']);
+            return false;
+        }
+        
+        if(isset($response['ConsoleRoute'])){
+            $ConsoleRoute = $response['ConsoleRoute'];
+        } else {
+            echo('please enter the console link in module configuration');
+        }
 
+        $this->response($ConsoleRoute); 
     }
 
+    public function readDecimals($option)
+    {
+        switch($option){
+            case "option1":
+                return 0;
+            case "option2":
+                return 1;
+            case "option3":
+                return 2;
+            default:
+                return 0;
+        }
+    }
+    
+    public function getModuleConfig()
+    {
+        $response =  autovm_get_config_cloud();
+        
+        if(!empty($response['error'])){
+            return $response['error'];
+        }
 
+        if(!empty($response['message'])){
+            return $response['message'];
+        }
+        
+        $requiredKeys = [
+            'AutovmDefaultCurrencyID',
+            'AutovmDefaultCurrencySymbol',
+            'PlaceCurrencySymbol',
+            'ShowExchange',
+            'ChargeModuleEnable',
+            'ConsoleRoute',
+            'TopupLink',
+            'AdminUserSummeryPagePath',
+            'minimumChargeInAutovmCurrency',
+            'DefaultMonthlyDecimal',
+            'DefaultHourlyDecimal',
+            'DefaultBalanceDecimalWhmcs',
+            'DefaultBalanceDecimalCloud',
+            'DefaultChargeAmountDecimalWhmcs',
+            'DefaultChargeAmountDecimalCloud',
+            'DefaultCreditDecimalWhmcs',
+            'DefaultCreditDecimalCloud',
+            'DefaultMinimumDecimalWhmcs',
+            'DefaultMinimumDecimalCloud',
+            'DefaultRatioDecimal'
+        ];
+        
+        $config = [];
+        
+        foreach ($requiredKeys as $key) {
+            if (isset($response[$key])) {
+                if ($key == 'DefaultMonthlyDecimal' || $key == 'DefaultHourlyDecimal' || $key == 'DefaultBalanceDecimalWhmcs' || $key == 'DefaultBalanceDecimalCloud' || $key == 'DefaultChargeAmountDecimalWhmcs' || $key == 'DefaultChargeAmountDecimalCloud' || $key == 'DefaultCreditDecimalWhmcs' || $key == 'DefaultCreditDecimalCloud' || $key == 'DefaultMinimumDecimalWhmcs' || $key == 'DefaultMinimumDecimalCloud' || $key == 'DefaultRatioDecimal') {
+                    $config[$key] = $this->readDecimals($response[$key]);
+                } else if($key == 'ShowExchange'){
+                    if($response['ShowExchange'] == 'option1'){
+                        $config[$key] = 'on';
+                    } else {
+                        $config[$key] = 'off';
+                    }
+                } else if($key == 'ChargeModuleEnable'){
+                    if($response['ChargeModuleEnable'] == 'option1'){
+                        $config[$key] = 'on';
+                    } else {
+                        $config[$key] = 'off';
+                    }
+                } else if($key == 'PlaceCurrencySymbol'){
+                    if($response['PlaceCurrencySymbol'] == 'option1'){
+                        $config[$key] = 'code';
+                    } else if($response['PlaceCurrencySymbol'] == 'option2'){
+                        $config[$key] = 'suffix';
+                    } else {
+                        $config[$key] = 'prefix';
+                    }
+                } else {
+                    $config[$key] = $response[$key];                
+                }
+            } else {
+                $text = "$key is lost";
+                $this->response($text); 
+            }
+        }
+
+        $this->response($config); 
+    
+    }
 }

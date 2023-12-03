@@ -11,6 +11,8 @@ let common = {
 // Machine view 
         
         // from product
+        "download" : "Download",
+        "upload" : "Upload",
         "backtoservices" : "Voltar para Serviços",
         "ghz" : "GHz",
         "mb" : "MB",
@@ -153,6 +155,7 @@ let common = {
         "remainingtime" : "Tempo Restante :",
         "failactionmsg" : "A última ação não foi concluída completamente, o status ainda está falhado, por favor, tente uma nova ação!",
         "snapshot" : "Snapshot",
+        "traffic" : "TRAFFIC",
 
         // end from Product
 

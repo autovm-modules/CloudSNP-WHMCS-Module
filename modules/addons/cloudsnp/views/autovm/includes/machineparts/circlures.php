@@ -65,6 +65,15 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="isVisibe" class="row w-100 m-0 p-0">
+                    <div v-if="detailIsLoaded && machineIsLoaded" class="d-flex flex-column m-0 p-0 justify-content-center align-items-center w-100 mb-3">
+                        <div v-if="diskSize && diskUsage" class="text-center p-0 m-0 alert alert-danger w-75 py-2">
+                            <span v-if="DiskErrorOverFlow">
+                                Err: Disk Overflow, not availible
+                            </span>    
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -78,7 +87,7 @@
                 <div class="col-6 col-lg-6 m-0 p-0 px-1 mb-2">
                     <div @click="doReboot" data-bs-toggle="modal" data-bs-target="#processingModal"
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/resetbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/resetbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('rebootaction') }}</p>
                     </div>
                 </div>
@@ -86,7 +95,7 @@
                     class="col-6 col-lg-6 m-0 m-0 p-0 px-1 pe-md-0 mb-2">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/offbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/offbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('stopaction') }}</p>
                     </div>
                 </div>
@@ -95,7 +104,7 @@
                     class="col-6 col-lg-6 m-0 p-0 px-1">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/setupbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/setupbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('consoleaction') }}</p>
                     </div>
                 </div>
@@ -103,7 +112,7 @@
                     class="col-6 col-lg-6 m-0 p-0 ps-1">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/onbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/onbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('startaction') }}</p>
                     </div>
                 </div>
@@ -118,7 +127,7 @@
                 <div class="col-6 col-lg-6 m-0 p-0 px-1 mb-2">
                     <div @click="doReboot" data-bs-toggle="modal" data-bs-target="#actionsModal"
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/resetbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/resetbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('rebootaction') }}</p>
                     </div>
                 </div>
@@ -126,7 +135,7 @@
                     class="col-6 col-lg-6 m-0 m-0 p-0 px-1 pe-md-0 mb-2">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/offbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/offbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('stopaction') }}</p>
                     </div>
                 </div>
@@ -135,7 +144,7 @@
                     class="col-6 col-lg-6 m-0 p-0 px-1">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/setupbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/setupbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('consoleaction') }}</p>
                     </div>
                 </div>
@@ -143,7 +152,7 @@
                     class="col-6 col-lg-6 m-0 p-0 ps-1">
                     <div
                         class="border border-2 rounded-4 bg-white m-0 p-0 py-5 py-md-3 py-xl-5 px-3 mx-0 pt-md-5 text-center">
-                        <img class="btn p-0 m-0" src="/modules/addons/cloudsnp/views/autovm/includes/assets/img/onbtn.svg" width=35 alt="internet">
+                        <img class="btn p-0 m-0" src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/onbtn.svg" width=35 alt="internet">
                         <p class="text-secondary m-0 p-0 pt-3">{{ lang('startaction') }}</p>
                     </div>
                 </div>

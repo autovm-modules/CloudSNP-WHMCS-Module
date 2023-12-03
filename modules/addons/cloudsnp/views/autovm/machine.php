@@ -1,6 +1,4 @@
-<?php  include('./includes/commodules/lang.php');     ?>
-<?php  include('./includes/commodules/config.php');   ?>
-<?php  include('./includes/commodules/currency.php'); ?>
+<?php  include('routeconfig.php');   ?>
 <?php  include('./includes/commodules/header.php');   ?>
 
 <body>

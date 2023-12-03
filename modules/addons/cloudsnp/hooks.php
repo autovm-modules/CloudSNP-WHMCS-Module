@@ -18,18 +18,76 @@ add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
     );
 });
 
+
+function autovm_get_ResellerToken_baseurl_admin(){
+    $response = [];
+
+    try {
+        $moduleparams = Capsule::table('tbladdonmodules')->get();
+        foreach ($moduleparams as $item) {
+            if($item->module == 'autovm'){
+                if($item->setting == 'BackendUrl'){
+                    $BackendUrl = $item->value;
+                }
+                
+                if($item->setting == 'ResellerToken'){
+                    $ResellerToken = $item->value;
+                }
+
+                if($item->setting == 'DefLang'){
+                    $DefLang = $item->value;
+                }
+            }
+        }
+    } catch (\Exception $e) {
+        $error = 'Database ERR ===> Client: Can not find module params table in database';
+        $response['error'] = $error;
+        return $response;
+    }
+
+    if(empty($BackendUrl)){
+        $message = 'Backend URL ERR ===> Go to addons module and insert your backend adrress';
+        $response['message'] = $message;
+        return $response;
+    }
+    
+    if(empty($ResellerToken)){
+        $message = 'Reseller Token ERR ===> Go to addons module and insert your Token';
+        $response['message'] = $message;
+        return $response;
+    }
+   
+    if(empty($DefLang)){
+        $message = 'Defaul Language ERR ===> Go to addons module and select a language';
+        $response['message'] = $message;
+        return $response;
+    }
+
+    if(isset($ResellerToken) && isset($BackendUrl) && isset($DefLang)){
+        $response['ResellerToken'] = $ResellerToken;
+        $response['BackendUrl'] = $BackendUrl;
+        $response['DefLang'] = $DefLang;
+        return $response;
+    } 
+}
+
+// Create user and record user token
 function admin_create_user($BackendUrl, $ResellerToken, $client)
 {
     $params = [
         'name' => $client->fullName, 'email' => $client->email
     ];
 
+    $headers = ['token' =>  $ResellerToken];
+
     $address = [
-        $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'register'
+        $BackendUrl, 'admin', 'reseller', 'user', 'create'
     ];
 
-    return Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
+    return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
+
 }
+
 
 function admin_get_user_token_from_database($WhUserId)
 {
@@ -38,13 +96,13 @@ function admin_get_user_token_from_database($WhUserId)
     return current($user);
 }
 
+
 function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
 {
     try {
         // Find client info
         $client = Client::find($WhUserId);
         if (empty($client)) {
-            echo('can not find client');
             return false; // We dont need to log anything here
         }
 
@@ -93,35 +151,56 @@ function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
 
 add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     include ('adminsnpcontroller.php');
-    $WhUserId = $vars['userid'];
-
-
-    $BackendUrl = null;
-    $ResellerToke = null;
-
-
-    // find Module aparams
-    try {
-        $moduleparams = Capsule::table('tbladdonmodules')->get();
-        foreach ($moduleparams as $item) {
-            if($item->module == 'cloudsnp'){
-                if($item->setting == 'BackendUrl'){
-                    $BackendUrl = $item->value;
-                }
-                
-                if($item->setting == 'ResellerToken'){
-                    $ResellerToken = $item->value;
-                }
-            }
-        }
-    } catch (\Exception $e) {
-        echo "Can not find module params table in database";
+    
+    $response = autovm_get_ResellerToken_baseurl_admin();
+    if(!empty($response['error'])){
+        echo($response['error']);
+        return false;
     }
     
+    if(!empty($response['message'])){
+        echo($response['message']);
+        return false;
+    }
+
+    if(isset($response['ResellerToken']) && isset($response['BackendUrl']) && isset($response['DefLang'])){
+        $ResellerToken = $response['ResellerToken'];
+        $BackendUrl = $response['BackendUrl'];
+        $DefLang = $response['DefLang'];
+    }
+
+
+
+
+
+
+    // get Default Language
+    if(empty($DefLang)){
+        $DefLang = 'English';
+    }
+
+    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
+        $DefLang = 'English';
+    }
+
+    if(!empty($DefLang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
+        }
+    }
 
 
     
-    $response = admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId);
+
+
+
+
+
+    // Writing user token
+    $WhUserId = $vars['userid'];
+    if(isset($WhUserId) && isset($BackendUrl)){
+        $response = admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId);
+    }
 
     if(!$response){
         echo('handle did not work');
@@ -129,20 +208,10 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     }
 
 
-    
-    // find user token
-    try {
-        $userTable = Capsule::table('autovm_user')->get();
-        foreach ($userTable as $item) {
-            if($item->user_id == $WhUserId){
-                $userToken = $item->token;
-            }
-        }
-    } catch (\Exception $e) {
-        echo "Can not find autovm_user table in database";
-    }
-    
-    
+
+
+    $userToken = admin_get_user_token_from_database($WhUserId);
+
     if(isset($WhUserId) && isset($userToken) && isset($BackendUrl) && isset($ResellerToken)){
         $controller = new AdminSnpController($WhUserId, $userToken, $BackendUrl, $ResellerToken);
         if(isset($_GET['method'])){
@@ -152,12 +221,14 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
         echo "Can not find token in database";
     }
 
-    
+
 
     
-    $link = '/modules/addons/cloudsnp/views/autovm/adminpanel.php?userid=' . $WhUserId;
 
-    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 600px;border: none;}</style>';
+    $PersonalRootDirectoryURL = '';
+    $link = $PersonalRootDirectoryURL . '/modules/addons/cloudsnp/views/autovm/admin.php?userid=' . $WhUserId;
+
+    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 650px;border: none;}</style>';
     
     return $value;
 }); 
