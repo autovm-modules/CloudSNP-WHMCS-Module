@@ -237,6 +237,7 @@ let common = {
     "useminnuestoreduce" : "Bakiyeyi azaltmak için eksi işaretini (-) kullanın",
     "ittakesminutes" : "Not: Bakiye sonucunu Kullanıcı Profilinde görebilmek 30 saniyeden fazla sürer.",
     "adjustusebalance" : "User Balance",
+    "maketransaction" : "Record New Transaction",
     "email" : "Email",
     "userdetailautovm" : "AutoVM'deki Kullanıcı Ayrıntıları",
     "taketimetoseeresult" : "Genellikle bulut bakiyenizdeki ücreti görmek bir dakikadan fazla sürer.",
@@ -318,6 +319,10 @@ let common = {
     "enterpriseconfiguration" : "Enterprise Configuration",
 // End create machine page
 
+
+
+// admin panel
+    "usertoken" : "User Token",
 
 }
 

@@ -237,6 +237,7 @@ let common = {
     "useminnuestoreduce" : "Use minus sign ( - ) to reduce balance",
     "ittakesminutes" : "Note: It takes more than 30 seconds to be able to see the result on Balance in the User Profile ",
     "adjustusebalance" : "Adjust User Balance",
+    "maketransaction" : "Record New Transaction",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
     "taketimetoseeresult" : "En général, cela prend plus d'une minute pour voir la charge sur votre solde Cloud.",
@@ -318,6 +319,9 @@ let common = {
     "enterpriseconfiguration" : "Enterprise Configuration",
     // End create machine page
 
+
+// admin panel
+    "usertoken" : "User Token", 
 }
 
 const words = {
