@@ -72,6 +72,14 @@ app = createApp({
                 return null
             }
         },
+        
+        userToken(){            
+            if(this.user.toekn !== null){
+                return this.user.token 
+            } else {
+                return null
+            }
+        },
 
         userid(){
             var urlParams = new URLSearchParams(window.location.search);
@@ -293,7 +301,8 @@ app = createApp({
         },
 
         async loadModuleConfig() {
-            let response = await axios.get(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=getModuleConfig');
+            let link = this.createLink('admin_getModuleConfig')
+            let response = await axios.get(link)
             if(response.data){
                 const answer = response.data
                 const requiredProperties = [
@@ -317,8 +326,7 @@ app = createApp({
                 }
             } else {
                 console.log('can not get config');
-            }
-            
+            } 
         },
 
         ConverFromWhmcsToCloud(value){
@@ -369,16 +377,12 @@ app = createApp({
         },
 
         createLink(method){
-            if(this.moduleConfigIsLoaded){
-                let link = this.config.AdminUserSummeryPagePath
-                let userid = this.userid
-                if(userid != null){
-                    link = this.PersonalRootDirectoryURL + this.config.AdminUserSummeryPagePath + '?' + 'userid=' + this.userid + '&' + 'method=' + method;
-                }
-                return link
-            } else {
-                return null
+            let link = this.config.AdminUserSummeryPagePath
+            let userid = this.userid
+            if(userid != null){
+                link = this.PersonalRootDirectoryURL + this.config.AdminUserSummeryPagePath + '?' + 'userid=' + this.userid + '&' + 'method=' + method;
             }
+            return link
         },
 
         loadPolling() {

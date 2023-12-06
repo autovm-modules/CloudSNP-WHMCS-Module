@@ -1,7 +1,7 @@
 <?php return array (
   'AutovmDefaultCurrencyID' => '1',
   'AutovmDefaultCurrencySymbol' => '$',
-  'PlaceCurrencySymbol' => 'option2',
+  'PlaceCurrencySymbol' => 'option3',
   'ShowExchange' => 'option1',
   'ChargeModuleEnable' => 'option1',
   'ConsoleRoute' => 'https://www.mywhmcs.com/console',
@@ -9,7 +9,7 @@
   'AdminUserSummeryPagePath' => '/admin/clientssummary.php',
   'minimumChargeInAutovmCurrency' => '2',
   'DefaultMonthlyDecimal' => 'option1',
-  'DefaultHourlyDecimal' => 'option3',
+  'DefaultHourlyDecimal' => 'option1',
   'DefaultBalanceDecimalWhmcs' => 'option1',
   'DefaultBalanceDecimalCloud' => 'option1',
   'DefaultChargeAmountDecimalWhmcs' => 'option1',

@@ -238,6 +238,7 @@ let common = {
     "useminnuestoreduce" : "Use o sinal de menos ( - ) para reduzir o saldo",
     "ittakesminutes" : "Nota: Leva mais de 30 segundos para ver o resultado do saldo no perfil do usuário.",
     "adjustusebalance" : "Ajustar Saldo do Usuário",
+    "maketransaction" : "Record New Transaction",
     "email" : "E-mail",
     "userdetailautovm" : "Detalhes do Usuário no AutoVM",
     "taketimetoseeresult" : "Normalmente, leva mais de alguns minutos para ver o carregamento em seu Saldo na Nuvem",
@@ -320,6 +321,10 @@ let common = {
     "enterpriseconfiguration" : "Enterprise Configuration",
 
 // create machine page
+
+
+// admin panel
+        "usertoken" : "User Token",
 }
 
 const words = {

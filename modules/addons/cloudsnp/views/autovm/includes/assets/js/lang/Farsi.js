@@ -237,6 +237,7 @@ let common = {
     "useminnuestoreduce" : "برای کاهش بالانس از علامت منفی استفاده کنید",
     "ittakesminutes" : "برای اعمال تراکنش در بالانس مشتری بیشتر از ۳۰ ثانیه زمان انتظار لازم است",
     "adjustusebalance" : "مدیریت بالانس کاربر",
+    "maketransaction" : "ثبت تراکنش",
     "email" : "پست الکترونیک",
     "userdetailautovm" : "اطلاعات کاربر",
     "taketimetoseeresult" : "زمان تقریبی برای اعمال تراکنش در موجودی حساب ابری بیشتر از ۳۰ ثانیه است",
@@ -248,7 +249,8 @@ let common = {
 
 // create machine page
     "backtomachinelist" : "بازگشت به لیست ماشین‌ها",
-    "datacenters" : "مراکز داده *",
+    "datacenters" : "محل مرکز داده *",
+    "locationlist" : "کشور",
     "chooseregion" : "انتخاب منطقه مرکز داده",
     "products" : "محصولات *",
     "selectaproduct" : "یک محصول از این منطقه انتخاب کنید",
@@ -317,6 +319,10 @@ let common = {
     "advancedconfiguration" : "پیکره‌بندی پیشرفته",
     "enterpriseconfiguration" : "پیکره‌بندی اینترپرایز",
 // create machine page
+
+
+// admin panel
+    "usertoken" : "توکن کاربر",
 
     
 }

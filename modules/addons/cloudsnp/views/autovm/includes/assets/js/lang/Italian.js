@@ -237,6 +237,7 @@ let common = {
     "useminnuestoreduce": "Usa il segno meno ( - ) per ridurre il bilancio",
     "ittakesminutes": "Nota: Ci vogliono più di 30 secondi per poter vedere il risultato sul Bilancio nel Profilo Utente.",
     "adjustusebalance": "Regola il Bilancio Utente",
+    "maketransaction" : "Record New Transaction",
     "email": "Email",
     "userdetailautovm": "Dettagli Utente in AutoVM",
     "taketimetoseeresult": "Di solito ci vogliono più di alcuni minuti per vedere l'addebito sul tuo Bilancio Cloud",
@@ -318,6 +319,10 @@ let common = {
     "advancedconfiguration" : "Advanced Configuration",
     "enterpriseconfiguration" : "Enterprise Configuration",
 // create machine page
+
+
+// admin panel
+    "usertoken" : "User Token",
 
 }
 

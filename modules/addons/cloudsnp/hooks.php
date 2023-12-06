@@ -153,6 +153,7 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     include ('adminsnpcontroller.php');
     
     $response = autovm_get_ResellerToken_baseurl_admin();
+    
     if(!empty($response['error'])){
         echo($response['error']);
         return false;
@@ -228,7 +229,7 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     $PersonalRootDirectoryURL = '';
     $link = $PersonalRootDirectoryURL . '/modules/addons/cloudsnp/views/autovm/admin.php?userid=' . $WhUserId;
 
-    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 1200px;height: 650px;border: none;}</style>';
+    $value = '<iframe src="' . $link . '" class="autovm"></iframe><style type="text/css"> .autovm{width: 100%; height: 400px;border: none;}</style>';
     
     return $value;
 }); 

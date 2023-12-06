@@ -682,9 +682,7 @@ createApp({
 
 
         OpenMachineList() {
-
-            window.open('/index.php?m=cloudsnp&action=pageIndex')
-
+            window.open(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=pageIndex')
         },
         
         planStartFrom(MemoryPrice, CpuCorePrice, CpuLimitPrice, DiskPrice, AddressPrice) {

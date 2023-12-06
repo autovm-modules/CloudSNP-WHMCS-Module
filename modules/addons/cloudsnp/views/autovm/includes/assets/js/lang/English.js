@@ -237,6 +237,7 @@ let common = {
     "useminnuestoreduce" : "Use minus sign ( - ) to reduce balance",
     "ittakesminutes" : "Note: It takes more than 30 seconds to be able to see the result on Balance in the User Profile.",
     "adjustusebalance" : "Adjust User Balance",
+    "maketransaction" : "Record New Transaction",
     "email" : "Email",
     "userdetailautovm" : "User Details in AutoVM",
     "taketimetoseeresult" : "It ususally takes more than aminutes to see charge on your Cloud Balance",
@@ -248,7 +249,7 @@ let common = {
 
 // create machine page
     "backtomachinelist" : "Back to Machine List",
-    "datacenters" : "Data Centers * ",
+    "datacenters" : "Data Center Location * ",
     "chooseregion" : "Choose Data Center Region",
     "products" : "Products * ",
     "selectaproduct" : "Select a product from this region",
@@ -317,6 +318,10 @@ let common = {
     "advancedconfiguration" : "Advanced Configuration",
     "enterpriseconfiguration" : "Enterprise Configuration",
 // create machine page
+
+// admin panel
+    "usertoken" : "User Token",
+
 }
 
 const words = {
