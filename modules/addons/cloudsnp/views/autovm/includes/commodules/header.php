@@ -7,11 +7,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AutoVM</title>
+        <title>Global Cloud</title>
         <script src="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-        <link rel="icon" type="image/x-icon" href="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/assets/img/autovm.svg" sizes="32x32">
+        
 
         <style>
             [v-cloak] { display: none; }

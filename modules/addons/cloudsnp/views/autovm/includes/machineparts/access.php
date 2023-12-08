@@ -52,11 +52,11 @@
 
 
                     <!-- SSH Key -->
-                    <li class="nav-item" role="presentation">
+                    <!-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="sshkey-tab" data-bs-toggle="tab"
                             data-bs-target="#sshkey-tab-pane" type="button" role="tab"
                             aria-controls="sshkey-tab-pane" aria-selected="false">{{ lang('sshkey') }}</button>
-                    </li>
+                    </li> -->
 
                     <!-- Traffics -->
                     <li class="nav-item" role="presentation">

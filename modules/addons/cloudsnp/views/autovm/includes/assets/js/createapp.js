@@ -219,7 +219,7 @@ createApp({
             if(this.planCpuCorePrice != null && this.planCpuLimitPrice != null && this.planDiskPrice != null && this.planMemoryPrice != null && this.planAddressPrice != null){
                 if(this.RangeValueCpuCore != null && this.RangeValueCpuLimit != null && this.RangeValueDisk != null && this.RangeValueMemory != null){
                     let value = (this.planCpuCorePrice * this.RangeValueCpuCore) + (this.planCpuLimitPrice * this.RangeValueCpuLimit) + (this.planDiskPrice * this.RangeValueDisk) + (this.planMemoryPrice * this.RangeValueMemory) + (this.planAddressPrice)
-                    return this.formatNumbers(value, 4)
+                    return value
                 } else {
                     return null
                 }
@@ -515,7 +515,29 @@ createApp({
         formatCostMonthly(value) {
             let decimal = this.config.DefaultMonthlyDecimal
             if(value < 99999999999999  && value != null){
-                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                if(value > 1){
+                    return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                } else if(value > 0.1) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                } else if(value > 0.01) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+                } else if(value > 0.001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })
+                } else if(value > 0.0001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 5, maximumFractionDigits: 5 })
+                } else if(value > 0.00001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 6, maximumFractionDigits: 6 })
+                } else if(value > 0.000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 7, maximumFractionDigits: 7 })
+                } else if(value > 0.0000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 8, maximumFractionDigits: 8 })
+                } else if(value > 0.00000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 9, maximumFractionDigits: 9 })
+                } else if(value > 0.000000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 10, maximumFractionDigits: 10 })
+                } else {
+                    return valuetoLocaleString('en-US')
+                }
             } else {
                 return null
             }
@@ -525,7 +547,29 @@ createApp({
             let decimal = this.config.DefaultHourlyDecimal
             if(value < 99999999999999  && value != null){
                 value = value / (30 * 24)
-                return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                if(value > 1){
+                    return value.toLocaleString('en-US', { minimumFractionDigits: decimal, maximumFractionDigits: decimal })
+                } else if(value > 0.1) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                } else if(value > 0.01) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+                } else if(value > 0.001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })
+                } else if(value > 0.0001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 5, maximumFractionDigits: 5 })
+                } else if(value > 0.00001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 6, maximumFractionDigits: 6 })
+                } else if(value > 0.000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 7, maximumFractionDigits: 7 })
+                } else if(value > 0.0000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 8, maximumFractionDigits: 8 })
+                } else if(value > 0.00000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 9, maximumFractionDigits: 9 })
+                } else if(value > 0.000000001) {
+                    return value.toLocaleString('en-US', { minimumFractionDigits: 10, maximumFractionDigits: 10 })
+                } else {
+                    return valuetoLocaleString('en-US')
+                }
             } else {
                 return null
             }

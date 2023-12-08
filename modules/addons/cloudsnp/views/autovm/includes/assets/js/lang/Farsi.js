@@ -185,7 +185,7 @@ let common = {
     "machinelist": "لیست ماشین‌ها",
     "topup": "افزایش اعتبار",
     "listofactivemachines": "لیست ماشین‌های فعال",
-    "noactivemachine": "شما در حال حاضر هیچ ماشین فعالی ندارید. برای سفارش ماشین، ابتدا باید حساب خود را شارژ کنید و سپس روی دکمه ایجاد ماشین کلیک کنید.",
+    "noactivemachine": "شما در حال حاضر هیچ ماشین فعالی ندارید.",
     "address": "آدرس",
     "hostnameontable": "نام ماشین",
     "templateontable": "قالب",

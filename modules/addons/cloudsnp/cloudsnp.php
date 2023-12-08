@@ -48,7 +48,7 @@ function cloudsnp_config()
     $configarray = array(
         "name" => "Cloud SNP",
         "description" => "Cloud SNP Module By AutoVM",
-        "version" => "V01.00.00",
+        "version" => "V01.01.02",
         "author" => "autovm.net",
         "fields" => array(
             "AutovmDefaultCurrencyID" => array ("FriendlyName" => "Currency ID", "Type" => "text", "Size" => "31", "Description" => $AutovmDefaultCurrencyID, "Default" => 1),

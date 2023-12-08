@@ -11,7 +11,7 @@ function autovm_config()
     $configarray = array(
         "name" => "AutoVM",
         "description" => "Main AutoVM Module",
-        "version" => "V05.10.01",
+        "version" => "V05.10.02",
         "author" => "autovm.net",
         "fields" => array(
             "BackendUrl" => array ("FriendlyName" => "Backend Url", "Type" => "text", "Size" => "31", "Description" => $BackendUrlLabel, "Default" => "https://api.cloudsnp.net"),
