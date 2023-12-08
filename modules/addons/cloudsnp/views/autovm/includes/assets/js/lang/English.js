@@ -185,7 +185,7 @@ let common = {
     "machinelist" : "Machine list",
     "topup" : "TopUp",
     "listofactivemachines" : "List of Active Machines",
-    "noactivemachine" : "You have no active machine now. To have one, you should first charge your account and then click on [Create Machine]",
+    "noactivemachine" : "You have no active machine now.",
     "address" : "Address",
     "hostnameontable" : "Hostname",
     "templateontable" : "Template",

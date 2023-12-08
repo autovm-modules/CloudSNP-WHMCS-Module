@@ -114,7 +114,7 @@
                 </tbody>
             </table>
             <div class="" v-else>
-                <p class="fs-5 ps-3 text-danger">
+                <p class="fs-6 ps-3 text-danger">
                     {{ lang('noactivemachine') }} 
                 </p>
             </div>
