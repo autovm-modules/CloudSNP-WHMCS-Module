@@ -79,7 +79,7 @@ app = createApp({
 
         // Load machine
         this.loadMachine()
-
+        this.changeTimeVisibilty()
         // Load user
         this.loadUser()
 
@@ -611,7 +611,7 @@ app = createApp({
         changeTimeVisibilty() {
             setTimeout(() => {
                 this.isVisibe = false;
-            }, 7000); // 10 seconds later
+            }, 6000); // 10 seconds later
         },
         
         ConverFromWhmcsToCloud(value){

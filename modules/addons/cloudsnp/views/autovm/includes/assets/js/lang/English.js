@@ -249,7 +249,7 @@ let common = {
 
 // create machine page
     "backtomachinelist" : "Back to Machine List",
-    "datacenters" : "Data Center Location * ",
+    "datacenters" : "Location * ",
     "chooseregion" : "Choose Data Center Region",
     "products" : "Products * ",
     "selectaproduct" : "Select a product from this region",

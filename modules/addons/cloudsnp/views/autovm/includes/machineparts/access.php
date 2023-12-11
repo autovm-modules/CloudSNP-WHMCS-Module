@@ -49,21 +49,6 @@
                             data-bs-target="#statistics-tab-pane" type="button" role="tab"
                             aria-controls="statistics-tab-pane" aria-selected="false">{{ lang('statistics') }}</button>
                     </li>
-
-
-                    <!-- SSH Key -->
-                    <!-- <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="sshkey-tab" data-bs-toggle="tab"
-                            data-bs-target="#sshkey-tab-pane" type="button" role="tab"
-                            aria-controls="sshkey-tab-pane" aria-selected="false">{{ lang('sshkey') }}</button>
-                    </li> -->
-
-                    <!-- Traffics -->
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="traffics-tab" data-bs-toggle="tab"
-                            data-bs-target="#traffics-tab-pane" type="button" role="tab"
-                            aria-controls="traffics-tab-pane" aria-selected="false">{{ lang('traffics') }}</button>
-                    </li>
                 </ul>
             </div>
 
@@ -101,11 +86,7 @@
                     <?php include('./includes/machineparts/sshkey.php'); ?>
                 </div>
                 
-                <!-- Traffics -->
-                <div class="col-12 m-0 p-0 px-3 px-md-0 tab-pane fade" id="traffics-tab-pane" role="tabpanel"
-                    aria-labelledby="traffics-tab" tabindex="0">
-                    <?php include('./includes/machineparts/traffics.php'); ?>
-                </div>
+                
 
             </div>
 

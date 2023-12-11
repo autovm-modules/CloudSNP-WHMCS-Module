@@ -249,9 +249,9 @@ let common = {
 
 // create machine page
     "backtomachinelist" : "بازگشت به لیست ماشین‌ها",
-    "datacenters" : "محل مرکز داده *",
+    "datacenters" : "موقعیت جغرافیایی *",
     "locationlist" : "کشور",
-    "chooseregion" : "انتخاب منطقه مرکز داده",
+    "chooseregion" : "انتخاب منطقه جغرافیایی قرارگیری مرکز داده",
     "products" : "محصولات *",
     "selectaproduct" : "یک محصول از این منطقه انتخاب کنید",
     "thereisnodatacenter" : "در منطقه‌ای که انتخاب کرده‌اید محصولی وجود ندارد",

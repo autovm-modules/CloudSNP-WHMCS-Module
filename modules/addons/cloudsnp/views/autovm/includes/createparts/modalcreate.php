@@ -181,25 +181,7 @@
                             <input v-model="checkboxconfirmation" class="form-check-input ms-0" type="checkbox" role="switch" id="checkboxconfirmation">
                             <label class="form-check-label ms-3" :class="checkboxconfirmation ? '' : 'text-secondary'" for="checkboxconfirmation">
                                 {{ lang('confirmationtext') }}
-                            </label>
-                            <a class="text-decoration-none text-primary ps-2 collapsed" type="button" href="<?php echo($PersonalRootDirectoryURL); ?>/modules/addons/cloudsnp/views/autovm/includes/commodules/rulles.php" target=”_blank”>
-                                {{ lang('readmore') }} 
-                            </a>
-                        </div>
-                    
-                        <!-- Rulles -->
-                        <div class="py-4 px-3" id="accordionExample">
-                            <div class="accordion-item">
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div v-if="RullesText != null" class="accordion-body">
-                                        {{ RullesText }}
-                                    </div>
-                                    <div v-else class="accordion-body">
-                                        <?php include('./includes/commodules/threespinner.php'); ?>
-                                    </div>
-                                </div>
-                            </div>
+                            </label>                            
                         </div>
                     </div>
                 </div>       
