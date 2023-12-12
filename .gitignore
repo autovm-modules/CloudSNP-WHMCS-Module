@@ -144,6 +144,5 @@ whois.php
 
 
 #config
-modules/servers/product/views/config.php
 modules/addons/cloud/views/autovm/includes/commodules/vitalvariable.php
 modules/servers/product/views/config.php
