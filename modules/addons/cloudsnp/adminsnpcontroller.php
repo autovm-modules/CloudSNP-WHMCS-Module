@@ -6,13 +6,13 @@ class AdminSnpController
 {
     protected $WhUserId;
     protected $userToken;
-    protected $BackendUrl;
+    protected $ResellerBackendUrl;
     protected $ResellerToken;
 
-    public function __construct($WhUserId, $userToken, $BackendUrl, $ResellerToken){
+    public function __construct($WhUserId, $userToken, $ResellerBackendUrl, $ResellerToken){
         $this->WhUserId = $WhUserId;
         $this->userToken = $userToken;
-        $this->BackendUrl = $BackendUrl;
+        $this->ResellerBackendUrl = $ResellerBackendUrl;
         $this->ResellerToken = $ResellerToken;
     }
 
@@ -23,9 +23,9 @@ class AdminSnpController
             'token' => $userToken,
         ];
         
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
+            $ResellerBackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
         
         $response = Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
@@ -192,9 +192,9 @@ class AdminSnpController
             'token' => $userToken,
         ];
         
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
+            $ResellerBackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
         
         $response = Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
@@ -226,9 +226,9 @@ class AdminSnpController
         $ResellerToken = $this->ResellerToken;
         $headers = ['token' => $ResellerToken];
         
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl , 'admin', 'reseller', 'user', 'balance', $AutovmUserId
+            $ResellerBackendUrl , 'admin', 'reseller', 'user', 'balance', $AutovmUserId
         ];
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
     }

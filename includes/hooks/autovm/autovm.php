@@ -123,11 +123,8 @@ $action = autovm_get_query('avmAction');
 $client = autovm_get_session('uid');
 
 if ($client) {
-
     $client = Client::find($client);
-
     if ($client) {
-
         $service = $client->services()->find($serviceId);
     }
 }
@@ -136,7 +133,30 @@ if ($client) {
 $admin = autovm_get_session('adminid');
 
 if ($admin) {
-
     $service = Service::find($serviceId);
 }
 
+// Handle AutoVM requests
+if ($service) {
+    $response =  autovm_get_admintoken_baseurl_client();
+    
+    $DefLang = $response['DefLang'];
+    // get Default Language
+    if(empty($DefLang)){
+        $DefLang = 'English';
+    }
+    
+    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
+        $DefLang = 'English';
+    }
+
+    if(!empty($DefLang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
+        }
+    }
+
+    
+    $controller = new AVMController($serviceId);
+    $controller->handle($action);
+} 
