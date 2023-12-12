@@ -51,6 +51,8 @@ function autovm_activate()
     }
 }
 
+    $pdo = Capsule::connection()->getPdo();
+    $pdo->exec('ALTER TABLE tblcurrencies MODIFY rate decimal(10, 10)');
 
 // Get Token From AutoVm module
 function autovm_get_ResellerToken_baseurl_autovm(){
