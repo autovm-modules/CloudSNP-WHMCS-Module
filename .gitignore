@@ -112,12 +112,37 @@ whois.php
 
 
 
+# Module Servers
+/modules/servers/index.php
+/modules/servers/autorelease
+/modules/servers/centovacast/
+/modules/servers/cloudmin/
+/modules/servers/cpanel/
+/modules/servers/directadmin/
+/modules/servers/enomssl/
+/modules/servers/globalsignssl/
+/modules/servers/heartinternet/
+/modules/servers/helm/
+/modules/servers/helm4/
+/modules/servers/hypervm/
+/modules/servers/interworx/
+/modules/servers/licensing/
+/modules/servers/marketconnect/
+/modules/servers/plesk/
+/modules/servers/resellercentral/
+/modules/servers/resellerclubssl/
+/modules/servers/scpanel/
+/modules/servers/tcadmin/
+/modules/servers/virtualmin/
+/modules/servers/vpsnet/
+/modules/servers/websitepanel/
+/modules/servers/whmsonic/
+
+
+
 
 
 
 #config
-includes/hooks/autovm/config.php
-includes/hooks/index.php
-includes/hooks/README.php
-includes/hooks/autovm/controller.php
-includes/hooks/README.txt
+modules/addons/cloud/views/autovm/includes/commodules/vitalvariable.php
+modules/servers/product/views/config.php

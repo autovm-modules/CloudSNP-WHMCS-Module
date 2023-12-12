@@ -4,9 +4,47 @@ $path = dirname(__FILE__);
 
 require $path . '/CloudSnpController.php';
 
+
+// Create user tabel
+function cloudsnp_activate()
+{    
+
+    $hasTable = Capsule::schema()->hasTable('autovm_snp_user');
+
+    if (empty($hasTable)) {
+
+        Capsule::schema()->create('autovm_snp_user', function ($table) {
+
+            $table->increments('id');
+            $table->string('user_id');
+            $table->string('token');
+        });
+    }
+
+    $hasTable = Capsule::schema()->hasTable('autovm_snp_order');
+
+    if (empty($hasTable)) {
+
+        Capsule::schema()->create('autovm_snp_order', function ($table) {
+
+            $table->increments('id');
+            $table->string('order_id');
+            $table->string('machine_id');
+        });
+    }
+
+    $pdo = Capsule::connection()->getPdo();
+    $pdo->exec('ALTER TABLE tblcurrencies MODIFY rate decimal(10, 10)');
+}
+
 // Set Module parameters, name, describ or so ..
 function cloudsnp_config()
 {
+
+    $ResellerBackendUrlLabel = 'Insert Reseller Backend Address, started with http, default is "https://api.cloudsnp.net"';
+    $ResellerTokenLabel = 'Insert your Reseller Token here, as an Example "de8fs953k49ho3ellg9x", You can request for your Reseller Token on "https://my.cloudsnp.net/"';
+    $DefLangLabel = 'Select a language as default language for admin and users panel, this language setting is for AutoVM Module and has nothing to do with WHMCS language setting';
+
     $AutovmDefaultCurrencyID = 'Insert Id of your currency for cloud';
     $AutovmDefaultCurrencySymbol = 'Insert Symbol of your currency for cloud';
     $PlaceCurrencySymbol = 'Select between "suffix" or "prefix" or "code" as the place of symbol in your currency setting';
@@ -51,8 +89,12 @@ function cloudsnp_config()
         "version" => "V01.01.02",
         "author" => "autovm.net",
         "fields" => array(
-            "AutovmDefaultCurrencyID" => array ("FriendlyName" => "Currency ID", "Type" => "text", "Size" => "31", "Description" => $AutovmDefaultCurrencyID, "Default" => 1),
-            "AutovmDefaultCurrencySymbol" => array ("FriendlyName" => "Currency Symbol", "Type" => "text", "Size" => "31", "Description" => $AutovmDefaultCurrencySymbol, "Default" => "$"),
+            "ResellerBackendUrl" => array ("FriendlyName" => "Reseller Backend Url", "Type" => "text", "Size" => "31", "Description" => $ResellerBackendUrlLabel, "Default" => "https://api.cloudsnp.net"),
+            "ResellerToken" => array ("FriendlyName" => "Your Reseller Token", "Type" => "text", "Size" => "31", "Description" => $ResellerTokenLabel, "Default" => "xxxx"),
+            "DefLang" => array ("FriendlyName" => "Default Language for cloud panel", "Type" => "dropdown", "Options" => "English, Farsi, Turkish, Russian, Deutsch, French, Brizilian, Italian", "Description" => $DefLangLabel, "Default" => "English"),
+
+            "AutovmDefaultCurrencyID" => array ("FriendlyName" => "CloudSNP Currency ID", "Type" => "text", "Size" => "31", "Description" => $AutovmDefaultCurrencyID, "Default" => 1),
+            "AutovmDefaultCurrencySymbol" => array ("FriendlyName" => "CloudSNP Currency Symbol", "Type" => "text", "Size" => "31", "Description" => $AutovmDefaultCurrencySymbol, "Default" => "$"),
             "PlaceCurrencySymbol" => array ("FriendlyName" => "Currency Placeholder", "Type" => "dropdown", 'Options' => $CurrencyPlaceOption, "Default" => 'option3', "Description" => $PlaceCurrencySymbol),
             "ShowExchange" => array ("FriendlyName" => "Show Exchange", "Type" => "dropdown", 'Options' => $OnOffOption, "Default" => 'option2', "Description" => $ShowExchange),
             "ChargeModuleEnable" => array ("FriendlyName" => "Enable Charging Module", "Type" => "dropdown", 'Options' => $OnOffOption, "Default" => 'option1', "Description" => $ChargeModuleEnable),
@@ -82,9 +124,9 @@ function autovm_get_ResellerToken_baseurl_cloudsnp(){
     try {
         $moduleparams = Capsule::table('tbladdonmodules')->get();
         foreach ($moduleparams as $item) {
-            if($item->module == 'autovm'){
-                if($item->setting == 'BackendUrl'){
-                    $BackendUrl = $item->value;
+            if($item->module == 'cloudsnp'){
+                if($item->setting == 'ResellerBackendUrl'){
+                    $ResellerBackendUrl = $item->value;
                 }
                 
                 if($item->setting == 'ResellerToken'){
@@ -102,7 +144,7 @@ function autovm_get_ResellerToken_baseurl_cloudsnp(){
         return $response;
     }
 
-    if(empty($BackendUrl)){
+    if(empty($ResellerBackendUrl)){
         $message = 'Backend URL ERR ===> Go to addons module and insert your backend adrress';
         $response['message'] = $message;
         return $response;
@@ -120,9 +162,17 @@ function autovm_get_ResellerToken_baseurl_cloudsnp(){
         return $response;
     }
 
-    if(isset($ResellerToken) && isset($BackendUrl) && isset($DefLang)){
+
+    if(!empty($DefLang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
+        }
+    }
+    
+    
+    if(isset($ResellerToken) && isset($ResellerBackendUrl) && isset($DefLang)){
         $response['ResellerToken'] = $ResellerToken;
-        $response['BackendUrl'] = $BackendUrl;
+        $response['ResellerBackendUrl'] = $ResellerBackendUrl;
         $response['DefLang'] = $DefLang;
         return $response;
     } 
@@ -199,40 +249,48 @@ function cloud_create_config_file($variables){
 }
 
 
+function autovm_set_language($lang){
+    if(empty($lang)){
+        $lang = 'English';
+    }
+
+    if(($lang != 'English' && $lang != 'Farsi' && $lang != 'Turkish' && $lang != 'Russian' && $lang != 'Deutsch' && $lang != 'French' && $lang != 'Brizilian' && $lang != 'Italian')){
+        $lang = 'English';
+    }
+
+    if(!empty($lang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $lang, time() + (86400 * 30 * 12), '/');
+        }
+    }
+}
+
 // Run in client Page to start controller class [CloudController]
 function cloudsnp_clientarea($vars)
 {
+
     $response = autovm_get_ResellerToken_baseurl_cloudsnp();
-
-    if(isset($response['ResellerToken']) && isset($response['BackendUrl']) && isset($response['DefLang'])){
+    
+    if(isset($response['ResellerToken']) && isset($response['ResellerBackendUrl']) && isset($response['DefLang'])){
         $ResellerToken = $response['ResellerToken'];
-        $BackendUrl = $response['BackendUrl'];
+        $ResellerBackendUrl = $response['ResellerBackendUrl'];
         $DefLang = $response['DefLang'];
-    }
+    } 
 
-
-    // get Default Language
-    if(empty($DefLang)){
-        $DefLang = 'English';
-    }
-
-    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
-        $DefLang = 'English';
-    }
 
     if(!empty($DefLang)){
-        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
-            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
-        }
+        autovm_set_language($DefLang);
     }
+    
     
     $action = autovm_get_query('action');
     $clientId = autovm_get_session('uid');
 
-    if(!empty($clientId) && !empty($ResellerToken) && !empty($BackendUrl)) {
+    if(!empty($clientId) && !empty($ResellerToken) && !empty($ResellerBackendUrl)) {
         autovm_get_config_cloud();
+
         try {
-            $controller = new CloudSnpController($clientId, $ResellerToken, $BackendUrl);
+            $controller = new CloudSnpController($clientId, $ResellerToken, $ResellerBackendUrl);
             return $controller->handle($action);
         } catch (Exception $e) {
             return "Error";
@@ -240,6 +298,7 @@ function cloudsnp_clientarea($vars)
     } else {
         echo "Error: Missing required parameters";
     }
+
 }
 
 // Show in admin panel in addon menu page
@@ -255,6 +314,12 @@ function cloudsnp_output($vars) {
     if(!empty($response['DefLang'])){
         $DefLang = $response['DefLang'];
         $text = '<h3> Default Language : ' . $DefLang . '</h3>';
+        echo($text);
+    }
+
+    if(!empty($response['ResellerBackendUrl'])){
+        $ResellerBackendUrl = $response['ResellerBackendUrl'];
+        $text = '<h3> Reseller Backedn URL: ' . $ResellerBackendUrl . '</h3>';
         echo($text);
     }
 

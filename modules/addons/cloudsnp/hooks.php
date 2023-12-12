@@ -25,9 +25,9 @@ function autovm_get_ResellerToken_baseurl_admin(){
     try {
         $moduleparams = Capsule::table('tbladdonmodules')->get();
         foreach ($moduleparams as $item) {
-            if($item->module == 'autovm'){
-                if($item->setting == 'BackendUrl'){
-                    $BackendUrl = $item->value;
+            if($item->module == 'cloudsnp'){
+                if($item->setting == 'ResellerBackendUrl'){
+                    $ResellerBackendUrl = $item->value;
                 }
                 
                 if($item->setting == 'ResellerToken'){
@@ -45,7 +45,7 @@ function autovm_get_ResellerToken_baseurl_admin(){
         return $response;
     }
 
-    if(empty($BackendUrl)){
+    if(empty($ResellerBackendUrl)){
         $message = 'Backend URL ERR ===> Go to addons module and insert your backend adrress';
         $response['message'] = $message;
         return $response;
@@ -63,16 +63,16 @@ function autovm_get_ResellerToken_baseurl_admin(){
         return $response;
     }
 
-    if(isset($ResellerToken) && isset($BackendUrl) && isset($DefLang)){
+    if(isset($ResellerToken) && isset($ResellerBackendUrl) && isset($DefLang)){
         $response['ResellerToken'] = $ResellerToken;
-        $response['BackendUrl'] = $BackendUrl;
+        $response['ResellerBackendUrl'] = $ResellerBackendUrl;
         $response['DefLang'] = $DefLang;
         return $response;
     } 
 }
 
 // Create user and record user token
-function admin_create_user($BackendUrl, $ResellerToken, $client)
+function cloudsnp_create_user($ResellerBackendUrl, $ResellerToken, $client)
 {
     $params = [
         'name' => $client->fullName, 'email' => $client->email
@@ -81,7 +81,7 @@ function admin_create_user($BackendUrl, $ResellerToken, $client)
     $headers = ['token' =>  $ResellerToken];
 
     $address = [
-        $BackendUrl, 'admin', 'reseller', 'user', 'create'
+        $ResellerBackendUrl, 'admin', 'reseller', 'user', 'create'
     ];
 
     return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -89,15 +89,15 @@ function admin_create_user($BackendUrl, $ResellerToken, $client)
 }
 
 
-function admin_get_user_token_from_database($WhUserId)
+function cloudsnp_get_user_token_from_database($WhUserId)
 {
     $params = ['userId' => $WhUserId];
-    $user = Capsule::selectOne('SELECT token FROM autovm_user WHERE user_id = :userId', $params);
+    $user = Capsule::selectOne('SELECT token FROM autovm_snp_user WHERE user_id = :userId', $params);
     return current($user);
 }
 
 
-function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
+function admin_handel_usertoken($ResellerBackendUrl, $ResellerToken, $WhUserId)
 {
     try {
         // Find client info
@@ -107,11 +107,11 @@ function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
         }
 
         // Find token in database
-        $token = admin_get_user_token_from_database($WhUserId);
+        $token = cloudsnp_get_user_token_from_database($WhUserId);
 
         // Create user in AutoVM if there is no token in data base
         if (empty($token)) {
-            $response = admin_create_user($BackendUrl, $ResellerToken, $client);
+            $response = cloudsnp_create_user($ResellerBackendUrl, $ResellerToken, $client);
 
             if (empty($response)) {
                 echo('can not connect to backend');
@@ -129,7 +129,7 @@ function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
             $user = $response->data;
             $params = ['user_id' => $client->id, 'token' => $user->token];
 
-            $answer = Capsule::table('autovm_user')->insert($params);
+            $answer = Capsule::table('autovm_snp_user')->insert($params);
 
             if($answer){
                 return true;
@@ -149,6 +149,24 @@ function admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId)
 }
 
 
+function admin_autovm_set_language($lang){
+    if(empty($lang)){
+        $lang = 'English';
+    }
+
+    if(($lang != 'English' && $lang != 'Farsi' && $lang != 'Turkish' && $lang != 'Russian' && $lang != 'Deutsch' && $lang != 'French' && $lang != 'Brizilian' && $lang != 'Italian')){
+        $lang = 'English';
+    }
+
+    if(!empty($lang)){
+        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
+            setcookie('temlangcookie', $lang, time() + (86400 * 30 * 12), '/');
+        }
+    }
+}
+
+
+// Admin side: Hook to generate user and token in data base for cloud
 add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     include ('adminsnpcontroller.php');
     
@@ -164,43 +182,21 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
         return false;
     }
 
-    if(isset($response['ResellerToken']) && isset($response['BackendUrl']) && isset($response['DefLang'])){
+    if(isset($response['ResellerToken']) && isset($response['ResellerBackendUrl']) && isset($response['DefLang'])){
         $ResellerToken = $response['ResellerToken'];
-        $BackendUrl = $response['BackendUrl'];
+        $ResellerBackendUrl = $response['ResellerBackendUrl'];
         $DefLang = $response['DefLang'];
     }
 
-
-
-
-
-
     // get Default Language
-    if(empty($DefLang)){
-        $DefLang = 'English';
-    }
-
-    if(($DefLang != 'English' && $DefLang != 'Farsi' && $DefLang != 'Turkish' && $DefLang != 'Russian' && $DefLang != 'Deutsch' && $DefLang != 'French' && $DefLang != 'Brizilian' && $DefLang != 'Italian')){
-        $DefLang = 'English';
-    }
-
-    if(!empty($DefLang)){
-        if(empty($_COOKIE['temlangcookie']) && !headers_sent()) {
-            setcookie('temlangcookie', $DefLang, time() + (86400 * 30 * 12), '/');
-        }
-    }
-
-
-    
-
-
+    admin_autovm_set_language($DefLang);
 
 
 
     // Writing user token
     $WhUserId = $vars['userid'];
-    if(isset($WhUserId) && isset($BackendUrl)){
-        $response = admin_handel_usertoken($BackendUrl, $ResellerToken, $WhUserId);
+    if(isset($WhUserId) && isset($ResellerBackendUrl)){
+        $response = admin_handel_usertoken($ResellerBackendUrl, $ResellerToken, $WhUserId);
     }
 
     if(!$response){
@@ -209,12 +205,10 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
     }
 
 
+    $userToken = cloudsnp_get_user_token_from_database($WhUserId);
 
-
-    $userToken = admin_get_user_token_from_database($WhUserId);
-
-    if(isset($WhUserId) && isset($userToken) && isset($BackendUrl) && isset($ResellerToken)){
-        $controller = new AdminSnpController($WhUserId, $userToken, $BackendUrl, $ResellerToken);
+    if(isset($WhUserId) && isset($userToken) && isset($ResellerBackendUrl) && isset($ResellerToken)){
+        $controller = new AdminSnpController($WhUserId, $userToken, $ResellerBackendUrl, $ResellerToken);
         if(isset($_GET['method'])){
             $controller->handle($_GET['method']);
         }
@@ -222,9 +216,6 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
         echo "Can not find token in database";
     }
 
-
-
-    
 
     $PersonalRootDirectoryURL = '';
     $link = $PersonalRootDirectoryURL . '/modules/addons/cloudsnp/views/autovm/admin.php?userid=' . $WhUserId;
@@ -235,3 +226,69 @@ add_hook('AdminAreaClientSummaryPage', 1, function($vars) {
 }); 
  
 
+
+// Client side: Hook to generate user and token in data base for cloud
+add_hook('ClientAreaPage', 100, function($params) {
+    $response =  autovm_get_ResellerToken_baseurl_admin();
+    if(!empty($response['error'])){
+        return false;
+    } 
+
+    if(!empty($response['message'])){
+        return false;
+    }
+    
+    if(isset($response['ResellerToken']) && isset($response['ResellerBackendUrl'])){
+        $ResellerToken = $response['ResellerToken'];
+        $ResellerBackendUrl = $response['ResellerBackendUrl'];
+    }
+    
+    admin_autovm_set_language($DefLang);
+
+    // create token if cloud is active
+    if(!empty($ResellerToken) && !empty($ResellerBackendUrl)){
+        
+        $clientId = autovm_get_session('uid');
+        if (empty($clientId)) { 
+            return false;
+        }
+    
+
+        $client = Client::find($clientId);
+        if(empty($client)) {
+            echo('can not find the client');
+            return false;
+        }
+
+
+        $token = cloudsnp_get_user_token_from_database($clientId);
+        if($token) {
+            return false;
+        }
+
+
+        // create new user if can not find Token
+        $CreateResponse = cloudsnp_create_user($ResellerBackendUrl, $ResellerToken, $client);
+        if(empty($CreateResponse)) {
+            return false;
+        }
+
+
+        $message = property_exists($CreateResponse, 'message');
+        if($message) {
+            return false;
+        }
+
+
+        $user = $CreateResponse->data;
+
+        // Save token in WHMCS
+        $params = ['user_id' => $client->id, 'token' => $user->token];
+
+        Capsule::table('autovm_snp_user')
+            ->insert($params);
+            
+    } else {
+        return false;
+    }
+});

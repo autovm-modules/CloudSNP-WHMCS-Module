@@ -7,16 +7,16 @@ class CloudSnpController
 {
     protected $clientId;
     protected $ResellerToken;
-    protected $BackendUrl;
+    protected $ResellerBackendUrl;
 
-    public function __construct($clientId, $ResellerToken, $BackendUrl)
+    public function __construct($clientId, $ResellerToken, $ResellerBackendUrl)
     {
         $this->clientId = $clientId;
         $this->ResellerToken = $ResellerToken;
         
-        $BackendUrl = str_replace(' ', '', $BackendUrl);
-        $BackendUrl = preg_replace('/\s+/', '', $BackendUrl);        
-        $this->BackendUrl = $BackendUrl;
+        $ResellerBackendUrl = str_replace(' ', '', $ResellerBackendUrl);
+        $ResellerBackendUrl = preg_replace('/\s+/', '', $ResellerBackendUrl);        
+        $this->ResellerBackendUrl = $ResellerBackendUrl;
         
     }
 
@@ -52,9 +52,9 @@ class CloudSnpController
     public function sendLoginRequest($token)
     {
         $params = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
+            $ResellerBackendUrl, 'candy', 'frontend', 'auth', 'token', 'login'
         ];
 
         return Request::instance()->setAddress($address)->setParams($params)->getResponse()->asObject();
@@ -73,9 +73,9 @@ class CloudSnpController
     public function sendMachinesRequest($token)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'index'
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'index'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -95,9 +95,9 @@ class CloudSnpController
     public function sendMachineRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'show', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'show', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -117,9 +117,9 @@ class CloudSnpController
     public function sendDetailRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'detail', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'detail', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -136,10 +136,10 @@ class CloudSnpController
     public function sendCreateRequest($token, $params)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;        
+        $ResellerBackendUrl = $this->ResellerBackendUrl;        
 
         $address = [
-            $BackendUrl, 'client', 'machine', 'plan'
+            $ResellerBackendUrl, 'client', 'machine', 'plan'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -159,9 +159,9 @@ class CloudSnpController
     public function sendSetupRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'setup', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'setup', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -183,9 +183,9 @@ class CloudSnpController
     public function sendChangeRequest($token, $id, $params)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'change', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'change', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -205,9 +205,9 @@ class CloudSnpController
     public function sendStartRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'start', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'start', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -227,9 +227,9 @@ class CloudSnpController
     public function sendStopRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'stop', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'stop', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -249,9 +249,9 @@ class CloudSnpController
     public function sendRebootRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'reboot', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'reboot', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -271,9 +271,9 @@ class CloudSnpController
     public function sendSnapshotRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'snapshot', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'snapshot', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -293,9 +293,9 @@ class CloudSnpController
     public function sendRevertRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'revert', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'revert', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -315,9 +315,9 @@ class CloudSnpController
     public function sendConsoleRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'console', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'console', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -337,9 +337,9 @@ class CloudSnpController
     public function sendDestroyRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'machine', 'destroy', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'machine', 'destroy', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -359,9 +359,9 @@ class CloudSnpController
     public function sendExpensesRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', 'expenses', $id
+            $ResellerBackendUrl, 'candy', 'frontend', 'graph', 'machine', 'expenses', $id
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -381,9 +381,9 @@ class CloudSnpController
     public function sendCurrentTrafficUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'traffic', 'current'
+            $ResellerBackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'traffic', 'current'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -403,9 +403,9 @@ class CloudSnpController
     public function sendMemoryUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'memory', 'daily'
+            $ResellerBackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'memory', 'daily'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -425,9 +425,9 @@ class CloudSnpController
     public function sendCpuUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'cpu', 'daily'
+            $ResellerBackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'cpu', 'daily'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -447,9 +447,9 @@ class CloudSnpController
     public function sendBandwidthUsageRequest($token, $id)
     {
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'bandwidth', 'current'
+            $ResellerBackendUrl, 'candy', 'frontend', 'graph', 'machine', $id, 'bandwidth', 'current'
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->getResponse()->asObject();
@@ -464,9 +464,9 @@ class CloudSnpController
 
     public function sendRegionsRequest()
     {
-    $BackendUrl = $this->BackendUrl;        
+    $ResellerBackendUrl = $this->ResellerBackendUrl;        
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'common', 'regions'
+            $ResellerBackendUrl, 'candy', 'frontend', 'common', 'regions'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
@@ -481,9 +481,9 @@ class CloudSnpController
 
     public function sendTemplatesRequest()
     {
-    $BackendUrl = $this->BackendUrl;        
+    $ResellerBackendUrl = $this->ResellerBackendUrl;        
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'common', 'templates'
+            $ResellerBackendUrl, 'candy', 'frontend', 'common', 'templates'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
@@ -498,9 +498,9 @@ class CloudSnpController
 
     public function sendCategoriesRequest()
     {
-    $BackendUrl = $this->BackendUrl;        
+    $ResellerBackendUrl = $this->ResellerBackendUrl;        
         $address = [
-            $BackendUrl, 'candy', 'frontend', 'common', 'template', 'categories'
+            $ResellerBackendUrl, 'candy', 'frontend', 'common', 'template', 'categories'
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
@@ -512,7 +512,7 @@ class CloudSnpController
             'userId' => $this->clientId
         ];
 
-        $user = Capsule::selectOne('SELECT token FROM autovm_user WHERE user_id = :userId', $params);
+        $user = Capsule::selectOne('SELECT token FROM autovm_snp_user WHERE user_id = :userId', $params);
 
         // The first value
         if ($user) {
@@ -660,10 +660,10 @@ class CloudSnpController
         ];
 
         $headers = ['token' => $token];
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
 
         $address = [
-            $BackendUrl, 'admin', 'reseller', 'user', 'balance', $userId
+            $ResellerBackendUrl, 'admin', 'reseller', 'user', 'balance', $userId
         ];
 
         return Request::instance()->setAddress($address)->setHeaders($headers)->setParams($params)->getResponse()->asObject();
@@ -717,9 +717,9 @@ class CloudSnpController
 
     public function sendGetPlansRequest($regionId)
     {
-        $BackendUrl = $this->BackendUrl;
+        $ResellerBackendUrl = $this->ResellerBackendUrl;
         $address = [
-            $BackendUrl, 'client', 'common', 'plans', $regionId
+            $ResellerBackendUrl, 'client', 'common', 'plans', $regionId
         ];
 
         return Request::instance()->setAddress($address)->getResponse()->asObject();
