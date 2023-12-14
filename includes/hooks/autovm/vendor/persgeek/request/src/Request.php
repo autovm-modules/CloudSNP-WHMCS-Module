@@ -149,7 +149,7 @@ class Request
     {
         $curl = curl_init($address);
 
-        $options = [CURLOPT_RETURNTRANSFER => true, CURLOPT_SSL_VERIFYPEER => false];
+        $options = [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_SSL_VERIFYPEER => false, CURLOPT_TIMEOUT => 15];
 
         if ($headers) {
             $options[CURLOPT_HTTPHEADER] = $headers;
