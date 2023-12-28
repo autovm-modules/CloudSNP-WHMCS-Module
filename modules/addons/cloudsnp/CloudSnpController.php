@@ -127,7 +127,22 @@ class CloudSnpController
 
     public function create()
     {
-        $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize', 'traffic']);
+        $params = autovm_get_post_array(['planId', 'templateId', 'publicKey', 'name', 'memorySize', 'cpuCore', 'cpuLimit', 'diskSize', 'traffic', 'ipv4', 'ipv6']);
+        
+        if($params['ipv4'] == 0 && $params['ipv6'] == 0){
+            $params['ipv4'] = 1;
+            unset($params['ipv6']);
+        } 
+        
+        if($params['ipv4'] == 0){            
+            unset($params['ipv4']);
+        }
+        
+        if($params['ipv6'] == 0){
+            unset($params['ipv6']);
+        }
+
+        $response = $params;
         $token = $this->getUserTokenFromClientId();
         $response = $this->sendCreateRequest($token, $params);
         $this->response($response);

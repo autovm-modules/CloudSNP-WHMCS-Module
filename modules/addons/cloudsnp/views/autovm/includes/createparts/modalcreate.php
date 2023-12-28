@@ -10,14 +10,7 @@
 
                             <!-- Just Open window, Ready to order -->
                             <div v-if="!userClickedCreationBtn">    
-                                <!-- not enough data -->
-                                <div v-if="!themachinename || !regionName || !planName || !templateId" class="row m-0 p-0 px-3 pb-2">
-                                    <p class="h5 fw-Medium text-danger">
-                                        <i class="bi bi-exclamation-diamond-fill me-3"></i>
-                                        {{ lang('notprovideallinformation') }}
-                                    </p>        
-                                </div> 
-                                
+
                                 <!-- enough data to push btn -->
                                 <div v-else-if="themachinename && regionName && planName && templateId">
                                     <p class="h5 fw-Medium">{{ lang('youarecreating') }}</p>
@@ -25,7 +18,7 @@
                                 </div>
 
                                 <!-- Table of parameters -->
-                                <div class="mt-5 px-4 px-lg-5 py-4 rounded-4 bg-primary" style="--bs-bg-opacity: 0.15;">
+                                <div class="px-4 px-lg-5 py-5 rounded-4 bg-primary" style="--bs-bg-opacity: 0.15;">
                                     <table class="table table-borderless m-0 p-0" style="--bs-table-bg: #fff0;">
                                         <tbody>
                                             
@@ -136,6 +129,37 @@
                                     </div>
                                 </div>
 
+                                <!-- Table of IPV -->
+                                <div class="mt-5 px-4 px-lg-5 py-4 rounded-4 bg-primary" style="--bs-bg-opacity: 0.15;">
+                                    <div class="row m-0 p-0">
+                                        <p class="h5 mb-4">
+                                            {{ lang('ipv') }}
+                                        </p>
+                                        <div class="col-12 col-md-6 m-0 p-0 d-flex flex-row align-items-center">
+                                            <input class="form-check-input p-0 m-0 border-2" type="checkbox" v-model="ipv4Checkbox" :value="ipv4Checkbox" id="ipv4checkbox">
+                                            <label class="form-check-label ms-2" for="ipv4checkbox">
+                                                <span>
+                                                    {{ lang('ipvversion4') }}
+                                                </span>
+                                                <span class="ps-2 fw-medium">
+                                                    Ipv4
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col-12 col-md-6 m-0 p-0 d-flex flex-row align-items-center">
+                                            <input class="form-check-input p-0 m-0 border-2" type="checkbox" v-model="ipv6Checkbox" :value="ipv6Checkbox" id="ipv6checkbox">
+                                            <label class="form-check-label ms-2" for="ipv6checkbox">
+                                                <span>
+                                                    {{ lang('ipvversion6') }}
+                                                </span>
+                                                <span class="ps-2 fw-medium">
+                                                    Ipv6
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Low Balance -->
                                 <div v-if="user.balance < 2">
                                     <p class="alert alert-danger text-center py-2 mt-5">
@@ -206,6 +230,14 @@
                     <span v-else class="text-primary fw-medium"> --- </span>
                 </div>
 
+                <!-- not enough data -->
+                <div v-if="!themachinename || !regionName || !planName || !templateId" class="row m-0 p-0 px-3 py-4 py-md-0">
+                    <p class="h6 fw-Medium text-danger m-0 p-0">
+                        <i class="bi bi-exclamation-diamond-fill me-1"></i>
+                        {{ lang('notprovideallinformation') }}
+                    </p>        
+                </div> 
+                
                 <!-- BTN's -->
                 <div class="d-flex flex-row">
                     <!-- Close BTN ( two typ: 1-[normal close] , 2-[close+relaod] )-->

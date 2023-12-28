@@ -1,10 +1,10 @@
 <?php return array (
-  'AutovmDefaultCurrencyID' => '2',
-  'AutovmDefaultCurrencySymbol' => 'Snp$',
+  'AutovmDefaultCurrencyID' => '1',
+  'AutovmDefaultCurrencySymbol' => '$',
   'PlaceCurrencySymbol' => 'option3',
   'ShowExchange' => 'option1',
   'ChargeModuleEnable' => 'option1',
-  'ConsoleRoute' => 'https://whmcs.local:8890/console',
+  'ConsoleRoute' => 'https://www.mywhmcs.com/console',
   'TopupLink' => '/clientarea.php?action=addfunds',
   'AdminUserSummeryPagePath' => '/admin/clientssummary.php',
   'minimumChargeInAutovmCurrency' => '2',

@@ -318,6 +318,9 @@ let common = {
     "standardconfiguration" : "پیکره‌بندی استاندارد",
     "advancedconfiguration" : "پیکره‌بندی پیشرفته",
     "enterpriseconfiguration" : "پیکره‌بندی اینترپرایز",
+    "ipv" : "انتخاب نسخه پروتکل",
+    "ipvversion4" : "نسخه چهار",
+    "ipvversion6" : "نسخه شش",
 // create machine page
 
 
