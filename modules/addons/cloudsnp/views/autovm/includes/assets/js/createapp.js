@@ -5,6 +5,9 @@ createApp({
     
     data() {
         return {
+            ipv4Checkbox: true,
+            ipv6Checkbox: false,
+
             PersonalRootDirectoryURL: '',
             PanelLanguage: null,
             moduleConfig: null,
@@ -236,6 +239,18 @@ createApp({
 
         regionId() {
             this.loadPlans()
+        },
+
+        ipv6Checkbox(){
+            if(this.ipv6Checkbox == false){
+                this.ipv4Checkbox = true;
+            }
+        },
+        
+        ipv4Checkbox(){
+            if(this.ipv4Checkbox == false){
+                this.ipv6Checkbox = true;
+            }
         },
         
         RangeValueOverall() {
@@ -705,8 +720,13 @@ createApp({
                 if (this.RangeValueCpuLimit != null) {formData.append('cpuLimit', this.RangeValueCpuLimit * 1000)}
                 if (this.RangeValueDisk != null) {formData.append('diskSize', this.RangeValueDisk)}
                 
+                if (this.ipv4Checkbox == true) {formData.append('ipv4', 1)}
+                else if (this.ipv4Checkbox == false) {formData.append('ipv4', 0)}
+                
+                if (this.ipv6Checkbox == true) {formData.append('ipv6', 1)}
+                else if (this.ipv6Checkbox == false) {formData.append('ipv6', 0)}
+                
                 formData.append('traffic', 5)
-
 
                 let response = await axios.post(this.PersonalRootDirectoryURL + '/index.php?m=cloudsnp&action=create', formData)
 

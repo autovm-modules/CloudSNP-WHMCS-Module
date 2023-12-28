@@ -317,6 +317,9 @@ let common = {
     "standardconfiguration" : "Standard Configuration",
     "advancedconfiguration" : "Advanced Configuration",
     "enterpriseconfiguration" : "Enterprise Configuration",
+    "ipv" : "Internet Protocol version",
+    "ipvversion4" : "",
+    "ipvversion6" : "",
 // End create machine page
 
 
