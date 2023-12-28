@@ -165,5 +165,5 @@ class Request
         curl_close($curl);
 
         return new Response($response);
-    }
+    } 
 }
