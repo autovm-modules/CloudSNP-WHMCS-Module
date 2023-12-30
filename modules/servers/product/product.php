@@ -127,6 +127,35 @@ function product_CreateAccount($params)
         return 'Could not find any options';
     }
 
+
+
+    // Find the IP Verion
+    $ipv = autovm_get_array('ipv', $options);
+
+    echo('<pre>');
+        print_r($options);
+        echo('</pre>');
+
+    if (empty($ipv)) {
+        $ipv = 'ipv4';
+    }
+
+    if($ipv == 'ipv4'){
+        $ipv4 = 1;
+        $ipv6 = null;
+    } else if($ipv == 'ipv6'){
+        $ipv4 = null;
+        $ipv6 = 1;
+    } else if($ipv == 'both'){
+        $ipv4 = 1;
+        $ipv6 = 1;
+    } else {
+        $ipv4 = 1;
+        $ipv6 = null;
+    }
+
+
+
     // Find the template name
     $templateName = autovm_get_array('template', $options);
 
@@ -280,7 +309,7 @@ function product_CreateAccount($params)
     }
 
     // Send request
-    $response = $controller->sendCreateRequest($poolId, $templateId, $memorySize, $memoryLimit, $diskSize, $cpuCore, $cpuLimit, $name, $email, $publicKey, $traffic, $remaining, $duration);
+    $response = $controller->sendCreateRequest($poolId, $templateId, $memorySize, $memoryLimit, $diskSize, $cpuCore, $cpuLimit, $name, $email, $publicKey, $traffic, $remaining, $duration, $ipv4, $ipv6);
 
     if (empty($response)) {
 
