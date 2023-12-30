@@ -127,14 +127,8 @@ function product_CreateAccount($params)
         return 'Could not find any options';
     }
 
-
-
     // Find the IP Verion
     $ipv = autovm_get_array('ipv', $options);
-
-    echo('<pre>');
-        print_r($options);
-        echo('</pre>');
 
     if (empty($ipv)) {
         $ipv = 'ipv4';
