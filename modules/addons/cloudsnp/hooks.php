@@ -2,18 +2,30 @@
 use WHMCS\Database\Capsule;
 use PG\Request\Request;
 use WHMCS\User\Client;
-
+use WHMCS\View\Menu\Item;
 
 add_hook('ClientAreaPrimaryNavbar', 1, function($primaryNavbar) {
-    /** @var \WHMCS\View\Menu\Item $primaryNavbar */
-    $newMenu = $primaryNavbar->addChild(
-        'uniqueMenuItemName',
+    /** @var Item $primaryNavbar */
+    global $CONFIG;
+    $userLang = $_SESSION['Language'] ?? $CONFIG['Language'];
+    if($userLang == 'farsi' || $userLang == 'persian'){
+        include_once(__DIR__.'/lang/persian.php');
+    }
+    else{
+        include_once(__DIR__.'/lang/english.php');
+    }
+    $isLoggedIn = (bool) WHMCS\Session::get('uid');
+    $menuToAddToName = $isLoggedIn ? 'Services' : 'Store';
+    $menuToAddTo = $primaryNavbar->getChild($menuToAddToName);
+
+    $newMenu = $menuToAddTo->addChild(
+        'globalCloudServers',
         array(
             'name' => 'Global Cloud',
-            'label' => 'Global Cloud',
+            'label' => $_ADDONLANG['globalCloud'],
             'uri' => '/index.php?m=cloudsnp&action=pageIndex',
-            'order' => 99,
-            'icon' => '',
+            'order' => 20,
+            'icon' => 'fas fa-globe',
         )
     );
 });
